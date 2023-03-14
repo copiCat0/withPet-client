@@ -30,7 +30,9 @@ const Diary: React.FC = () => {
         />
         <label htmlFor="private-btn">비공개</label>
       </div>
-      <h2>제목</h2>
+      <h2>
+        <input type="text" placeholder="제목" maxLength={45} required />
+      </h2>
       <label htmlFor="date">날짜</label>
       <input
         type="date"
