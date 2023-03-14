@@ -10,6 +10,7 @@ const Diary: React.FC = () => {
   const current = `${year}-${month}-${date}`
 
   const [selectedDate, setSelectedDate] = useState<string>(current)
+  const [textCount, setTextCount] = useState<number>(0)
 
   return (
     <>
@@ -39,6 +40,15 @@ const Diary: React.FC = () => {
         value={selectedDate}
         onChange={e => setSelectedDate(e.target.value)}
       />
+      <textarea
+        name="description"
+        cols={30}
+        rows={10}
+        placeholder="내용을 입력해주세요."
+        maxLength={300}
+        onChange={e => setTextCount(e.target.value.length)}
+      ></textarea>
+      <p>{`(${textCount}/300)`}</p>
     </>
   )
 }
