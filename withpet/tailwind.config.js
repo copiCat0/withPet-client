@@ -22,6 +22,9 @@ module.exports = {
       },
       maxWidth: {
         scr: '31.25rem',
+      },
+      boxShadow: {
+        btnShadow : '5px 5px 0'
       }
     },
   },
