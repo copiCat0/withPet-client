@@ -13,45 +13,75 @@ const Diary: React.FC = () => {
   const [textCount, setTextCount] = useState<number>(0)
 
   return (
-    <>
-      <div>
-        <input
-          type="radio"
-          id="public-btn"
-          checked={check === 1}
-          onChange={() => setCheck(1)}
-        />
-        <label htmlFor="public-btn">공개</label>
-        <input
-          type="radio"
-          id="private-btn"
-          checked={check === 2}
-          onChange={() => setCheck(2)}
-        />
-        <label htmlFor="private-btn">비공개</label>
+    <section className="bg-primary-100 max-w-scr h-screen mx-auto p-3.5 flex flex-col items-start gap-4 ">
+      <div className="">
+        <label
+          className={`mr-6 relative radio-before ${
+            check === 0 ? 'radio-after' : ''
+          }`}
+          htmlFor="public-btn"
+        >
+          <input
+            className="opacity-0 absolute"
+            type="radio"
+            id="public-btn"
+            checked={check === 0}
+            onChange={() => setCheck(0)}
+          />
+          <span className="relative inline-block pl-8 text-xs">공개</span>
+        </label>
+        <label
+          className={`relative radio-before ${
+            check === 1 ? 'radio-after' : ''
+          }`}
+          htmlFor="private-btn"
+        >
+          <input
+            className="opacity-0 absolute"
+            type="radio"
+            id="private-btn"
+            checked={check === 1}
+            onChange={() => setCheck(1)}
+          />
+          <span className="relative inline-block pl-8 text-xs">비공개</span>
+        </label>
       </div>
-      <h2>
-        <input type="text" placeholder="제목" maxLength={45} required />
+      <h2 className="font-bold w-full h-16">
+        <input
+          className="w-full h-full text-center text-2xl"
+          type="text"
+          placeholder="제목"
+          maxLength={21}
+          required
+        />
       </h2>
-      <label htmlFor="date">날짜</label>
-      <input
-        type="date"
-        id="date"
-        max="2099-12-31"
-        min="2000-01-01"
-        value={selectedDate}
-        onChange={e => setSelectedDate(e.target.value)}
-      />
-      <textarea
-        name="description"
-        cols={30}
-        rows={10}
-        placeholder="내용을 입력해주세요."
-        maxLength={300}
-        onChange={e => setTextCount(e.target.value.length)}
-      ></textarea>
-      <p>{`(${textCount}/300)`}</p>
-    </>
+      <div className="w-full h-16 bg-Gray-100 flex items-center p-5">
+        <label className="grow" htmlFor="date">
+          날짜
+        </label>
+        <input
+          className="grow text-left"
+          type="date"
+          id="date"
+          max="2099-12-31"
+          min="2000-01-01"
+          value={selectedDate}
+          onChange={e => setSelectedDate(e.target.value)}
+        />
+      </div>
+      <div className="w-full relative">
+        <textarea
+          className="w-full resize-none bg-Gray-100 p-4 text-justify"
+          name="description"
+          cols={30}
+          rows={10}
+          placeholder="내용을 입력해주세요."
+          maxLength={300}
+          onChange={e => setTextCount(e.target.value.length)}
+        ></textarea>
+        <p className="absolute right-2 bottom-3 text-Gray-300">{`(${textCount}/300)`}</p>
+      </div>
+    </section>
   )
 }
 
