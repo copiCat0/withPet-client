@@ -1,3 +1,4 @@
+import AttachedPicture from 'components/Diary/AttachedPicture'
 import React, { useState } from 'react'
 
 const Diary: React.FC = () => {
@@ -16,13 +17,13 @@ const Diary: React.FC = () => {
     <section className="bg-primary-100 max-w-scr h-screen mx-auto p-3.5 flex flex-col items-start gap-4 ">
       <div className="">
         <label
-          className={`mr-6 relative radio-before ${
+          className={`mr-6 relative radio-before cursor-pointer ${
             check === 0 ? 'radio-after' : ''
           }`}
           htmlFor="public-btn"
         >
           <input
-            className="opacity-0 absolute"
+            className="hidden absolute"
             type="radio"
             id="public-btn"
             checked={check === 0}
@@ -31,13 +32,13 @@ const Diary: React.FC = () => {
           <span className="relative inline-block pl-8 text-xs">공개</span>
         </label>
         <label
-          className={`relative radio-before ${
+          className={`relative radio-before cursor-pointer ${
             check === 1 ? 'radio-after' : ''
           }`}
           htmlFor="private-btn"
         >
           <input
-            className="opacity-0 absolute"
+            className="hidden absolute"
             type="radio"
             id="private-btn"
             checked={check === 1}
@@ -60,7 +61,7 @@ const Diary: React.FC = () => {
           날짜
         </label>
         <input
-          className="grow text-left"
+          className="grow text-left cursor-pointer"
           type="date"
           id="date"
           max="2099-12-31"
@@ -69,6 +70,7 @@ const Diary: React.FC = () => {
           onChange={e => setSelectedDate(e.target.value)}
         />
       </div>
+      <AttachedPicture />
       <div className="w-full relative">
         <textarea
           className="w-full resize-none bg-Gray-100 p-4 text-justify"
