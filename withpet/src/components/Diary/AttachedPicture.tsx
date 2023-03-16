@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import SwiperPicture from './SwiperPicture'
 
 const AttachedPicture: React.FC = () => {
@@ -20,10 +20,7 @@ const AttachedPicture: React.FC = () => {
     if (files) {
       [].forEach.call(files, readAndPreview)
     }
-    console.log('함수 안', images)
   }
-
-  console.log('함수 바깥', images)
 
   return (
     <>
@@ -44,11 +41,8 @@ const AttachedPicture: React.FC = () => {
       </form>
 
       {images &&
-        images.map(url => {
-          <img src={url.substring(1, -1)} />
-        })}
-
-      <SwiperPicture />
+        images?.map(url => <img src={url?.replace(/'/g, '')} key={url} />)}
+      {/* <SwiperPicture /> */}
     </>
   )
 }
