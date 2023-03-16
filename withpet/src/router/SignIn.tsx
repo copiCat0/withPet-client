@@ -5,6 +5,7 @@ import Container from 'components/UI/Container'
 import SignInInput from 'components/SignIn/SignInInput'
 import LinkButton from 'components/UI/LinkButton'
 import SignInLink from 'components/SignIn/SignInLink'
+import SocialLogin from 'components/SignIn/SocialLogin'
 
 const SignIn = () => {
   const [idValue, setIdValue] = useState('')
@@ -41,10 +42,10 @@ const SignIn = () => {
       </form>
       <LinkButton type={'button'} page={'/home'} text={'로그인'} />
 
-      <div className="mt-6">
-        <SignInLink to={'/'} text={'회원가입'} />
-        <SignInLink to={'/'} text={'아이디/비밀번호 찾기'} />
-      </div>
+      <SocialLogin />
+
+      <SignInLink to={'/'} text={'회원가입'} />
+      <SignInLink to={'/'} text={'아이디/비밀번호 찾기'} />
     </Container>
   )
 }
