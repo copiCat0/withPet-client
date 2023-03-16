@@ -4,7 +4,7 @@ import 'components/App/App.css'
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string
   name?: string
-  type: 'file' | 'text' | 'date' | 'submit' | 'radio'
+  type: 'file' | 'text' | 'date' | 'radio'
   children?: string
   className?: string
 }
