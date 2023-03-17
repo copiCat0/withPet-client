@@ -10,8 +10,10 @@ const PetInfoRadioGroup = (props: GroupProp) => {
   const { children, label } = props
 
   return (
-    <fieldset>
-      <legend>{label}</legend>
+    <fieldset className="my-2">
+      <legend className="text-xs decoration-Gray-400 font-semibold">
+        {label}
+      </legend>
       {children}
     </fieldset>
   )

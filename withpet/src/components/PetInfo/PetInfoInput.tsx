@@ -13,26 +13,21 @@ const PetInfoInput = (props: InputProps) => {
   const { id, name, type, children, ...rest } = props
 
   return (
-    <div
-      role="inputGroup"
-      className=" flex items-center justify-center w-full"
-    >
-      <div role="flexBox" className="relative flex items-center justify-between py-2 w-full">
-        <label
-          htmlFor={id}
-          className="absolute h-12 text-xs top-6 left-3 decoration-Gray-400 font-semibold"
-        >
-          {children}
-        </label>
-        <input
-          id={id}
-          name={name}
-          type={type}
-          className="box-border w-11/12 h-12 text-right px-3 border-2 border-black "
-          {...rest}
-          required
-        />
-      </div>
+    <div role="inputBox" className="relative flex justify-center py-2">
+      <label
+        htmlFor={id}
+        className="inline-box absolute h-12 top-6 left-8 text-xs decoration-Gray-400 font-semibold"
+      >
+        {children}
+      </label>
+      <input
+        id={id}
+        name={name}
+        type={type}
+        className="inline-box box-border w-11/12 h-12 text-right px-3 border-2 border-black "
+        {...rest}
+        required
+      />
     </div>
   )
 }
