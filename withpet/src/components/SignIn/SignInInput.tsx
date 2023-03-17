@@ -4,7 +4,7 @@ type InputProps = {
   type: string
   id: string
   label: string | number
-  inputValHandler: any
+  inputValHandler: (value: string) => void
 }
 
 const SignInInput: React.FC<InputProps> = ({
