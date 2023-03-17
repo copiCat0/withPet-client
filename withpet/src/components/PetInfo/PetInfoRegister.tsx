@@ -12,7 +12,13 @@ const PetInfoRegister = (props: RegisterProps) => {
 
   return (
     <>
-      <input id={id} type={type} value={value} {...rest} />
+      <input
+        id={id}
+        type={type}
+        value={value}
+        className="w-full py-3 mt-14 bg-primary-200 text-white font-bold shadow-200"
+        {...rest}
+      />
     </>
   )
 }
