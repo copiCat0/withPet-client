@@ -1,32 +1,26 @@
-import React from 'react'
-import headerLogo from 'assets/Logo/headerLogo.webp'
-
-/* type LogoProps = {
-  src: string
-  alt: string
-  width: number
-  height: number
-}
-
-const Logo: React.FC<LogoProps> = ({ src, alt, width, height }) => (
-  <img src={src} alt={alt} width={width} height={height} />
-)
+import React, { FC } from 'react'
+import logoHeader from 'assets/Logo/headerLogo.webp'
+import logoSprite from 'assets/sprites_icon.png'
 
 type HeaderProps = {
-  logo: LogoProps
+  title?: string
 }
 
-const Header: React.FC<HeaderProps> = ({ logo }) => (
-  <header className="flex items-center justify-between px-4 py-2 bg-gray-800">
-    <div>{logo && <Logo {...logo} />}</div>
-  </header>
-) */
-
-function Header(): JSX.Element {
+const Header: FC<HeaderProps> = ({ title }) => {
   return (
-    <header className="w-96 h-14 leading-12 flex flex-row gap-10">
-      <img src={headerLogo} alt="logo" />
-      <p>withPet</p>
+    <header className="w-full max-w-scr h-14 leading-12 flex flex-nowrap flex-row justify-between gap-10">
+      <img src={logoHeader} alt="logo" />
+      <p>{title}</p>
+      <button type="button">
+        <div
+          className="w-8 h-8"
+          style={{
+            backgroundImage: `url(${logoSprite})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: '-13px -252px',
+          }}
+        />
+      </button>
     </header>
   )
 }
