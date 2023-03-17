@@ -4,13 +4,14 @@ import 'components/App/App.css'
 interface GroupProp {
   children: React.ReactNode
   label: string
+  tabIndex?: number | undefined
 }
 
 const PetInfoRadioGroup = (props: GroupProp) => {
   const { children, label } = props
 
   return (
-    <fieldset className="my-2">
+    <fieldset className="my-2" tabIndex={0}>
       <legend className="text-xs decoration-Gray-400 font-semibold">
         {label}
       </legend>

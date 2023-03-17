@@ -8,6 +8,7 @@ interface ImgProps extends React.InputHTMLAttributes<HTMLInputElement> {
   accept: string
   children?: string
   className?: string
+  tabIndex?: number | undefined
 }
 
 const PetInfoImg = (props: ImgProps) => {
@@ -17,6 +18,7 @@ const PetInfoImg = (props: ImgProps) => {
     <div role="fileBox">
       <label
         htmlFor={id}
+        tabIndex={0}  
         className="block bg-white w-28 h-28 mb-3 rounded-full border-2 border-black"
       >
         {children}

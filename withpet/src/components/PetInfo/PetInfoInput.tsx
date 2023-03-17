@@ -4,7 +4,7 @@ import 'components/App/App.css'
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string
   name?: string
-  type: 'file' | 'text' | 'date' | 'radio'
+  type: 'text' | 'date' | 'radio'
   children?: string
   className?: string
 }
@@ -16,7 +16,7 @@ const PetInfoInput = (props: InputProps) => {
     <div role="inputBox" className="relative py-2 w-full">
       <label
         htmlFor={id}
-        className="inline-box absolute h-12 top-6 left-8 text-xs decoration-Gray-400 font-semibold"
+        className="inline-box absolute top-6 left-6 text-xs decoration-Gray-400 font-semibold"
       >
         {children}
       </label>
