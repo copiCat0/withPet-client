@@ -23,12 +23,13 @@ const PetInfoImg = (props: ImgProps) => {
       >
         {children}
       </label>
+      <div></div>
       <input
         id={id}
         name={name}
         type={type}
         accept={accept}
-        className="hidden"
+        className="-z-50 absolute w-1/2 h-1 right1/2"
         {...rest}
         required
       />

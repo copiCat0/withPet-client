@@ -1,40 +1,41 @@
 import React, { useState } from 'react'
 import Logo from 'assets/Logo/petinfoLogo.webp'
-import PetInfoInput from 'components/PetInfo/PetInfoInput'
 import 'components/App/App.css'
+import PetInfoInput from 'components/PetInfo/PetInfoInput'
 import PetInfoRadioGroup from './PetInfoRadioGroup'
 import PetInfoRadioBtn from './PetInfoRadioBtn'
 import PetInfoRegister from './PetInfoRegister'
 import PetInfoImg from './PetInfoImg'
 
-const PetInfo = () => {
-  const [inputValues, setInputValues] = useState({
-    petImg: '',
-    petType: '',
-    petName: '',
-    petBirth: '',
-    petGender: 'male',
-    petNeuter: 'yes',
-  })
-  const { petImg, petType, petName, petBirth } = inputValues
+import { useDispatch, useSelector } from 'react-redux'
+import { getPetInfo } from 'redux/slice/petInfo/petInfoSlice'
+import { RootState } from 'redux/store'
 
-  const [submit, setSubmit] = useState({ ...inputValues })
+const PetInfo = () => {
+  const petInfo = useSelector(
+    (petInfoState: RootState) => petInfoState.petInfo.petInfoGroup,
+  )
+  const dispatch = useDispatch()
+
+  const [submit, setSubmit] = useState(petInfo)
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
     const {
       currentTarget: { name, value },
     } = e
-    setInputValues({
-      ...inputValues,
-      [name]: value,
-    })
+    dispatch(
+      getPetInfo({
+        ...petInfo,
+        [name]: value,
+      }),
+    )
   }
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const petInfo = { ...inputValues }
+
     setSubmit(petInfo)
-    
+
     return submit
   }
 
@@ -55,7 +56,6 @@ const PetInfo = () => {
             type="file"
             accept="img/*"
             onChange={onChange}
-            value={petImg}
           ></PetInfoImg>
 
           <PetInfoInput
@@ -64,7 +64,6 @@ const PetInfo = () => {
             type="text"
             list="petList"
             onChange={onChange}
-            value={petType}
           >
             type
           </PetInfoInput>
@@ -81,7 +80,6 @@ const PetInfo = () => {
             name="petName"
             type="text"
             onChange={onChange}
-            value={petName}
           >
             이름
           </PetInfoInput>
@@ -91,7 +89,6 @@ const PetInfo = () => {
             name="petBirth"
             type="date"
             onChange={onChange}
-            value={petBirth}
           >
             생년월일
           </PetInfoInput>
