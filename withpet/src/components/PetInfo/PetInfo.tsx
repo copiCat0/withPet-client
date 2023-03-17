@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import Logo from 'assets/Logo/petinfoLogo.webp'
 import PetInfoInput from 'components/PetInfo/PetInfoInput'
 import 'components/App/App.css'
-
 import PetInfoRadioGroup from './PetInfoRadioGroup'
 import PetInfoRadioBtn from './PetInfoRadioBtn'
 import PetInfoRegister from './PetInfoRegister'
+import PetInfoImg from './PetInfoImg'
 
 const PetInfo = () => {
   const [inputValues, setInputValues] = useState({
@@ -13,15 +13,12 @@ const PetInfo = () => {
     petType: '',
     petName: '',
     petBirth: '',
-  })
-  const { petImg, petType, petName, petBirth } = inputValues
-
-  const [checkValues, setCheckValues] = useState({
     petGender: 'male',
     petNeuter: 'yes',
   })
+  const { petImg, petType, petName, petBirth } = inputValues
 
-  const [submit, setSubmit] = useState({ ...inputValues, ...checkValues })
+  const [submit, setSubmit] = useState({ ...inputValues })
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
     const {
@@ -33,44 +30,33 @@ const PetInfo = () => {
     })
   }
 
-  const onClick = (e: React.FormEvent<HTMLInputElement>) => {
-    const {
-      currentTarget: { name, value },
-    } = e
-    setCheckValues({
-      ...checkValues,
-      [name]: value,
-    })
-  }
-
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const petInfo = { ...inputValues, ...checkValues }
+    const petInfo = { ...inputValues }
     setSubmit(petInfo)
-
+    
     return submit
   }
 
   return (
     <section className="flex flex-col items-center justify-center bg-primary-100 max-w-scr h-screen">
       <div role="petInfogroup">
-        <h2>
+        <h2 className="flex justify-center">
           <img src={Logo} alt="Pet Information Logo"></img>
         </h2>
         <form
-          className="flex flex-col"
+          className="flex flex-col justify-center items-center"
           aria-label="Pet Information"
           onSubmit={onSubmit}
         >
-          <PetInfoInput
+          <PetInfoImg
             id="petImg"
             name="petImg"
             type="file"
             accept="img/*"
             onChange={onChange}
             value={petImg}
-            className=""
-          />
+          ></PetInfoImg>
 
           <PetInfoInput
             id="petType"
@@ -115,11 +101,15 @@ const PetInfo = () => {
               defaultChecked
               name="petGender"
               value="male"
-              onClick={onClick}
+              onChange={onChange}
             >
               남
             </PetInfoRadioBtn>
-            <PetInfoRadioBtn name="petGender" value="female" onClick={onClick}>
+            <PetInfoRadioBtn
+              name="petGender"
+              value="female"
+              onChange={onChange}
+            >
               여
             </PetInfoRadioBtn>
           </PetInfoRadioGroup>
@@ -129,11 +119,11 @@ const PetInfo = () => {
               defaultChecked
               name="petNeuter"
               value="yes"
-              onClick={onClick}
+              onChange={onChange}
             >
               네
             </PetInfoRadioBtn>
-            <PetInfoRadioBtn name="petNeuter" value="no" onClick={onClick}>
+            <PetInfoRadioBtn name="petNeuter" value="no" onChange={onChange}>
               아니오
             </PetInfoRadioBtn>
           </PetInfoRadioGroup>
