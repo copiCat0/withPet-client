@@ -3,22 +3,24 @@ import SwiperPicture from './SwiperPicture'
 
 const AttachedPicture: React.FC = () => {
   const [images, setImages] = useState<string[]>([])
+  const MAX_UPLOAD_FILES_COUNT = 4
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files!
     if (!files[0]) return
-    if (images.length + files.length > 4) {
+    if (images.length + files.length > MAX_UPLOAD_FILES_COUNT) {
       return alert('최대 4개 사진만 첨부할 수 있습니다.')
     }
-    const readAndPreview = (file: any) => {
-      if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
-        const reader = new FileReader()
-        reader.onload = () =>
-          setImages(prev => [...prev, reader.result as string])
-        reader.readAsDataURL(file)
-      }
-    }
     if (files) {
-      [].forEach.call(files, readAndPreview)
+      Array.from(files).forEach(file => {
+        if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
+          const reader = new FileReader()
+          reader.onload = e => {
+            const { result } = e.target as FileReader
+            setImages(prev => [...prev, result as string])
+          }
+          reader.readAsDataURL(file)
+        }
+      })
     }
   }
 
@@ -33,16 +35,13 @@ const AttachedPicture: React.FC = () => {
             id="attach-img"
             type="file"
             multiple
-            accept="image/*"
+            accept=".jpg, .jpeg, .png, .gif"
             className="hidden"
             onChange={onFileChange}
           />
         </label>
       </form>
-
-      {images &&
-        images?.map(url => <img src={url?.replace(/'/g, '')} key={url} />)}
-      {/* <SwiperPicture /> */}
+      <SwiperPicture images={images} />
     </>
   )
 }

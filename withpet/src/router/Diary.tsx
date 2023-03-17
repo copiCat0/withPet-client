@@ -14,7 +14,7 @@ const Diary: React.FC = () => {
   const [textCount, setTextCount] = useState<number>(0)
 
   return (
-    <section className="bg-primary-100 max-w-scr h-screen mx-auto p-3.5 flex flex-col items-start gap-4 ">
+    <section className="bg-primary-100 max-w-scr h-max min-h-screen mx-auto p-3.5 flex flex-col items-start gap-4 ">
       <div className="">
         <label
           className={`mr-6 relative radio-before cursor-pointer ${
