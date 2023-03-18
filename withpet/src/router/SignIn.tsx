@@ -28,13 +28,9 @@ const SignIn = () => {
   const login = useCallback(async (): Promise<void> => {
     const auth = getAuth()
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        idValue,
-        pwValue,
-      )
+      await signInWithEmailAndPassword(auth, idValue, pwValue)
       dispatch(authAction.login())
-      navigate('/')
+      navigate('/welcome')
     } catch (error) {
       setIsChecked(true)
     }
