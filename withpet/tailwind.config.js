@@ -20,8 +20,14 @@ module.exports = {
       fontFamily: {
         sans: ['Pretendard', 'sans-serif'],
       },
+      width: {
+        13: '3.125rem',
+      },
       maxWidth: {
         scr: '31.25rem',
+      },
+      height: {
+        13: '3.125rem',
       },
       lineHeight: {
         12: '3.5rem',
