@@ -16,7 +16,7 @@ const SignInInput: React.FC<InputProps> = ({
   const [labelLocation, setLabelLocation] = useState(false)
   const [enteredText, setEnteredText] = useState('')
 
-  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setEnteredText(e.target.value)
     inputValHandler(e.target.value)
   }

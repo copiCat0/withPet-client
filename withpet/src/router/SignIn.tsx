@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import SignInHead from 'assets/Logo/signInLogo.webp'
 import Container from 'components/UI/Container'
@@ -6,17 +7,41 @@ import SignInInput from 'components/SignIn/SignInInput'
 import LinkButton from 'components/UI/LinkButton'
 import SignInLink from 'components/SignIn/SignInLink'
 import SocialLogin from 'components/SignIn/SocialLogin'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { useDispatch } from 'react-redux'
+import { authAction } from './../redux/auth-slice'
 
 const SignIn = () => {
   const [idValue, setIdValue] = useState('')
   const [pwValue, setPwValue] = useState('')
+  const [isChecked, setIsChecked] = useState(false)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  const getIdVal = (value: string): void => {
+  const getIdVal = useCallback((value: string): void => {
     setIdValue(value)
-  }
-  const getPwVal = (value: string): void => {
+  }, [])
+  const getPwVal = useCallback((value: string): void => {
     setPwValue(value)
-  }
+  }, [])
+
+  const login = useCallback(async (): Promise<void> => {
+    const auth = getAuth()
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        idValue,
+        pwValue,
+      )
+      dispatch(authAction.login())
+      navigate('/')
+    } catch (error) {
+      setIsChecked(true)
+    }
+  }, [idValue, navigate, pwValue])
+
+  const btnIsValid: boolean =
+    pwValue.trim().length >= 6 && idValue.includes('@')
 
   return (
     <Container bg={'bg-primary-100'} justify={'justify-center'}>
@@ -38,9 +63,21 @@ const SignIn = () => {
               inputValHandler={getPwVal}
             />
           </div>
+          <p
+            className={`mt-2 ml-2 text-xs font-bold text-primary-300 ${
+              !isChecked ? 'hidden' : ''
+            }`}
+          >
+            이메일과 비밀번호가 일치하지 않습니다.
+          </p>
         </fieldset>
       </form>
-      <LinkButton type={'button'} page={'/home'} text={'로그인'} />
+      <LinkButton
+        type={'button'}
+        text={'로그인'}
+        onClick={login}
+        isValid={btnIsValid}
+      />
 
       <SocialLogin />
 

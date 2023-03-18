@@ -1,24 +1,21 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 
 type BtnProps = {
-  page: string
   text: string | number
   type: 'button' | 'submit' | 'reset' | undefined
+  onClick: (() => void) | (() => Promise<void>)
+  isValid: boolean
 }
 
-const LinkButton: React.FC<BtnProps> = ({ page, text, type }) => {
-  const navigate = useNavigate()
-
+const LinkButton: React.FC<BtnProps> = ({ text, type, onClick, isValid }) => {
   return (
     <button
       type={type}
-      onClick={() => {
-        navigate(page)
-      }}
+      onClick={onClick}
       className={
-        'h-14 w-full text-white flex justify-center items-center font-black border border-black shadow-btnShadow bg-primary-200 mt-5 hover:bg-Gray-400 duration-200'
+        'h-14 w-full text-white flex justify-center items-center font-black border border-black shadow-btnShadow bg-primary-200 mt-5 hover:bg-Gray-400 focus:bg-Gray-400 duration-200 disabled:bg-Gray-300'
       }
+      disabled={isValid}
     >
       {text}
     </button>
