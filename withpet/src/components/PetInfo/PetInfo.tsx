@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Logo from 'assets/Logo/petinfoLogo.webp'
 import 'components/App/App.css'
 import PetInfoInput from 'components/PetInfo/PetInfoInput'
@@ -11,13 +11,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getPetInfo } from 'redux/slice/petInfo/petInfoSlice'
 import { RootState } from 'redux/store'
 
-const PetInfo = () => {
+const PetInfo: React.FC = () => {
   const petInfo = useSelector(
     (petInfoState: RootState) => petInfoState.petInfo.petInfoGroup,
   )
   const dispatch = useDispatch()
-
-  const [submit, setSubmit] = useState(petInfo)
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
     const {
@@ -34,15 +32,13 @@ const PetInfo = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    setSubmit(petInfo)
-
-    return submit
+    return petInfo
   }
 
   return (
-    <section className="flex flex-col items-center justify-center bg-primary-100 max-w-scr h-screen">
+    <section className="flex flex-col items-center justify-center bg-primary-100 max-w-scr h-full">
       <div role="petInfogroup">
-        <h2 className="flex justify-center">
+        <h2 className="flex justify-center mt-12">
           <img src={Logo} alt="Pet Information Logo"></img>
         </h2>
         <form
@@ -50,13 +46,7 @@ const PetInfo = () => {
           aria-label="Pet Information"
           onSubmit={onSubmit}
         >
-          <PetInfoImg
-            id="petImg"
-            name="petImg"
-            type="file"
-            accept="img/*"
-            onChange={onChange}
-          ></PetInfoImg>
+          <PetInfoImg onChange={onChange}></PetInfoImg>
 
           <PetInfoInput
             id="petType"

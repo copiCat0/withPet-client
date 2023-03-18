@@ -1,38 +1,69 @@
-import React from 'react'
+import React, { useState } from 'react'
 import 'components/App/App.css'
 
 interface ImgProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  id: string
-  name: string
-  type: 'file'
-  accept: string
-  children?: string
   className?: string
-  tabIndex?: number | undefined
 }
 
 const PetInfoImg = (props: ImgProps) => {
-  const { id, name, type, accept, children, ...rest } = props
+  const { ...rest } = props
+  const [attachment, setAttachment] = useState('')
+  const [image, setImage] = useState(false)
+
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files) {
+      const theFile = files[0]
+      const reader = new FileReader()
+      reader.onload = e => {
+        const { result } = e.target as FileReader
+        if (result) {
+          setAttachment(result as string)
+        }
+      }
+      reader.readAsDataURL(theFile)
+    }
+    setImage(true)
+  }
 
   return (
-    <div role="fileBox">
-      <label
-        htmlFor={id}
-        tabIndex={0}  
-        className="block bg-white w-28 h-28 mb-3 rounded-full border-2 border-black"
-      >
-        {children}
-      </label>
-      <div></div>
+    <div role="fileBox" onChange={onFileChange} className="relative">
+      {image ? (
+        <>
+          {attachment && (
+            <label
+              htmlFor="petImg"
+              tabIndex={0}
+              className="relative top-0 z-50 block bg-transparent w-28 h-28 mb-3 rounded-full"
+            />
+          )}
+        </>
+      ) : (
+        <label
+          htmlFor="petImg"
+          tabIndex={0}
+          className="block bg-white w-28 h-28 mb-3 rounded-full border-2 border-black"
+        />
+      )}
+
       <input
-        id={id}
-        name={name}
-        type={type}
-        accept={accept}
-        className="-z-50 absolute w-1/2 h-1 right1/2"
+        id="petImg"
+        name="petImg"
+        type="file"
+        accept="img/*"
+        className="-z-50 absolute w-3 h-3 top-2/4 right-2/4"
         {...rest}
         required
       />
+      {attachment && (
+        <div className="absolute w-28 h-28 rounded-full top-0 overflow-hidden border-2 border-black">
+          <img
+            src={attachment}
+            alt="추가 이미지"
+            className="w-full h-full object-cover "
+          />
+        </div>
+      )}
     </div>
   )
 }
