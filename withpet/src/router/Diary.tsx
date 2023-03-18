@@ -1,4 +1,5 @@
 import AttachedPicture from 'components/Diary/AttachedPicture'
+import WeatherChoose from 'components/Diary/WeatherChoose'
 import React, { useState } from 'react'
 
 const Diary: React.FC = () => {
@@ -70,6 +71,7 @@ const Diary: React.FC = () => {
           onChange={e => setSelectedDate(e.target.value)}
         />
       </div>
+      <WeatherChoose />
       <AttachedPicture />
       <div className="w-full relative">
         <textarea
