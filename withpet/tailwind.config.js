@@ -21,13 +21,13 @@ module.exports = {
         sans: ['Pretendard', 'sans-serif'],
       },
       width: {
-        13: '3.125rem',
+        8.9: '2.1875rem',
       },
       maxWidth: {
         scr: '31.25rem',
       },
       height: {
-        13: '3.125rem',
+        8.9: '2.1875rem',
       },
       lineHeight: {
         12: '3.5rem',
