@@ -2,17 +2,21 @@ import React, { useState, FC } from 'react'
 import logoSprite from 'assets/sprites_icon.png'
 import { Link } from 'react-router-dom'
 
-const Navigation: FC = () => {
-  const [activeNav, setActiveNav] = useState(1)
+type NavigationProps = {
+  title?: string
+}
+
+const Navigation: FC<NavigationProps> = ({ title }) => {
+  const [activeNav, setActiveNav] = useState(title)
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 w-full max-w-scr h-16">
       <div className="w-full leading-8 px-6 py-4 border-t border-solid border-Gray-400 flex flex-nowrap flex-row justify-between">
-        <Link to="/Story" onClick={() => setActiveNav(1)}>
+        <Link to="/Story" onClick={() => setActiveNav('Story')}>
           <div
             className="w-8.9 h-8.9"
             style={
-              activeNav === 1
+              activeNav === 'Story'
                 ? {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',
@@ -26,11 +30,11 @@ const Navigation: FC = () => {
             }
           />
         </Link>
-        <Link to="/Chatting" onClick={() => setActiveNav(2)}>
+        <Link to="/Chatting" onClick={() => setActiveNav('Chatting')}>
           <div
             className="w-8.9 h-8.9"
             style={
-              activeNav === 2
+              activeNav === 'Chatting'
                 ? {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',
@@ -44,11 +48,11 @@ const Navigation: FC = () => {
             }
           />
         </Link>
-        <Link to="/Diary" onClick={() => setActiveNav(3)}>
+        <Link to="/Diary" onClick={() => setActiveNav('Diary')}>
           <div
             className="w-8.9 h-8.9"
             style={
-              activeNav === 3
+              activeNav === 'Diary'
                 ? {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',
@@ -62,11 +66,11 @@ const Navigation: FC = () => {
             }
           />
         </Link>
-        <Link to="/WalkIndex" onClick={() => setActiveNav(4)}>
+        <Link to="/WalkIndex" onClick={() => setActiveNav('WalkIndex')}>
           <div
             className="w-8.9 h-8.9"
             style={
-              activeNav === 4
+              activeNav === 'WalkIndex'
                 ? {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',
@@ -80,11 +84,11 @@ const Navigation: FC = () => {
             }
           />
         </Link>
-        <Link to="/MyPage" onClick={() => setActiveNav(5)}>
+        <Link to="/MyPage" onClick={() => setActiveNav('MyPage')}>
           <div
             className="w-8.9 h-8.9"
             style={
-              activeNav === 5
+              activeNav === 'MyPage'
                 ? {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',
