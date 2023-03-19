@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import 'components/App/App.css'
+import { storageService } from 'firebase-config'
+import { ref, uploadString } from 'firebase/storage'
 
 interface ImgProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string
@@ -15,10 +17,14 @@ const PetInfoImg = (props: ImgProps) => {
     if (files) {
       const theFile = files[0]
       const reader = new FileReader()
-      reader.onload = e => {
+      reader.onload = async e => {
         const { result } = e.target as FileReader
         if (result) {
-          setAttachment(result as string)
+          const data = result as string
+          setAttachment(data)
+
+          const imgRef = ref(storageService, 'petImg')
+          await uploadString(imgRef, data, 'data_url')
         }
       }
       reader.readAsDataURL(theFile)
