@@ -12,7 +12,6 @@ type IconProps = {
 const SocialIcon: React.FC<IconProps> = ({ method }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [userData, setUserData] = useState<User | null>(null)
 
   const socialBtnHandler = async () => {
     const auth = getAuth()
@@ -20,9 +19,9 @@ const SocialIcon: React.FC<IconProps> = ({ method }) => {
     if (method === 'google') {
       const provider = new GoogleAuthProvider()
       try {
-        const data = await signInWithPopup(auth, provider)
-        setUserData(data.user)
-        console.log(data)
+        await signInWithPopup(auth, provider)
+        dispatch(authAction.login())
+        navigate('/welcome')
       } catch (err) {
         console.log(err)
       }
