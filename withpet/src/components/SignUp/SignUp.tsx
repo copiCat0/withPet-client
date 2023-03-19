@@ -33,6 +33,42 @@ const SignUp = () => {
     }
   }
 
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    try {
+      // const auth = getAuth()
+      const data = await createUserWithEmailAndPassword(auth, email, password)
+      const docRef = await addDoc(collection(dbService, 'userInfo'), {
+        email: email,
+        password: password,
+        checkPassword: checkPassword,
+        userName: userName,
+        userNickName: userNickName,
+        phoneNumber: phoneNumber,
+        createdAt: new Date(),
+      })
+      setEmail('')
+      setPassword('')
+      setCheckPassword('')
+      setUserName('')
+      setUserNickName('')
+      setPhoneNumber('')
+    } catch (error: any) {
+      switch (error.code) {
+        case 'auth/weak-password':
+          setErrorMsg('비밀번호는 6자리 이상이어야 합니다')
+          break
+        case 'auth/invalid-email':
+          setErrorMsg('잘못된 이메일 주소입니다')
+          break
+        case 'auth/email-already-in-use':
+          setErrorMsg('이미 가입되어 있는 계정입니다')
+          break
+      }
+      console.log(error.message)
+    }
+  }
+
   return (
     <section className="max-w-scr flex flex-col gap-2.5">
       <img src={logoSignUp} alt="logo" className="w-72 h-40" />
