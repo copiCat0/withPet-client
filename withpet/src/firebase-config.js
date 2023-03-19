@@ -11,6 +11,6 @@ const firebaseConfig = {
 }
 
 const fbApp = initializeApp(firebaseConfig)
-export default fbApp
 
+export default fbApp
 export const auth = getAuth(fbApp)

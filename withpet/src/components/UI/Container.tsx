@@ -9,7 +9,7 @@ type ContainerProps = {
 const Container: React.FC<ContainerProps> = ({ bg, children, justify }) => {
   return (
     <main
-      className={`h-screen mx-auto max-w-scr p-4 flex ${justify} flex-col ${bg}`}
+      className={`h-screen mx-auto max-w-scr p-4 flex ${justify} flex-col ${bg} min-h-[650px]`}
     >
       {children}
     </main>
