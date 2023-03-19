@@ -70,10 +70,10 @@ const SignUp = () => {
   }
 
   return (
-    <section className="max-w-scr flex flex-col gap-2.5">
+    <section className="max-w-scr bg-primary-100 py-6 flex flex-col gap-2.5 justify-center items-center">
       <img src={logoSignUp} alt="logo" className="w-72 h-40" />
       <form
-        className="w-full max-w-scr flex flex-col justify-center content-center"
+        className="w-full max-w-scr flex flex-col justify-center items-center gap-6"
         onSubmit={onSubmit}
       >
         <input
@@ -83,8 +83,13 @@ const SignUp = () => {
           onChange={onChange}
           placeholder="이메일"
           required
+          className="w-85 h-14 py-4 pl-4 text-xs text-Gray-400 font-black border-2 border-solid border-black"
         />
-        <input type="button" value="중복확인" />
+        <input
+          type="button"
+          value="중복확인"
+          className="w-85 h-14 bg-primary-200 font-bold text-white border-2 border-solid border-black shadow-2md"
+        />
         <input
           type="password"
           name="password"
@@ -92,6 +97,7 @@ const SignUp = () => {
           onChange={onChange}
           placeholder="비밀번호"
           required
+          className="w-85 h-14 py-4 pl-4 text-xs text-Gray-400 font-black border-2 border-solid border-black"
         />
         <input
           type="password"
@@ -100,6 +106,7 @@ const SignUp = () => {
           onChange={onChange}
           placeholder="비밀번호확인"
           required
+          className="w-85 h-14 py-4 pl-4 text-xs text-Gray-400 font-black border-2 border-solid border-black"
         />
         <input
           type="text"
@@ -108,6 +115,7 @@ const SignUp = () => {
           onChange={onChange}
           placeholder="이름"
           required
+          className="w-85 h-14 py-4 pl-4 text-xs text-Gray-400 font-black border-2 border-solid border-black"
         />
         <input
           type="text"
@@ -116,6 +124,7 @@ const SignUp = () => {
           onChange={onChange}
           placeholder="닉네임"
           required
+          className="w-85 h-14 py-4 pl-4 text-xs text-Gray-400 font-black border-2 border-solid border-black"
         />
         <input
           type="text"
@@ -124,9 +133,16 @@ const SignUp = () => {
           onChange={onChange}
           placeholder="전화번호"
           required
+          className="w-85 h-14 py-4 pl-4 text-xs text-Gray-400 font-black border-2 border-solid border-black"
         />
-        <input type="submit" value="회원가입" />
-        {errorMsg && <span className="authError">{errorMsg}</span>}
+        <input
+          type="submit"
+          value="회원가입"
+          className="w-85 h-14 bg-primary-200 font-bold text-white border-2 border-solid border-black shadow-2md"
+        />
+        {errorMsg && (
+          <span className="text-xs text-primary-300 text-left">{errorMsg}</span>
+        )}
       </form>
     </section>
   )
