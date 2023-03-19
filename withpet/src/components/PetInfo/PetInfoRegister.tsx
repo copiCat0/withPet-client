@@ -16,7 +16,7 @@ const PetInfoRegister = (props: RegisterProps) => {
         id={id}
         type={type}
         value={value}
-        className="w-full py-3 mt-14 bg-primary-200 text-white font-bold shadow-200"
+        className="w-full py-3 my-12 bg-primary-200 text-white font-bold shadow-200"
         {...rest}
       />
     </>

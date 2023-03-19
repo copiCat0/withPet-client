@@ -27,11 +27,14 @@ export const petInfoSlice = createSlice({
   initialState,
   reducers: {
     getPetInfo: (state, action) => {
-      state.petInfoGroup=action.payload
+      state.petInfoGroup = action.payload
+    },
+    getPetImg: (state, action) => {
+      state.petInfoGroup.petImg = action.payload
     },
   },
 })
 
-export const { getPetInfo } = petInfoSlice.actions
+export const { getPetInfo, getPetImg } = petInfoSlice.actions
 
 export default petInfoSlice.reducer

@@ -8,8 +8,12 @@ import PetInfoRegister from './PetInfoRegister'
 import PetInfoImg from './PetInfoImg'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { getPetInfo } from 'redux/slice/petInfo/petInfoSlice'
+import { getPetInfo, getPetImg } from 'redux/slice/petInfo/petInfoSlice'
 import { RootState } from 'redux/store'
+
+import { dbService, storageService } from 'firebase-config'
+import { collection, addDoc } from 'firebase/firestore'
+import { getDownloadURL, ref } from 'firebase/storage'
 
 const PetInfo: React.FC = () => {
   const petInfo = useSelector(
@@ -17,7 +21,7 @@ const PetInfo: React.FC = () => {
   )
   const dispatch = useDispatch()
 
-  const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+  const onChange = async (e: React.FormEvent<HTMLInputElement>) => {
     const {
       currentTarget: { name, value },
     } = e
@@ -27,12 +31,20 @@ const PetInfo: React.FC = () => {
         [name]: value,
       }),
     )
+    if (petInfo.petImg !== '') {
+      const imgUrl = await getDownloadURL(ref(storageService, 'petImg'))
+      dispatch(getPetImg(imgUrl))
+    }
   }
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    return petInfo
+    try {
+      await addDoc(collection(dbService, 'petInfo'), petInfo)
+    } catch (error) {
+      console.error('Error adding document: ', error)
+    }
   }
 
   return (
