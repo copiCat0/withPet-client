@@ -10,6 +10,7 @@ import SocialLogin from 'components/SignIn/SocialLogin'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useDispatch } from 'react-redux'
 import { authAction } from './../redux/auth-slice'
+import CustomModal from 'components/UI/CustomModal'
 
 const SignIn = () => {
   const [idValue, setIdValue] = useState('')
@@ -74,11 +75,15 @@ const SignIn = () => {
         onClick={login}
         isValid={btnIsValid}
       />
-
       <SocialLogin />
-
       <SignInLink to={'/'} text={'회원가입'} />
       <SignInLink to={'/'} text={'아이디/비밀번호 찾기'} />
+      {/* <CustomModal
+        message={'유효한 값을 입력해주세요.'}
+        left={'확인'}
+        right={'취소'}
+        ea={1}
+      /> */}
     </Container>
   )
 }
