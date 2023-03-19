@@ -7,7 +7,7 @@ interface GroupProp {
   tabIndex?: number | undefined
 }
 
-const PetInfoRadioGroup = (props: GroupProp) => {
+const PetInfoRadioGroup:React.FC<GroupProp> = (props: GroupProp) => {
   const { children, label } = props
 
   return (

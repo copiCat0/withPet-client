@@ -1,19 +1,19 @@
 import React from 'react'
-import Logo from 'assets/Logo/petinfoLogo.webp'
 import 'components/App/App.css'
+import Logo from 'assets/Logo/petinfoLogo.webp'
+import PetInfoImg from 'components/PetInfo/PetInfoImg'
 import PetInfoInput from 'components/PetInfo/PetInfoInput'
-import PetInfoRadioGroup from './PetInfoRadioGroup'
-import PetInfoRadioBtn from './PetInfoRadioBtn'
-import PetInfoRegister from './PetInfoRegister'
-import PetInfoImg from './PetInfoImg'
+import PetInfoRadioBtn from 'components/PetInfo/PetInfoRadioBtn'
+import PetInfoRegister from 'components/PetInfo/PetInfoRegister'
+import PetInfoRadioGroup from 'components/PetInfo/PetInfoRadioGroup'
 
+import { RootState } from 'redux/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPetInfo, getPetImg } from 'redux/slice/petInfo/petInfoSlice'
-import { RootState } from 'redux/store'
 
-import { dbService, storageService } from 'firebase-config'
-import { collection, addDoc } from 'firebase/firestore'
 import { getDownloadURL, ref } from 'firebase/storage'
+import { collection, addDoc } from 'firebase/firestore'
+import { dbService, storageService } from 'firebase-config'
 
 const PetInfo: React.FC = () => {
   const petInfo = useSelector(
@@ -32,7 +32,7 @@ const PetInfo: React.FC = () => {
       }),
     )
     if (petInfo.petImg !== '') {
-      const imgUrl = await getDownloadURL(ref(storageService, 'petImg'))
+      const imgUrl = await getDownloadURL(ref(storageService, 'petImg/petImg'))
       dispatch(getPetImg(imgUrl))
     }
   }

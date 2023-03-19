@@ -7,7 +7,7 @@ interface RegisterProps extends React.InputHTMLAttributes<HTMLInputElement> {
   value: string
 }
 
-const PetInfoRegister = (props: RegisterProps) => {
+const PetInfoRegister:React.FC<RegisterProps> = (props: RegisterProps) => {
   const { id, type, value, ...rest } = props
 
   return (
@@ -16,7 +16,7 @@ const PetInfoRegister = (props: RegisterProps) => {
         id={id}
         type={type}
         value={value}
-        className="w-full py-3 my-12 bg-primary-200 text-white font-bold shadow-200"
+        className="w-full py-3 my-12 bg-primary-200 text-white font-bold shadow-200 cursor-pointer"
         {...rest}
       />
     </>

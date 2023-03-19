@@ -8,7 +8,7 @@ interface ButtonProp extends React.InputHTMLAttributes<HTMLInputElement> {
   tabIndex?: number | undefined
 }
 
-const PetInfoRadioBtn = (props: ButtonProp) => {
+const PetInfoRadioBtn:React.FC<ButtonProp> = (props: ButtonProp) => {
   const { children, name, value, ...rest } = props
 
   return (
@@ -22,7 +22,7 @@ const PetInfoRadioBtn = (props: ButtonProp) => {
           className="peer hidden"
         />
         <span
-          className="w-40 py-3 m-2 inline-block box-border border-2 border-black bg-white text-base text-center font-bold 
+          className="w-40 py-3 m-2 inline-block box-border border-2 border-black bg-white text-base text-center font-bold cursor-pointer
           peer-checked:bg-primary-200 peer-checked:text-white peer-checked:shadow-100
           "
         >

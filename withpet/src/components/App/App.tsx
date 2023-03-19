@@ -1,13 +1,13 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import PetInformation from 'router/PetInformation'
+import PetInfo from 'router/PetInfo'
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/petInfo" element={<PetInformation />} />
+        <Route path="/petInfo" element={<PetInfo />} />
       </Routes>
     </>
   )
