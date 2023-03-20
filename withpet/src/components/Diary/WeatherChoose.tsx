@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
-import { chooseWeather } from '../../redux/diarySlice'
+import { chooseWeather } from '../../redux/slice/diary/diarySlice'
 import spritesIcon from '../../assets/sprites_icon.png'
 
 const WEATHERS = [
-  { id: 'sunny', position:  '-120px -180px', selectedPosition: '-120px -140px' },
-  { id: 'rainy', position:  '-80px -180px', selectedPosition: '-80px -140px' },
+  { id: 'sunny', position: '-120px -180px', selectedPosition: '-120px -140px' },
+  { id: 'rainy', position: '-80px -180px', selectedPosition: '-80px -140px' },
   { id: 'cloudy', position: '-40px -180px', selectedPosition: '-40px -140px' },
   { id: 'stormy', position: '0px -180px', selectedPosition: '0px -140px' },
-  { id: 'snowy', position: '-160px -180px', selectedPosition: '-160px -140px' }
+  { id: 'snowy', position: '-160px -180px', selectedPosition: '-160px -140px' },
 ]
 
 const WeatherChoose: React.FC = () => {
@@ -24,7 +24,7 @@ const WeatherChoose: React.FC = () => {
   return (
     <>
       <div className="flex justify-center items-center h-70">
-        {WEATHERS.map((weather) => (
+        {WEATHERS.map(weather => (
           <div
             key={weather.id}
             className={`w-1/5 h-full ${
@@ -38,7 +38,7 @@ const WeatherChoose: React.FC = () => {
                 selectedWeather === weather.id
                   ? weather.selectedPosition
                   : weather.position
-              }`
+              }`,
             }}
             onClick={() => handleWeatherSelect(weather.id)}
           />

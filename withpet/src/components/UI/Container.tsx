@@ -1,15 +1,14 @@
 import React, { ReactNode } from 'react'
 
 type ContainerProps = {
-  bg: string | number
-  justify: string
   children: ReactNode
+  style: string
 }
 
-const Container: React.FC<ContainerProps> = ({ bg, children, justify }) => {
+const Container: React.FC<ContainerProps> = ({ children, style }) => {
   return (
     <main
-      className={`h-screen mx-auto max-w-scr p-4 flex ${justify} flex-col ${bg} min-h-[650px]`}
+      className={`h-screen mx-auto max-w-scr p-4 flex flex-col min-h-[650px] ${style}`}
     >
       {children}
     </main>
@@ -17,7 +16,3 @@ const Container: React.FC<ContainerProps> = ({ bg, children, justify }) => {
 }
 
 export default Container
-
-Container.defaultProps = {
-  bg: 'bg-primary-100',
-}

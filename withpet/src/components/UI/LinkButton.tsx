@@ -13,7 +13,7 @@ const LinkButton: React.FC<BtnProps> = ({ text, type, onClick, isValid }) => {
       type={type}
       onClick={onClick}
       className={
-        'h-14 w-full text-white flex justify-center items-center font-black border border-black shadow-btnShadow bg-primary-200 mt-5 hover:bg-Gray-400 focus:bg-Gray-400 duration-200 disabled:bg-Gray-300'
+        'h-14 w-full text-white flex justify-center items-center font-black border border-black shadow-100 bg-primary-200 mt-5 hover:bg-Gray-400 focus:bg-Gray-400 duration-200 disabled:bg-Gray-300'
       }
       disabled={!isValid}
     >

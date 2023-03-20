@@ -7,7 +7,7 @@ const AlreadySignIn = () => {
   const navigate = useNavigate()
 
   return (
-    <Container bg={'bg-primary-100'} justify={'justify-center'}>
+    <Container style={'bg-primary-100 justify-center'}>
       <p className={'text-center font-extrabold text-xl'}>
         이미 로그인 되어있습니다!
       </p>
