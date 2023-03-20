@@ -20,6 +20,10 @@ module.exports = {
       fontFamily: {
         sans: ['Pretendard', 'sans-serif'],
       },
+      width: {
+        8.9: '2.1875rem',
+        85: '21.4375rem',
+      },
       maxWidth: {
         scr: '31.25rem',
       },
@@ -28,6 +32,15 @@ module.exports = {
       },
       backgroundImage: {
         sprites_icon: "url('../../assets/sprites_icon.png')",
+       },
+      height: {
+        8.9: '2.1875rem',
+      },
+      lineHeight: {
+        12: '3.5rem',
+      },
+      boxShadow: {
+        '2md': '5px 5px 0px #000000',
       },
     },
   },
