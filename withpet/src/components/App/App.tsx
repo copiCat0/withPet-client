@@ -16,11 +16,10 @@ function App() {
     <>
       <Routes>
         <Route path="/welcome" element={<Welcome />} />
-        {/* <Route
+        <Route
           path="/signin"
           element={!isLoggedIn ? <SignIn /> : <AlreadySignIn />}
-        /> */}
-        <Route path="/signin" element={<SignIn />} />
+        />
       </Routes>
     </>
   )
