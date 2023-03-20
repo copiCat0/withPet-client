@@ -9,7 +9,7 @@ import SignInLink from 'components/SignIn/SignInLink'
 import SocialLogin from 'components/SignIn/SocialLogin'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useDispatch } from 'react-redux'
-import { authAction } from './../redux/auth-slice'
+import { authAction } from '../redux/slice/user/auth-slice'
 import CustomModal from 'components/UI/CustomModal'
 
 const SignIn = () => {
@@ -41,7 +41,7 @@ const SignIn = () => {
     pwValue.trim().length >= 6 && idValue.includes('@')
 
   return (
-    <Container bg={'bg-primary-100'} justify={'justify-center'}>
+    <Container style={'bg-primary-100 justify-center'}>
       <img src={SignInHead} alt="로그인" className="block mx-auto" />
       <form>
         <fieldset>
@@ -76,7 +76,7 @@ const SignIn = () => {
         isValid={btnIsValid}
       />
       <SocialLogin />
-      <SignInLink to={'/'} text={'회원가입'} />
+      <SignInLink to={'/signup'} text={'회원가입'} />
       <SignInLink to={'/'} text={'아이디/비밀번호 찾기'} />
       {/* <CustomModal
         message={'유효한 값을 입력해주세요.'}

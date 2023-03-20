@@ -10,13 +10,13 @@ const Navigation: FC<NavigationProps> = ({ title }) => {
   const [activeNav, setActiveNav] = useState(title)
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 w-full max-w-scr h-16">
+    <nav className="bg-white mx-auto fixed bottom-0 left-0 right-0 w-full max-w-scr h-16">
       <div className="w-full leading-8 px-6 py-4 border-t border-solid border-Gray-400 flex flex-nowrap flex-row justify-between">
-        <Link to="/Story" onClick={() => setActiveNav('Story')}>
+        <Link to="/story" onClick={() => setActiveNav('story')}>
           <div
             className="w-8.9 h-8.9"
             style={
-              activeNav === 'Story'
+              activeNav === 'story'
                 ? {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',
@@ -30,11 +30,11 @@ const Navigation: FC<NavigationProps> = ({ title }) => {
             }
           />
         </Link>
-        <Link to="/Chatting" onClick={() => setActiveNav('Chatting')}>
+        <Link to="/chatting" onClick={() => setActiveNav('chatting')}>
           <div
             className="w-8.9 h-8.9"
             style={
-              activeNav === 'Chatting'
+              activeNav === 'chatting'
                 ? {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',
@@ -48,11 +48,11 @@ const Navigation: FC<NavigationProps> = ({ title }) => {
             }
           />
         </Link>
-        <Link to="/Diary" onClick={() => setActiveNav('Diary')}>
+        <Link to="/diary" onClick={() => setActiveNav('diary')}>
           <div
             className="w-8.9 h-8.9"
             style={
-              activeNav === 'Diary'
+              activeNav === 'diary'
                 ? {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',
@@ -66,11 +66,11 @@ const Navigation: FC<NavigationProps> = ({ title }) => {
             }
           />
         </Link>
-        <Link to="/WalkIndex" onClick={() => setActiveNav('WalkIndex')}>
+        <Link to="/walkindex" onClick={() => setActiveNav('walkindex')}>
           <div
             className="w-8.9 h-8.9"
             style={
-              activeNav === 'WalkIndex'
+              activeNav === 'walkindex'
                 ? {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',
@@ -84,11 +84,11 @@ const Navigation: FC<NavigationProps> = ({ title }) => {
             }
           />
         </Link>
-        <Link to="/MyPage" onClick={() => setActiveNav('MyPage')}>
+        <Link to="/mypage" onClick={() => setActiveNav('mypage')}>
           <div
             className="w-8.9 h-8.9"
             style={
-              activeNav === 'MyPage'
+              activeNav === 'mypage'
                 ? {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',

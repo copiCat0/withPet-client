@@ -34,7 +34,7 @@ const Welcome: React.FC = () => {
       />
       <WelcomeBtn
         pointer={btnPointer}
-        page={'/login'}
+        page={'/signup'}
         style={'bg-white hover:text-white focus:text-white'}
         linkText={'회원가입'}
       />
@@ -42,7 +42,7 @@ const Welcome: React.FC = () => {
   )
 
   return (
-    <Container bg={'bg-primary-100'} justify={'justify-center'}>
+    <Container style={'bg-primary-100 justify-center'}>
       <img
         src={withPetLogo}
         alt="윗펫 로고"

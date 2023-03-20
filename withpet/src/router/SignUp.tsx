@@ -88,7 +88,7 @@ const SignUp = () => {
         <input
           type="button"
           value="중복확인"
-          className="w-85 h-14 bg-primary-200 font-bold text-white border-2 border-solid border-black shadow-2md"
+          className="w-85 h-14 bg-primary-200 font-bold text-white border-2 border-solid border-black shadow-100"
         />
         <input
           type="password"
@@ -138,7 +138,7 @@ const SignUp = () => {
         <input
           type="submit"
           value="회원가입"
-          className="w-85 h-14 bg-primary-200 font-bold text-white border-2 border-solid border-black shadow-2md"
+          className="w-85 h-14 bg-primary-200 font-bold text-white border-2 border-solid border-black shadow-100"
         />
         {errorMsg && (
           <span className="text-xs text-primary-300 text-left">{errorMsg}</span>
