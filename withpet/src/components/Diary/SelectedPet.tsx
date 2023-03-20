@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { collection, getDocs, DocumentData } from 'firebase/firestore'
 import { dbService } from 'firebase-config'
 
@@ -13,9 +13,9 @@ const SelectedPet: React.FC = () => {
     getMyPet()
   }, [])
 
-  const onFocusPet = () => {
-    // e.stopPropagation()
-    // console.log(e.target.name)
+  const onFocusPet = (e: any) => {
+    console.log(e.target.value)
+    console.log('마우스로접근시 돔?',e.target)
   }
 
   return (
@@ -25,12 +25,15 @@ const SelectedPet: React.FC = () => {
         myPets.map(pet => (
           <button
             type="button"
-            name={pet.petName}
+            value={pet.petName}
             key={pet.petName}
-            onClick={onFocusPet}
-            className="mr-4 mt-1.5 mb-3"
+            onClick={e => onFocusPet(e)}
+            className=" w-[50px] h-[60px] bg-white mr-4 mt-1.5 mb-3"
           >
-            <figure className="w-[50px] h-[60px] bg-white flex flex-col justify-center items-center">
+            <figure
+              className="flex flex-col justify-center items-center"
+              // onClick={e => e.stopPropagation()}
+            >
               <img
                 src={pet.petImg}
                 alt={pet.petName}
