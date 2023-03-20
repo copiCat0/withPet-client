@@ -22,7 +22,13 @@ module.exports = {
       },
       maxWidth: {
         scr: '31.25rem',
-      }
+      },
+      boxShadow: {
+        btnShadow: '5px 5px 0px #000000',
+      },
+      backgroundImage: {
+        sprites_icon: "url('../../assets/sprites_icon.png')",
+      },
     },
   },
   plugins: [],
