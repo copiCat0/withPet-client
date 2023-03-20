@@ -20,7 +20,3 @@ export const dbService = getFirestore(app)
 export const storageService = getStorage(app)
 
 firebase.initializeApp(firebaseConfig)
-
-const firestore = firebase.firestore()
-
-export { firestore }
