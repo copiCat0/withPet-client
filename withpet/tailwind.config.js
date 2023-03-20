@@ -28,7 +28,8 @@ module.exports = {
         scr: '31.25rem',
       },
       boxShadow: {
-        btnShadow: '5px 5px 0px #000000',
+        100: '5px 5px rgb(0,0,0)',
+        200: '3px 3px 4px 0 rgba(0,0,0,0.5)',  
       },
       backgroundImage: {
         sprites_icon: "url('../../assets/sprites_icon.png')",
@@ -38,9 +39,6 @@ module.exports = {
       },
       lineHeight: {
         12: '3.5rem',
-      },
-      boxShadow: {
-        '2md': '5px 5px 0px #000000',
       },
     },
   },

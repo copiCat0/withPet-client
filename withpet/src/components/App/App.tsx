@@ -3,10 +3,12 @@ import { Route, Routes } from 'react-router-dom'
 import 'components/App/App.css'
 import SignIn from 'router/SignIn'
 import Welcome from 'router/Welcome'
+import PetInfo from 'router/PetInfo'
 import Diary from 'router/Diary'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import AlreadySignIn from 'components/SignIn/AlreadySignIn'
+
 
 function App() {
   const isLoggedIn = useSelector(
@@ -22,6 +24,7 @@ function App() {
           element={!isLoggedIn ? <SignIn /> : <AlreadySignIn />}
         />
         <Route path="/diary" element={<Diary />} />
+        <Route path="/petInfo" element={<PetInfo />} />
       </Routes>
     </>
   )
