@@ -1,6 +1,7 @@
-import { initializeApp } from 'firebase/app'
 import 'firebase/compat/firestore'
 import firebase from 'firebase/compat/app'
+import { getAuth } from 'firebase/auth'
+import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
@@ -13,8 +14,8 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_APP_ID,
 }
 
-firebase.initializeApp(firebaseConfig)
-
-export const dbService = getFirestore()
-export const firestore = firebase.firestore()
-export const storageService = getStorage()
+const app = initializeApp(firebaseConfig)
+export const auth = getAuth(app)
+export const dbService = getFirestore(app)
+export const storageService = getStorage(app)
+export const firestore = firebase.firestore(app)
