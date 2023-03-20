@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import { chooseWeather } from '../../redux/diarySlice'
@@ -12,36 +12,39 @@ const WEATHERS = [
   { id: 'snowy', position: '-160px -180px', selectedPosition: '-160px -140px' }
 ]
 
-const WeatherChoose = () => {
+const WeatherChoose: React.FC = () => {
   const dispatch = useDispatch()
-  const selectedWeather = useSelector((state: RootState) => state.weather.weather)
+  const [selectedWeather, setSelectedWeather] = useState(WEATHERS[0].id)
 
   const handleWeatherSelect = (id: string) => {
+    setSelectedWeather(id)
     dispatch(chooseWeather(id))
   }
 
   return (
-    <div className="flex justify-center items-center h-70">
-      {WEATHERS.map((weather) => (
-        <div
-          key={weather.id}
-          className={`w-1/5 h-full ${
-            selectedWeather === weather.id
-              ? 'bg-cover bg-no-repeat bg-center cursor-pointer'
-              : 'cursor-pointer'
-          }`}
-          style={{
-            backgroundImage: `url(${spritesIcon})`,
-            backgroundPosition: `${
+    <>
+      <div className="flex justify-center items-center h-70">
+        {WEATHERS.map((weather) => (
+          <div
+            key={weather.id}
+            className={`w-1/5 h-full ${
               selectedWeather === weather.id
-                ? weather.selectedPosition
-                : weather.position
-            }`
-          }}
-          onClick={() => handleWeatherSelect(weather.id)}
-        />
-      ))}
-    </div>
+                ? 'bg-cover bg-no-repeat bg-center cursor-pointer'
+                : 'cursor-pointer'
+            }`}
+            style={{
+              backgroundImage: `url(${spritesIcon})`,
+              backgroundPosition: `${
+                selectedWeather === weather.id
+                  ? weather.selectedPosition
+                  : weather.position
+              }`
+            }}
+            onClick={() => handleWeatherSelect(weather.id)}
+          />
+        ))}
+      </div>
+    </>
   )
 }
 
