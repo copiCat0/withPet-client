@@ -20,9 +20,9 @@ const Diary: React.FC = () => {
   return (
     <>
       <Header title={'Diary'} />
-      <Container style={'bg-primary-100 gap-4  items-start'}>
+      <Container style={'bg-primary-100 gap-4 items-start pb-20 pt-16'}>
         <SelectedPet />
-        <div className="">
+        <div className="shrink-0">
           <label
             className={`mr-6 relative radio-before cursor-pointer ${
               check === 0 ? 'radio-after' : ''
@@ -54,7 +54,7 @@ const Diary: React.FC = () => {
             <span className="relative inline-block pl-8 text-xs">비공개</span>
           </label>
         </div>
-        <h2 className="font-bold w-full h-16">
+        <h2 className="font-bold w-full h-16 shrink-0">
           <input
             className="w-full h-full text-center text-2xl"
             type="text"
@@ -63,7 +63,7 @@ const Diary: React.FC = () => {
             required
           />
         </h2>
-        <div className="w-full h-16 bg-Gray-100 flex items-center p-5">
+        <div className="w-full h-16 bg-Gray-100 flex items-center p-5 shrink-0">
           <label className="grow" htmlFor="date">
             날짜
           </label>
@@ -79,7 +79,7 @@ const Diary: React.FC = () => {
         </div>
         <WeatherChoose />
         <AttachedPicture />
-        <div className="w-full relative">
+        <div className="w-full relative shrink-0">
           <textarea
             className="w-full resize-none bg-Gray-100 p-4 text-justify"
             name="description"

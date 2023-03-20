@@ -49,7 +49,7 @@ const Header: FC<HeaderProps> = ({ title }) => {
   }
 
   return (
-    <header className="w-full max-w-scr h-14 mx-auto leading-12 px-2 bg-primary-100 border-b border-black border-solid flex flex-nowrap flex-row justify-between gap-10">
+    <header className="absolute w-full max-w-scr h-14 mx-auto -translate-x-1/2 leading-12 px-2 bg-primary-100 border-b border-black border-solid flex flex-nowrap flex-row justify-between gap-10 left-1/2">
       <img src={logoHeader} alt="logo" />
       <p className="font-bold">{title}</p>
       <button type="button">{headerContent}</button>
