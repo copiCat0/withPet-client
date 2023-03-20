@@ -22,7 +22,11 @@ module.exports = {
       },
       maxWidth: {
         scr: '31.25rem',
-      }
+      },
+      boxShadow: {
+        100: '5px 5px rgb(0,0,0)',
+        200: '3px 3px 4px 0 rgba(0,0,0,0.5)',
+      },
     },
   },
   plugins: [],

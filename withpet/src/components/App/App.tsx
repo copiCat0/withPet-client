@@ -1,15 +1,13 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import 'App.css'
-import Home from 'router/Home'
-import Login from 'router/Login'
+import './App.css'
+import PetInfo from 'router/PetInfo'
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/petInfo" element={<PetInfo />} />
       </Routes>
     </>
   )
