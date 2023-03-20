@@ -1,19 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface DiaryState {
-  diaryGroup:{
-    weather: string
+  diaryGroup: {
+    title: string
     check: number
     date: string
+    weather: string
+    text: string
   }
 }
 
 const initialState: DiaryState = {
-    diaryGroup:{
+  diaryGroup: {
+    title: '',
+    check: 0,
+    date: '',
     weather: '',
-    check:0,
-    date:''
-  }
+    text: ''
+  },
 }
 
 export const diarySlice = createSlice({

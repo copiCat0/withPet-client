@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getDiary } from 'redux/slice/diary/diarySlice'
+import { RootState } from 'redux/store'
 import AttachedPicture from 'components/Diary/AttachedPicture'
 import WeatherChoose from 'components/Diary/WeatherChoose'
 import SelectedPet from 'components/Diary/SelectedPet'
@@ -6,11 +9,13 @@ import Container from 'components/UI/Container'
 import Header from 'components/Header/Header'
 import PublicChoose from 'components/Diary/PublicChoose'
 import DateChoose from 'components/Diary/DateChoose'
-import { useSelector } from 'react-redux'
-import { RootState } from 'redux/store'
 
 const Diary: React.FC = () => {
+  const dispatch = useDispatch()
+  const [title, setTitle] = useState<string>('')
+  const [text, setText] = useState<string>('')
   const [textCount, setTextCount] = useState<number>(0)
+
   const diary = useSelector(
     (diaryState: RootState) => diaryState.diary.diaryGroup,
   )
@@ -32,6 +37,11 @@ const Diary: React.FC = () => {
             placeholder="제목"
             maxLength={21}
             required
+            value={title}
+            onChange={e => {
+              setTitle(e.target.value)
+              dispatch(getDiary({ ...diary, title }))
+            }}
           />
         </h2>
         <DateChoose />
@@ -44,8 +54,13 @@ const Diary: React.FC = () => {
             cols={30}
             rows={10}
             placeholder="내용을 입력해주세요."
+            value={text}
             maxLength={300}
-            onChange={e => setTextCount(e.target.value.length)}
+            onChange={e => {
+              setTextCount(e.target.value.length)
+              setText(e.target.value)
+              dispatch(getDiary({ ...diary, text }))
+            }}
           ></textarea>
           <p className="absolute right-2 bottom-3 text-Gray-300">{`(${textCount}/300)`}</p>
         </div>
