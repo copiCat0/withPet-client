@@ -1,4 +1,6 @@
 import AttachedPicture from 'components/Diary/AttachedPicture'
+import SelectedPet from 'components/Diary/SelectedPet'
+
 import React, { useState } from 'react'
 
 const Diary: React.FC = () => {
@@ -15,6 +17,7 @@ const Diary: React.FC = () => {
 
   return (
     <section className="bg-primary-100 max-w-scr h-max min-h-screen mx-auto p-3.5 flex flex-col items-start gap-4 ">
+      <SelectedPet/>
       <div className="">
         <label
           className={`mr-6 relative radio-before cursor-pointer ${
