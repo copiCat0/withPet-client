@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from 'redux/store'
+import { useDispatch } from 'react-redux'
 import { chooseWeather } from '../../redux/diarySlice'
 import spritesIcon from '../../assets/sprites_icon.png'
 
@@ -23,7 +22,7 @@ const WeatherChoose: React.FC = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center h-70">
+      <div className="flex justify-center items-center h-full">
         {WEATHERS.map((weather) => (
           <div
             key={weather.id}
@@ -42,7 +41,7 @@ const WeatherChoose: React.FC = () => {
             }}
             onClick={() => handleWeatherSelect(weather.id)}
           />
-        ))}
+        ))}나와라잉 나와
       </div>
     </>
   )
