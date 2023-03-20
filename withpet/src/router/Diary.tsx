@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AttachedPicture from 'components/Diary/AttachedPicture'
 import WeatherChoose from 'components/Diary/WeatherChoose'
 import SelectedPet from 'components/Diary/SelectedPet'
@@ -6,9 +6,18 @@ import Container from 'components/UI/Container'
 import Header from 'components/Header/Header'
 import PublicChoose from 'components/Diary/PublicChoose'
 import DateChoose from 'components/Diary/DateChoose'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 
 const Diary: React.FC = () => {
   const [textCount, setTextCount] = useState<number>(0)
+  const diary = useSelector(
+    (diaryState: RootState) => diaryState.diary.diaryGroup,
+  )
+
+  useEffect(() => {
+    console.log('다이어리페이지 정보', diary)
+  }, [diary])
 
   return (
     <>

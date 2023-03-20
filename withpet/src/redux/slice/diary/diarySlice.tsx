@@ -1,23 +1,31 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface WeatherState {
-  weather: string
+export interface DiaryState {
+  diaryGroup:{
+    weather: string
+    check: number
+    date: string
+  }
 }
 
-const initialState: WeatherState = {
-  weather: '',
+const initialState: DiaryState = {
+    diaryGroup:{
+    weather: '',
+    check:0,
+    date:''
+  }
 }
 
-export const weatherSlice = createSlice({
-  name: 'weather',
+export const diarySlice = createSlice({
+  name: 'diaryGroup',
   initialState,
   reducers: {
-    chooseWeather: (state, action: PayloadAction<string>) => {
-      state.weather = action.payload
+    getDiary: (state, action) => {
+      state.diaryGroup = action.payload
     },
   },
 })
 
-export const { chooseWeather } = weatherSlice.actions
+export const { getDiary } = diarySlice.actions
 
-export default weatherSlice.reducer
+export default diarySlice.reducer

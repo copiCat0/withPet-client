@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { getDiary } from 'redux/slice/diary/diarySlice'
 import { RootState } from 'redux/store'
-import { chooseWeather } from '../../redux/slice/diary/diarySlice'
-import spritesIcon from '../../assets/sprites_icon.png'
+import spritesIcon from 'assets/sprites_icon.png'
 
 const WEATHERS = [
   { id: 'sunny', position: '-120px -180px', selectedPosition: '-120px -140px' },
@@ -14,11 +14,14 @@ const WEATHERS = [
 
 const WeatherChoose: React.FC = () => {
   const dispatch = useDispatch()
+  const diary = useSelector(
+    (diaryState: RootState) => diaryState.diary.diaryGroup,
+  )
   const [selectedWeather, setSelectedWeather] = useState(WEATHERS[0].id)
 
-  const handleWeatherSelect = (id: string) => {
-    setSelectedWeather(id)
-    dispatch(chooseWeather(id))
+  const handleWeatherSelect = (weather: string) => {
+    setSelectedWeather(weather)
+    dispatch(getDiary({ ...diary, weather }))
   }
 
   return (
