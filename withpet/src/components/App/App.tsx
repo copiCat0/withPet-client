@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import './App.css'
+import 'components/App/App.css'
 import Diary from 'router/Diary'
 
 function App() {
