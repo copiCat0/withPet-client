@@ -40,7 +40,7 @@ const PetInfoImg = (props: ImgProps) => {
             <label
               htmlFor="petImg"
               tabIndex={0}
-              className="relative top-0 z-50 block bg-transparent w-28 h-28 mb-3 rounded-full cursor-pointer"
+              className="relative top-0 z-50 block bg-transparent w-32 h-32 mb-3 rounded-full cursor-pointer"
             />
           )}
         </>
@@ -48,7 +48,7 @@ const PetInfoImg = (props: ImgProps) => {
         <label
           htmlFor="petImg"
           tabIndex={0}
-          className="block bg-white w-28 h-28 mb-3 rounded-full border-2 border-black cursor-pointer"
+          className="block bg-white w-32 h-32 mb-3 rounded-full border-2 border-black cursor-pointer"
         />
       )}
 
@@ -62,7 +62,7 @@ const PetInfoImg = (props: ImgProps) => {
         required
       />
       {attachment && (
-        <div className="absolute w-28 h-28 rounded-full top-0 overflow-hidden border-2 border-black">
+        <div className="absolute w-32 h-32 rounded-full top-0 overflow-hidden border-2 border-black">
           <img
             src={attachment}
             alt="추가 이미지"
