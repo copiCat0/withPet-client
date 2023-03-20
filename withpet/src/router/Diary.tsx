@@ -20,7 +20,7 @@ const Diary: React.FC = () => {
   return (
     <>
       <Header title={'Diary'} />
-      <Container style={'bg-primary-100 gap-4  items-start'}>
+      <Container style={'bg-primary-100 gap-4 pb-20 items-start pt-16'}>
         <SelectedPet />
         <div className="">
           <label
@@ -30,7 +30,7 @@ const Diary: React.FC = () => {
             htmlFor="public-btn"
           >
             <input
-              className="hidden absolute"
+              className="absolute hidden"
               type="radio"
               id="public-btn"
               checked={check === 0}
@@ -45,7 +45,7 @@ const Diary: React.FC = () => {
             htmlFor="private-btn"
           >
             <input
-              className="hidden absolute"
+              className="absolute hidden"
               type="radio"
               id="private-btn"
               checked={check === 1}
@@ -54,21 +54,21 @@ const Diary: React.FC = () => {
             <span className="relative inline-block pl-8 text-xs">비공개</span>
           </label>
         </div>
-        <h2 className="font-bold w-full h-16">
+        <h2 className="w-full h-16 font-bold">
           <input
-            className="w-full h-full text-center text-2xl"
+            className="w-full h-full text-2xl text-center"
             type="text"
             placeholder="제목"
             maxLength={21}
             required
           />
         </h2>
-        <div className="w-full h-16 bg-Gray-100 flex items-center p-5">
+        <div className="flex items-center w-full h-16 p-5 bg-Gray-100">
           <label className="grow" htmlFor="date">
             날짜
           </label>
           <input
-            className="grow text-left cursor-pointer"
+            className="text-left cursor-pointer grow"
             type="date"
             id="date"
             max="2099-12-31"
@@ -79,9 +79,9 @@ const Diary: React.FC = () => {
         </div>
         <WeatherChoose />
         <AttachedPicture />
-        <div className="w-full relative">
+        <div className="relative w-full">
           <textarea
-            className="w-full resize-none bg-Gray-100 p-4 text-justify"
+            className="w-full p-4 text-justify resize-none bg-Gray-100"
             name="description"
             cols={30}
             rows={10}
