@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import 'components/App/App.css'
 import Diary from 'router/Diary'
@@ -9,60 +9,47 @@ import Welcome from 'router/Welcome'
 import AlreadySignIn from 'router/AlreadySignIn'
 import Story from 'router/Story'
 import { auth } from 'firebase-config'
-import PrivateRoute from 'router/PrivateRoute'
-// import { useSelector } from 'react-redux'
-// import { RootState } from 'redux/store'
+import { onAuthStateChanged } from 'firebase/auth'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  useMemo(() => {
-    auth.onAuthStateChanged(user => {
+  const userData = useSelector((state: RootState) => state.user.userData)
+
+  console.log(userData)
+
+  useEffect(() => {
+    onAuthStateChanged(auth, user => {
       if (user) {
         setIsLoggedIn(true)
+        console.log(user)
       } else {
         setIsLoggedIn(false)
+        console.log('로그아웃!')
       }
     })
-  }, [isLoggedIn])
+  }, [])
 
   return (
     <>
       <Routes>
         <Route
           path="/"
-          element={
-            <PrivateRoute
-              authenticated={isLoggedIn}
-              page={'/aleadysignin'}
-              component={Welcome}
-            />
-          }
+          element={isLoggedIn ? <AlreadySignIn /> : <Welcome />}
         />
         <Route
           path="/signin"
-          element={
-            <PrivateRoute
-              authenticated={isLoggedIn}
-              page={'/aleadysignin'}
-              component={SignIn}
-            />
-          }
+          element={isLoggedIn ? <AlreadySignIn /> : <SignIn />}
         />
         <Route
           path="/signup"
-          element={
-            <PrivateRoute
-              authenticated={isLoggedIn}
-              page={'/aleadysignin'}
-              component={SignUp}
-            />
-          }
+          element={isLoggedIn ? <AlreadySignIn /> : <SignUp />}
         />
         <Route path="/story" element={<Story />} />
         <Route path="/diary" element={<Diary />} />
         <Route path="/petinfo" element={<PetInfo />} />
-        <Route path="/aleadysignin" element={<AlreadySignIn />} />
       </Routes>
     </>
   )

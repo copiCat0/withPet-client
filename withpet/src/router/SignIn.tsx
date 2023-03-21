@@ -1,18 +1,12 @@
 import React, { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 import SignInHead from 'assets/Logo/signInLogo.webp'
 import Container from 'components/UI/Container'
 import SignInInput from 'components/SignIn/SignInInput'
 import LinkButton from 'components/UI/LinkButton'
 import SignInLink from 'components/SignIn/SignInLink'
 import SocialLogin from 'components/SignIn/SocialLogin'
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  setPersistence,
-  browserLocalPersistence,
-} from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
 const SignIn = () => {
   const [idValue, setIdValue] = useState('')
@@ -27,16 +21,17 @@ const SignIn = () => {
     setPwValue(value)
   }, [])
 
-  const login = useCallback(async (): Promise<void> => {
+  const login = async (): Promise<void> => {
     const auth = getAuth()
     try {
-      await setPersistence(auth, browserLocalPersistence)
       await signInWithEmailAndPassword(auth, idValue, pwValue)
+      const user = auth.currentUser
+      console.log(user)
       navigate('/story')
     } catch (error) {
       setIsChecked(true)
     }
-  }, [idValue, navigate, pwValue])
+  }
 
   const btnIsValid: boolean =
     pwValue.trim().length >= 6 && idValue.includes('@')

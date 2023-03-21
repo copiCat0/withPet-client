@@ -1,13 +1,8 @@
 import React from 'react'
-import {
-  getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
-  setPersistence,
-  browserLocalPersistence,
-} from 'firebase/auth'
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
-// import type { User } from 'firebase/auth'
+import { useDispatch } from 'react-redux'
+import { userAction } from 'redux/slice/user/userData-slice'
 
 type IconProps = {
   method: 'google' | 'kakao' | 'facebook'
@@ -15,23 +10,28 @@ type IconProps = {
 
 const SocialIcon: React.FC<IconProps> = ({ method }) => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const socialBtnHandler = async () => {
     const auth = getAuth()
 
     if (method === 'google') {
       try {
-        await setPersistence(auth, browserLocalPersistence)
         const provider = new GoogleAuthProvider()
-        const data = await signInWithPopup(auth, provider)
-        const user = data.user
+        await signInWithPopup(auth, provider)
+        const user = auth.currentUser
+        dispatch(
+          userAction.create({
+            userName: user?.displayName,
+            userEmail: user?.email,
+            userNickName: user?.displayName,
+          }),
+        )
         navigate('/story')
       } catch (err) {
         console.log(err)
       }
     }
-    // else if (method === 'facebook') {
-    // }
   }
 
   return (
@@ -51,3 +51,6 @@ const SocialIcon: React.FC<IconProps> = ({ method }) => {
 }
 
 export default SocialIcon
+function dispatch(arg0: any) {
+  throw new Error('Function not implemented.')
+}
