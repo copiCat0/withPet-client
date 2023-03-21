@@ -16,7 +16,7 @@ const initialState: DiaryState = {
     title: '',
     check: 0,
     date: '',
-    weather: '',
+    weather: 'sunny',
     text: '',
     pet:''
   },

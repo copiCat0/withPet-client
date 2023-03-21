@@ -10,7 +10,11 @@ import Header from 'components/Header/Header'
 import PublicChoose from 'components/Diary/PublicChoose'
 import DateChoose from 'components/Diary/DateChoose'
 
-const Diary: React.FC = () => {
+interface UserProps {
+  userUid: string
+}
+
+const Diary: React.FC<UserProps> = ({ userUid }) => {
   const dispatch = useDispatch()
   const [title, setTitle] = useState<string>('')
   const [text, setText] = useState<string>('')
@@ -28,7 +32,7 @@ const Diary: React.FC = () => {
     <>
       <Header title={'Diary'} />
       <Container style={'bg-primary-100 gap-4 pb-20 items-start pt-16'}>
-        <SelectedPet />
+        <SelectedPet userUid={userUid}/>
         <PublicChoose />
         <h2 className="font-bold w-full h-16 shrink-0">
           <input
