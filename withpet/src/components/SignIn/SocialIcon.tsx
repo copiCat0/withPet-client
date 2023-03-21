@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import React from 'react'
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  setPersistence,
+  browserLocalPersistence,
+} from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { authAction } from 'redux/slice/user/auth-slice'
-import type { User } from 'firebase/auth'
+// import type { User } from 'firebase/auth'
 
 type IconProps = {
   method: 'google' | 'kakao' | 'facebook'
@@ -11,19 +15,16 @@ type IconProps = {
 
 const SocialIcon: React.FC<IconProps> = ({ method }) => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
   const socialBtnHandler = async () => {
     const auth = getAuth()
 
     if (method === 'google') {
       try {
+        await setPersistence(auth, browserLocalPersistence)
         const provider = new GoogleAuthProvider()
         const data = await signInWithPopup(auth, provider)
         const user = data.user
-        console.log(user)
-        console.log(user.displayName, user.email)
-        dispatch(authAction.login())
         navigate('/story')
       } catch (err) {
         console.log(err)

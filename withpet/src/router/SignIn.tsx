@@ -7,17 +7,18 @@ import SignInInput from 'components/SignIn/SignInInput'
 import LinkButton from 'components/UI/LinkButton'
 import SignInLink from 'components/SignIn/SignInLink'
 import SocialLogin from 'components/SignIn/SocialLogin'
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-import { useDispatch } from 'react-redux'
-import { authAction } from '../redux/slice/user/auth-slice'
-import CustomModal from 'components/UI/CustomModal'
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserLocalPersistence,
+} from 'firebase/auth'
 
 const SignIn = () => {
   const [idValue, setIdValue] = useState('')
   const [pwValue, setPwValue] = useState('')
   const [isChecked, setIsChecked] = useState(false)
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
   const getIdVal = useCallback((value: string): void => {
     setIdValue(value)
@@ -29,9 +30,9 @@ const SignIn = () => {
   const login = useCallback(async (): Promise<void> => {
     const auth = getAuth()
     try {
+      await setPersistence(auth, browserLocalPersistence)
       await signInWithEmailAndPassword(auth, idValue, pwValue)
-      dispatch(authAction.login())
-      navigate('/welcome')
+      navigate('/story')
     } catch (error) {
       setIsChecked(true)
     }

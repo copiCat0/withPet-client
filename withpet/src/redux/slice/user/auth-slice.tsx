@@ -1,41 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
-
-interface PetInfo {
-  petBirth: string | null
-  petGender: string | null
-  petImg: string | null
-  petName: string | null
-  petNeuter: string | null
-  petType: string | null
-}
-
-interface UserData {
-  userName: string | null
-  userEmail: string | null
-  userNickname: string | null
-  userPetInfo: PetInfo
-}
+import { getAuth } from 'firebase/auth'
 
 interface AuthState {
   isAuthenticated: boolean
-  userData: UserData
+  userUid: string
 }
 
 const initialAuthState: AuthState = {
   isAuthenticated: false,
-  userData: {
-    userName: '',
-    userEmail: '',
-    userNickname: '',
-    userPetInfo: {
-      petBirth: '',
-      petGender: '',
-      petImg: '',
-      petName: '',
-      petNeuter: '',
-      petType: '',
-    },
-  },
+  userUid: '',
 }
 
 const authSlice = createSlice({
@@ -43,7 +16,9 @@ const authSlice = createSlice({
   initialState: initialAuthState,
   reducers: {
     login(state): void {
+      const user = getAuth()
       state.isAuthenticated = true
+      state.userUid = user.currentUser?.uid as unknown as string
     },
     logout(state): void {
       state.isAuthenticated = false
