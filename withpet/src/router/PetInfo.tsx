@@ -1,6 +1,7 @@
 import React from 'react'
 import 'components/App/App.css'
 import Logo from 'assets/Logo/petinfoLogo.webp'
+import Container from 'components/UI/Container'
 import PetInfoImg from 'components/PetInfo/PetInfoImg'
 import PetInfoInput from 'components/PetInfo/PetInfoInput'
 import PetInfoRadioBtn from 'components/PetInfo/PetInfoRadioBtn'
@@ -9,13 +10,16 @@ import PetInfoRadioGroup from 'components/PetInfo/PetInfoRadioGroup'
 
 import { RootState } from 'redux/store'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPetInfo, getPetImg } from 'redux/slice/petInfo/petInfoSlice'
+import { getPetInfo } from 'redux/slice/petInfo/petInfoSlice'
 
-import { getDownloadURL, ref } from 'firebase/storage'
 import { collection, addDoc } from 'firebase/firestore'
-import { dbService, storageService } from 'firebase-config'
+import { dbService } from 'firebase-config'
 
-const PetInfo: React.FC = () => {
+interface UserProps {
+  userUid: string
+}
+
+const PetInfo: React.FC<UserProps> = userUid => {
   const petInfo = useSelector(
     (petInfoState: RootState) => petInfoState.petInfo.petInfoGroup,
   )
@@ -31,10 +35,6 @@ const PetInfo: React.FC = () => {
         [name]: value,
       }),
     )
-    if (petInfo.petImg !== '') {
-      const imgUrl = await getDownloadURL(ref(storageService, 'petImg/petImg'))
-      dispatch(getPetImg(imgUrl))
-    }
   }
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -48,17 +48,17 @@ const PetInfo: React.FC = () => {
   }
 
   return (
-    <section className="flex flex-col items-center justify-center bg-primary-100 max-w-scr h-full">
+    <Container style={'bg-primary-100 justify-center'}>
       <div role="petInfogroup">
-        <h2 className="flex justify-center mt-12">
-          <img src={Logo} alt="Pet Information Logo"></img>
+        <h2 className="flex justify-center ">
+          <img src={Logo} alt="Pet Information Logo" className="w-full"></img>
         </h2>
         <form
           className="flex flex-col justify-center items-center"
           aria-label="Pet Information"
           onSubmit={onSubmit}
         >
-          <PetInfoImg onChange={onChange}></PetInfoImg>
+          <PetInfoImg userUid={userUid}></PetInfoImg>
 
           <PetInfoInput
             id="petType"
@@ -130,7 +130,7 @@ const PetInfo: React.FC = () => {
           <PetInfoRegister id="submit" type="submit" value="등록하기" />
         </form>
       </div>
-    </section>
+    </Container>
   )
 }
 

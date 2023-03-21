@@ -16,7 +16,7 @@ const PetInfoRegister:React.FC<RegisterProps> = (props: RegisterProps) => {
         id={id}
         type={type}
         value={value}
-        className="w-full py-3 my-12 bg-primary-200 text-white font-bold shadow-200 cursor-pointer"
+        className="w-11/12 py-4 my-12 bg-primary-200 text-white font-bold shadow-200 cursor-pointer"
         {...rest}
       />
     </>
