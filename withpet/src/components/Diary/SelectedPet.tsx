@@ -1,9 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { collection, getDocs, DocumentData } from 'firebase/firestore'
 import { dbService } from 'firebase-config'
+import { useDispatch, useSelector } from 'react-redux'
+import { getDiary } from 'redux/slice/diary/diarySlice'
+import { RootState } from 'redux/store'
 
 const SelectedPet: React.FC = () => {
+  const dispatch = useDispatch()
   const [myPets, setMyPets] = useState<DocumentData[]>([])
+  const petBtn = useRef<HTMLButtonElement>(null)
+  const diary = useSelector(
+    (diaryState: RootState) => diaryState.diary.diaryGroup,
+  )
+
 
   useEffect(() => {
     const getMyPet = async () => {
@@ -14,8 +23,8 @@ const SelectedPet: React.FC = () => {
   }, [])
 
   const onFocusPet = (e: any) => {
-    console.log(e.target.value)
-    console.log('마우스로접근시 돔?',e.target)
+    const pet = e.currentTarget.value
+    dispatch(getDiary({ ...diary, pet }))
   }
 
   return (
@@ -25,6 +34,7 @@ const SelectedPet: React.FC = () => {
         myPets.map(pet => (
           <button
             type="button"
+            ref={petBtn}
             value={pet.petName}
             key={pet.petName}
             onClick={e => onFocusPet(e)}

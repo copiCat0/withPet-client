@@ -7,6 +7,7 @@ export interface DiaryState {
     date: string
     weather: string
     text: string
+    pet: string
   }
 }
 
@@ -16,7 +17,8 @@ const initialState: DiaryState = {
     check: 0,
     date: '',
     weather: '',
-    text: ''
+    text: '',
+    pet:''
   },
 }
 
