@@ -19,7 +19,6 @@ const SelectedPet: React.FC<UserProps> = ({ userUid }) => {
   const dispatch = useDispatch()
   const [myPets, setMyPets] = useState<DocumentData[]>([])
   const [btnActive, setBtnActive] = useState<string>('')
-  const petBtn = useRef<HTMLButtonElement>(null)
   const diary = useSelector(
     (diaryState: RootState) => diaryState.diary.diaryGroup,
   )
@@ -49,7 +48,6 @@ const SelectedPet: React.FC<UserProps> = ({ userUid }) => {
         myPets.map(pet => (
           <button
             type="button"
-            ref={petBtn}
             value={pet.petName}
             key={pet.petName}
             onClick={e => onFocusPet(e)}
