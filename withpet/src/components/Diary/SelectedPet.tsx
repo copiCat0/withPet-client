@@ -51,7 +51,7 @@ const SelectedPet: React.FC<UserProps> = ({ userUid }) => {
             type="button"
             ref={petBtn}
             value={pet.petName}
-            key={pet.user}
+            key={pet.petName}
             onClick={e => onFocusPet(e)}
             className={`w-[50px] h-[60px] bg-white mr-4 mt-1.5 mb-3 ${
               pet.petName === btnActive ? 'border-2 border-solid border-primary-200' : ''
