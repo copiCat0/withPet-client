@@ -22,7 +22,7 @@ const initialState: PetInfoState = {
   },
 }
 
-export const petInfoSlice = createSlice({
+const petInfoSlice = createSlice({
   name: 'petInfoGroup',
   initialState,
   reducers: {

@@ -10,13 +10,16 @@ import PetInfoRadioGroup from 'components/PetInfo/PetInfoRadioGroup'
 
 import { RootState } from 'redux/store'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPetInfo, getPetImg } from 'redux/slice/petInfo/petInfoSlice'
+import { getPetInfo } from 'redux/slice/petInfo/petInfoSlice'
 
-import { getDownloadURL, ref } from 'firebase/storage'
 import { collection, addDoc } from 'firebase/firestore'
-import { dbService, storageService } from 'firebase-config'
+import { dbService } from 'firebase-config'
 
-const PetInfo: React.FC = () => {
+interface UserProps {
+  userUid: string
+}
+
+const PetInfo: React.FC<UserProps> = userUid => {
   const petInfo = useSelector(
     (petInfoState: RootState) => petInfoState.petInfo.petInfoGroup,
   )
@@ -32,10 +35,6 @@ const PetInfo: React.FC = () => {
         [name]: value,
       }),
     )
-    if (petInfo.petImg !== '') {
-      const imgUrl = await getDownloadURL(ref(storageService, 'petImg/petImg'))
-      dispatch(getPetImg(imgUrl))
-    }
   }
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -59,7 +58,7 @@ const PetInfo: React.FC = () => {
           aria-label="Pet Information"
           onSubmit={onSubmit}
         >
-          <PetInfoImg onChange={onChange}></PetInfoImg>
+          <PetInfoImg userUid={userUid}></PetInfoImg>
 
           <PetInfoInput
             id="petType"
