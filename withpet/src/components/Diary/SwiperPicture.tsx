@@ -7,6 +7,7 @@ import 'swiper/css/pagination'
 import { storageService } from 'firebase-config'
 import { deleteObject, ref } from 'firebase/storage'
 import { RootState } from 'redux/store'
+import { updateDiaryImg } from 'redux/slice/diary/diarySlice'
 
 type Props = {
   images: string[]
@@ -18,6 +19,7 @@ const SwiperPicture: React.FC<Props> = ({ images, setImages }): JSX.Element => {
   const imgList = useSelector(
     (diaryState: RootState) => diaryState.diary.diaryGroup.imagesUrl,
   )
+  const dispatch = useDispatch()
 
   const onFileClear = async (url: string) => {
     const reImgArr = images.filter(el => el !== url)
@@ -27,8 +29,10 @@ const SwiperPicture: React.FC<Props> = ({ images, setImages }): JSX.Element => {
         await deleteObject(
           ref(storageService, `diaryImg/${userUid}/${element.id}`),
         )
+        dispatch(updateDiaryImg(url))
     })
   }
+
 
   return (
     <>

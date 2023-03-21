@@ -24,11 +24,15 @@ const Diary: React.FC<UserProps> = ({ userUid }) => {
     (diaryState: RootState) => diaryState.diary.diaryGroup,
   )
 
+  useEffect(() => {
+    console.log('다이어리 정보', diary)
+  }, [diary])
+
   return (
     <>
       <Header title={'Diary'} />
       <Container style={'bg-primary-100 gap-4 pb-20 items-start pt-16'}>
-        <SelectedPet userUid={userUid}/>
+        <SelectedPet userUid={userUid} />
         <PublicChoose />
         <h2 className="font-bold w-full h-16 shrink-0">
           <input
