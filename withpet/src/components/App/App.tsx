@@ -6,6 +6,7 @@ import PetInfo from 'router/PetInfo'
 import SignIn from 'router/SignIn'
 import SignUp from 'router/SignUp'
 import Welcome from 'router/Welcome'
+import Story from 'router/Story'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import AlreadySignIn from 'components/SignIn/AlreadySignIn'
@@ -24,6 +25,7 @@ function App() {
           element={!isLoggedIn ? <SignIn /> : <AlreadySignIn />}
         />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/story" element={<Story />} />
         <Route path="/diary" element={<Diary />} />
         <Route path="/petinfo" element={<PetInfo />} />
       </Routes>

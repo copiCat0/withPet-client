@@ -17,15 +17,20 @@ const SocialIcon: React.FC<IconProps> = ({ method }) => {
     const auth = getAuth()
 
     if (method === 'google') {
-      const provider = new GoogleAuthProvider()
       try {
-        await signInWithPopup(auth, provider)
+        const provider = new GoogleAuthProvider()
+        const data = await signInWithPopup(auth, provider)
+        const user = data.user
+        console.log(user)
+        console.log(user.displayName, user.email)
         dispatch(authAction.login())
-        navigate('/welcome')
+        navigate('/story')
       } catch (err) {
         console.log(err)
       }
     }
+    // else if (method === 'facebook') {
+    // }
   }
 
   return (

@@ -23,7 +23,7 @@ const WeatherChoose: React.FC = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center h-70">
+      <div className="flex items-center justify-center h-70">
         {WEATHERS.map(weather => (
           <div
             key={weather.id}
