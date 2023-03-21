@@ -31,7 +31,7 @@ const SignIn = () => {
     try {
       await signInWithEmailAndPassword(auth, idValue, pwValue)
       dispatch(authAction.login())
-      navigate('/welcome')
+      navigate('/mypage')
     } catch (error) {
       setIsChecked(true)
     }
