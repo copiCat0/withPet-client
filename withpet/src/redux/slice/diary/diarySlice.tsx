@@ -8,8 +8,8 @@ export interface DiaryState {
     weather: string
     text: string
     pet: string
-    imagesUrl: string[]
-  },
+    imagesUrl: [{ id: string; url: string; origin: string }]
+  }
 }
 
 const initialState: DiaryState = {
@@ -20,9 +20,8 @@ const initialState: DiaryState = {
     weather: 'sunny',
     text: '',
     pet: '',
-    imagesUrl: [],
+    imagesUrl: [{ id: '', url: '', origin: '' }],
   },
-
 }
 
 export const diarySlice = createSlice({
@@ -35,7 +34,6 @@ export const diarySlice = createSlice({
     addDiaryImg: (state, action) => {
       state.diaryGroup.imagesUrl.push(action.payload)
     },
-
   },
 })
 

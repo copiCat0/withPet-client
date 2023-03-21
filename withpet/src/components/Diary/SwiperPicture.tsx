@@ -1,8 +1,12 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
+import { storageService } from 'firebase-config'
+import { deleteObject, ref } from 'firebase/storage'
+import { RootState } from 'redux/store'
 
 type Props = {
   images: string[]
@@ -10,9 +14,20 @@ type Props = {
 }
 
 const SwiperPicture: React.FC<Props> = ({ images, setImages }): JSX.Element => {
-  const onFileClear = (index: number) => {
-    const reImgArr = images.filter((el, idx) => idx !== index)
+  const userUid = useSelector((state: RootState) => state.auth.userUid)
+  const imgList = useSelector(
+    (diaryState: RootState) => diaryState.diary.diaryGroup.imagesUrl,
+  )
+
+  const onFileClear = async (url: string) => {
+    const reImgArr = images.filter(el => el !== url)
     setImages([...reImgArr])
+    imgList.forEach(async element => {
+      if (element.origin === url)
+        await deleteObject(
+          ref(storageService, `diaryImg/${userUid}/${element.id}`),
+        )
+    })
   }
 
   return (
@@ -42,7 +57,7 @@ const SwiperPicture: React.FC<Props> = ({ images, setImages }): JSX.Element => {
               />
               <button
                 className="absolute top-2 right-2 w-3 h-3 bg-sprites_icon cursor-pointer bg-[left_-40px_top_-451px]"
-                onClick={() => onFileClear(index)}
+                onClick={() => onFileClear(url)}
               ></button>
             </SwiperSlide>
           ))}
