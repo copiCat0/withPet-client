@@ -27,7 +27,7 @@ const SocialIcon: React.FC<IconProps> = ({ method }) => {
             userNickName: user?.displayName,
           }),
         )
-        navigate('/story')
+        navigate('/mypage')
       } catch (err) {
         console.log(err)
       }
