@@ -16,8 +16,6 @@ function App() {
     (state: RootState) => state.auth.isAuthenticated,
   )
 
-  const userUid = useSelector((state: RootState) => state.auth.userUid)
-
   return (
     <>
       <Routes>
@@ -29,10 +27,9 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/diary" element={<Diary />} />
         <Route path="/mypage" element={<MyPage />} />
-
         <Route
           path="/petinfo"
-          element={isLoggedIn ? <PetInfo userUid={userUid} /> :  <PetInfo userUid={userUid}/> }
+          element={ isLoggedIn && <PetInfo />}
         />
       </Routes>
     </>
