@@ -29,11 +29,11 @@ module.exports = {
       },
       boxShadow: {
         100: '5px 5px rgb(0,0,0)',
-        200: '3px 3px 4px 0 rgba(0,0,0,0.5)',  
+        200: '3px 3px 4px 0 rgba(0,0,0,0.5)',
       },
       backgroundImage: {
         sprites_icon: "url('../../assets/sprites_icon.png')",
-       },
+      },
       height: {
         8.9: '2.1875rem',
       },
@@ -42,5 +42,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/line-clamp')],
 }

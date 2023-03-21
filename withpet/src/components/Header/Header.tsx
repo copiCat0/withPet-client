@@ -51,7 +51,7 @@ const Header: FC<HeaderProps> = ({ title }) => {
   return (
     <header className="absolute flex flex-row justify-between w-full gap-10 px-2 mx-auto -translate-x-1/2 border-b border-black border-solid max-w-scr h-14 leading-12 bg-primary-100 flex-nowrap left-1/2">
       <img src={logoHeader} alt="logo" />
-      <p className="font-bold">{title}</p>
+      <h1 className="font-bold">{title}</h1>
       <button type="button">{headerContent}</button>
     </header>
   )
