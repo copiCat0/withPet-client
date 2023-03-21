@@ -23,9 +23,7 @@ const AttachedPicture: React.FC = () => {
       })
     }
   }
-
-
-
+  
   return (
     <>
       <form className="w-full h-10 bg-Gray-100" encType="multipart/form-data">
