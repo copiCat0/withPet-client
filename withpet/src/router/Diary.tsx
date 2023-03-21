@@ -1,93 +1,70 @@
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getDiary } from 'redux/slice/diary/diarySlice'
+import { RootState } from 'redux/store'
 import AttachedPicture from 'components/Diary/AttachedPicture'
 import WeatherChoose from 'components/Diary/WeatherChoose'
 import SelectedPet from 'components/Diary/SelectedPet'
-import React, { useState } from 'react'
 import Container from 'components/UI/Container'
 import Header from 'components/Header/Header'
+import PublicChoose from 'components/Diary/PublicChoose'
+import DateChoose from 'components/Diary/DateChoose'
 
-const Diary: React.FC = () => {
-  const [check, setCheck] = useState<number>(0)
-  const now = new Date()
-  const year = now.getFullYear()
-  const month =
-    now.getMonth() + 1 > 9 ? now.getMonth() + 1 : `0${now.getMonth() + 1}`
-  const date = now.getDate() > 9 ? now.getDate() : `0${now.getDate()}`
-  const current = `${year}-${month}-${date}`
+interface UserProps {
+  userUid: string
+}
 
-  const [selectedDate, setSelectedDate] = useState<string>(current)
+const Diary: React.FC<UserProps> = ({ userUid }) => {
+  const dispatch = useDispatch()
+  const [title, setTitle] = useState<string>('')
+  const [text, setText] = useState<string>('')
   const [textCount, setTextCount] = useState<number>(0)
+
+  const diary = useSelector(
+    (diaryState: RootState) => diaryState.diary.diaryGroup,
+  )
+
+  useEffect(() => {
+    console.log('다이어리페이지 정보', diary)
+  }, [diary])
 
   return (
     <>
       <Header title={'Diary'} />
       <Container style={'bg-primary-100 gap-4 pb-20 items-start pt-16'}>
-        <SelectedPet />
-        <div className="">
-          <label
-            className={`mr-6 relative radio-before cursor-pointer ${
-              check === 0 ? 'radio-after' : ''
-            }`}
-            htmlFor="public-btn"
-          >
-            <input
-              className="absolute hidden"
-              type="radio"
-              id="public-btn"
-              checked={check === 0}
-              onChange={() => setCheck(0)}
-            />
-            <span className="relative inline-block pl-8 text-xs">공개</span>
-          </label>
-          <label
-            className={`relative radio-before cursor-pointer ${
-              check === 1 ? 'radio-after' : ''
-            }`}
-            htmlFor="private-btn"
-          >
-            <input
-              className="absolute hidden"
-              type="radio"
-              id="private-btn"
-              checked={check === 1}
-              onChange={() => setCheck(1)}
-            />
-            <span className="relative inline-block pl-8 text-xs">비공개</span>
-          </label>
-        </div>
-        <h2 className="w-full h-16 font-bold">
+        <SelectedPet userUid={userUid}/>
+        <PublicChoose />
+        <h2 className="font-bold w-full h-16 shrink-0">
           <input
             className="w-full h-full text-2xl text-center"
             type="text"
             placeholder="제목"
             maxLength={21}
             required
+            value={title}
+            onChange={e => {
+              setTitle(e.target.value)
+              dispatch(getDiary({ ...diary, title }))
+            }}
           />
         </h2>
-        <div className="flex items-center w-full h-16 p-5 bg-Gray-100">
-          <label className="grow" htmlFor="date">
-            날짜
-          </label>
-          <input
-            className="text-left cursor-pointer grow"
-            type="date"
-            id="date"
-            max="2099-12-31"
-            min="2000-01-01"
-            value={selectedDate}
-            onChange={e => setSelectedDate(e.target.value)}
-          />
-        </div>
+        <DateChoose />
         <WeatherChoose />
         <AttachedPicture />
-        <div className="relative w-full">
+        <div className="w-full relative shrink-0">
           <textarea
             className="w-full p-4 text-justify resize-none bg-Gray-100"
             name="description"
             cols={30}
             rows={10}
             placeholder="내용을 입력해주세요."
+            value={text}
             maxLength={300}
-            onChange={e => setTextCount(e.target.value.length)}
+            onChange={e => {
+              setTextCount(e.target.value.length)
+              setText(e.target.value)
+              dispatch(getDiary({ ...diary, text }))
+            }}
           ></textarea>
           <p className="absolute right-2 bottom-3 text-Gray-300">{`(${textCount}/300)`}</p>
         </div>

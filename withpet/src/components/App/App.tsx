@@ -27,7 +27,7 @@ function App() {
           element={!isLoggedIn ? <SignIn /> : <AlreadySignIn />}
         />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/diary" element={<Diary />} />
+        <Route path="/diary" element={isLoggedIn && <Diary userUid={userUid}/>} />
         <Route path="/mypage" element={<MyPage />} />
 
         <Route
