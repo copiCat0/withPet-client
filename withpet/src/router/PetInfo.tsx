@@ -40,8 +40,13 @@ const PetInfo: React.FC<UserProps> = userUid => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
+    const petInfoObj = {
+      ...petInfo,
+      user: Object.values(userUid)[0]
+    }
+
     try {
-      await addDoc(collection(dbService, 'petInfo'), petInfo)
+      await addDoc(collection(dbService, 'petInfo'), petInfoObj)
     } catch (error) {
       console.error('Error adding document: ', error)
     }
