@@ -16,10 +16,12 @@ import { create, getPetInfo } from 'redux/slice/petInfo/petInfoSlice'
 import { setDoc, doc, collection } from 'firebase/firestore'
 import { dbService } from 'firebase-config'
 import PetInfoModifyAndDelete from 'components/PetInfo/PetInfoModifyAndDelete'
+import { useNavigate } from 'react-router-dom'
 
 const PetInfo: React.FC = () => {
-  const userUid = useSelector((state: RootState) => state.auth.userUid)
+  const navigate = useNavigate()
   const dispatch = useDispatch()
+  const userUid = useSelector((state: RootState) => state.auth.userUid)
   const petInfo = useSelector(
     (petInfoState: RootState) => petInfoState.petInfo.petInfoGroup,
   )
@@ -50,6 +52,7 @@ const PetInfo: React.FC = () => {
       console.error('Error adding document: ', error)
     }
     dispatch(create(petInfoRef.id))
+    navigate('/mypage')
   }
 
   return (
