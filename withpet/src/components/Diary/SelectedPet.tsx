@@ -36,7 +36,7 @@ const SelectedPet: React.FC<UserProps> = ({ userUid }) => {
     getMyPet()
   }, [])
 
-  const onFocusPet = (e: any) => {
+  const onFocusPet = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const pet = e.currentTarget.value
     setBtnActive(pet)
     dispatch(getDiary({ ...diary, pet }))
@@ -54,7 +54,9 @@ const SelectedPet: React.FC<UserProps> = ({ userUid }) => {
             key={pet.petName}
             onClick={e => onFocusPet(e)}
             className={`w-[50px] h-[60px] bg-white mr-4 mt-1.5 mb-3 ${
-              pet.petName === btnActive ? 'border-2 border-solid border-primary-200' : ''
+              pet.petName === btnActive
+                ? 'border-2 border-solid border-primary-200'
+                : ''
             }`}
           >
             <figure className="flex flex-col justify-center items-center">

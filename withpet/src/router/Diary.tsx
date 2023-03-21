@@ -24,10 +24,6 @@ const Diary: React.FC<UserProps> = ({ userUid }) => {
     (diaryState: RootState) => diaryState.diary.diaryGroup,
   )
 
-  useEffect(() => {
-    console.log('다이어리페이지 정보', diary)
-  }, [diary])
-
   return (
     <>
       <Header title={'Diary'} />

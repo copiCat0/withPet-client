@@ -1,9 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { getImgList } from 'redux/slice/diary/diarySlice'
 import SwiperPicture from './SwiperPicture'
 
 const AttachedPicture: React.FC = () => {
+  const dispatch = useDispatch()
   const [images, setImages] = useState<string[]>([])
   const MAX_UPLOAD_FILES_COUNT = 4
+
+  useEffect(() => {
+    dispatch(getImgList(images))
+  }, [images])
+
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files!
     if (!files[0]) return
@@ -14,16 +22,17 @@ const AttachedPicture: React.FC = () => {
       Array.from(files).forEach(file => {
         if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
           const reader = new FileReader()
-          reader.onload = e => {
+          reader.onload = async e => {
             const { result } = e.target as FileReader
-            setImages(prev => [...prev, result as string])
+            const data = result as string
+            setImages(prev => [...prev, data])
           }
           reader.readAsDataURL(file)
         }
       })
     }
   }
-  
+
   return (
     <>
       <form className="w-full h-10 bg-Gray-100" encType="multipart/form-data">
@@ -41,7 +50,7 @@ const AttachedPicture: React.FC = () => {
           />
         </label>
       </form>
-      <SwiperPicture images={images} setImages={setImages}/>
+      <SwiperPicture images={images} setImages={setImages} />
     </>
   )
 }

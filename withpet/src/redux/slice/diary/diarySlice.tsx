@@ -8,7 +8,9 @@ export interface DiaryState {
     weather: string
     text: string
     pet: string
-  }
+    imagesUrl: string[]
+  },
+  attachment:string[]
 }
 
 const initialState: DiaryState = {
@@ -18,8 +20,10 @@ const initialState: DiaryState = {
     date: '',
     weather: 'sunny',
     text: '',
-    pet:''
+    pet: '',
+    imagesUrl: [],
   },
+  attachment:[]
 }
 
 export const diarySlice = createSlice({
@@ -29,9 +33,16 @@ export const diarySlice = createSlice({
     getDiary: (state, action) => {
       state.diaryGroup = action.payload
     },
+    getImgList:(state,action)=>{
+      state.attachment = action.payload
+    },
+    addDiaryImg: (state, action) => {
+      state.diaryGroup.imagesUrl.push(action.payload)
+    },
+
   },
 })
 
-export const { getDiary } = diarySlice.actions
+export const { getDiary, getImgList, addDiaryImg } = diarySlice.actions
 
 export default diarySlice.reducer
