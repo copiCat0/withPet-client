@@ -1,18 +1,15 @@
 import 'components/App/App.css'
 import React, { useState } from 'react'
+import { RootState } from 'redux/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { getPetImg } from 'redux/slice/petInfo/petInfoSlice'
 import { storageService } from 'firebase-config'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
-import { getPetImg } from 'redux/slice/petInfo/petInfoSlice'
-import { useDispatch } from 'react-redux'
 
-interface UserProps {
-  userUid: object
-}
-
-const PetInfoImg: React.FC<UserProps> = (userUid) => {
+const PetInfoImg: React.FC = () => {
+  const userUid = useSelector((state: RootState) => state.auth.userUid)
   const [attachment, setAttachment] = useState<string>('')
   const [image, setImage] = useState<boolean>(false)
-  const user = Object.values(Object.values(userUid)[0])
   const dispatch = useDispatch()
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
@@ -26,10 +23,10 @@ const PetInfoImg: React.FC<UserProps> = (userUid) => {
           setAttachment(data)
 
           const imgName = theFile.name
-          const imgRef = ref(storageService,`petImg/${user[0]}/${imgName}`)
+          const imgRef = ref(storageService, `petImg/${userUid}/${imgName}`)
           const response = await uploadString(imgRef, data, 'data_url')
           const imgUrl = await getDownloadURL(response.ref)
-          
+
           dispatch(getPetImg(imgUrl))
         }
       }
@@ -37,7 +34,6 @@ const PetInfoImg: React.FC<UserProps> = (userUid) => {
     }
     setImage(true)
   }
-
 
   return (
     <div role="fileBox" onChange={onFileChange} className="relative">
