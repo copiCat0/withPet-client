@@ -11,7 +11,7 @@ const PetInfoRadioGroup:React.FC<GroupProp> = (props: GroupProp) => {
   const { children, label } = props
 
   return (
-    <fieldset className="my-2" tabIndex={0}>
+    <fieldset className="my-2 w-11/12 flex justify-center" tabIndex={0}>
       <legend className="text-xs decoration-Gray-400 font-semibold">
         {label}
       </legend>
