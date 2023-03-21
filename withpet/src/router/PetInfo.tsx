@@ -1,22 +1,21 @@
 import React from 'react'
 import 'components/App/App.css'
+import { useNavigate } from 'react-router-dom'
 import Logo from 'assets/Logo/petinfoLogo.webp'
 import Container from 'components/UI/Container'
 import PetInfoImg from 'components/PetInfo/PetInfoImg'
 import PetInfoInput from 'components/PetInfo/PetInfoInput'
 import PetInfoRadioBtn from 'components/PetInfo/PetInfoRadioBtn'
-
 import PetInfoRegister from 'components/PetInfo/PetInfoRegister'
 import PetInfoRadioGroup from 'components/PetInfo/PetInfoRadioGroup'
+import PetInfoModifyAndDelete from 'components/PetInfo/PetInfoModifyAndDelete'
 
 import { RootState } from 'redux/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { create, getPetInfo } from 'redux/slice/petInfo/petInfoSlice'
 
-import { setDoc, doc, collection } from 'firebase/firestore'
 import { dbService } from 'firebase-config'
-import PetInfoModifyAndDelete from 'components/PetInfo/PetInfoModifyAndDelete'
-import { useNavigate } from 'react-router-dom'
+import { setDoc, doc, collection } from 'firebase/firestore'
 
 const PetInfo: React.FC = () => {
   const navigate = useNavigate()

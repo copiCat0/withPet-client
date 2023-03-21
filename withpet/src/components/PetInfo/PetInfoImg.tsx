@@ -1,10 +1,10 @@
 import 'components/App/App.css'
 import React, { useState } from 'react'
+import { RootState } from 'redux/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { getPetImg } from 'redux/slice/petInfo/petInfoSlice'
 import { storageService } from 'firebase-config'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
-import { getPetImg } from 'redux/slice/petInfo/petInfoSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from 'redux/store'
 
 const PetInfoImg: React.FC = () => {
   const userUid = useSelector((state: RootState) => state.auth.userUid)
