@@ -1,8 +1,6 @@
 import React from 'react'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { userAction } from 'redux/slice/user/userData-slice'
 
 type IconProps = {
   method: 'google' | 'kakao' | 'facebook'
@@ -10,8 +8,6 @@ type IconProps = {
 
 const SocialIcon: React.FC<IconProps> = ({ method }) => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
-
   const socialBtnHandler = async () => {
     const auth = getAuth()
 
@@ -20,13 +16,7 @@ const SocialIcon: React.FC<IconProps> = ({ method }) => {
         const provider = new GoogleAuthProvider()
         await signInWithPopup(auth, provider)
         const user = auth.currentUser
-        dispatch(
-          userAction.create({
-            userName: user?.displayName,
-            userEmail: user?.email,
-            userNickName: user?.displayName,
-          }),
-        )
+        console.log(user)
         navigate('/mypage')
       } catch (err) {
         console.log(err)

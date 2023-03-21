@@ -16,10 +16,7 @@ import { RootState } from 'redux/store'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-
-  const userData = useSelector((state: RootState) => state.user.userData)
-
-  console.log(userData)
+  const userUid = useSelector((state: RootState) => state.auth.userUid)
 
   useEffect(() => {
     onAuthStateChanged(auth, user => {
@@ -32,8 +29,6 @@ function App() {
       }
     })
   }, [])
-
-  const userUid = useSelector((state: RootState) => state.auth.userUid)
 
   return (
     <>
