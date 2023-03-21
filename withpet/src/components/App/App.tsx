@@ -15,6 +15,7 @@ function App() {
   const isLoggedIn = useSelector(
     (state: RootState) => state.auth.isAuthenticated,
   )
+  const userUid = useSelector((state: RootState) => state.auth.userUid)
 
   return (
     <>
