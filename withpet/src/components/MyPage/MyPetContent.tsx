@@ -8,9 +8,9 @@ type PetInfoProps = {
 
 const MyPetInfo: React.FC<PetInfoProps> = ({ title, value }) => {
   return (
-    <div className="flex justify-between">
-      <dt>{title}</dt>
-      <dd>{value}</dd>
+    <div className="flex justify-between wrap text-ellipsis">
+      <dt className="w-6/12">{title}</dt>
+      <dd className="w-6/12 text-right text-ellipsis line-clamp-1">{value}</dd>
     </div>
   )
 }

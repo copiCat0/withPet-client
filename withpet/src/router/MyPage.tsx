@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import Header from 'components/Header/Header'
 import Container from 'components/UI/Container'
 import Navigation from 'components/Navigation/Navigation'
@@ -15,7 +14,6 @@ const MyPage = () => {
         <MyPageSection text="나의 반려동물">
           <MyPageMyPet />
           <MyPageAddBtn />
-          <div>여긴 라인</div>
         </MyPageSection>
         <MyPageSection text="히스토리">
           <div>여긴 캘린더 자리</div>
