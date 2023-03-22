@@ -1,19 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import logoSprite from 'assets/sprites_icon.png'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { RootState } from 'redux/store'
 import { collection, addDoc } from 'firebase/firestore'
 import { dbService } from 'firebase-config'
+import { resetDiary } from 'redux/slice/diary/diarySlice'
 
 const SubmitDiary: React.FC = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const userUid = useSelector((state: RootState) => state.auth.userUid)
   const diary = useSelector(
     (diaryState: RootState) => diaryState.diary.diaryGroup,
   )
+  const [able, setAble] = useState<boolean>(true)
 
-  const onSubmit = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
+  useEffect(() => {
+    if (diary.pet === '' || diary.text === '' || diary.title === '') {
+      setAble(true)
+    } else {
+      setAble(false)
+    }
+  }, [diary])
+
+  const onSubmit = async () => {
     const diaryInfoObj = { ...diary, user: userUid }
 
     try {
@@ -21,17 +32,19 @@ const SubmitDiary: React.FC = () => {
     } catch (error) {
       console.error('Error adding document:', error)
     }
+    dispatch(resetDiary(''))
+    navigate('/story')
   }
 
   return (
     <>
-      <button type="submit" onClick={e => onSubmit(e)}>
+      <button type="submit" onClick={onSubmit} disabled={able} aria-label="전송 버튼">
         <div
           className="w-8 h-8"
           style={{
             backgroundImage: `url(${logoSprite})`,
             backgroundRepeat: 'no-repeat',
-            backgroundPosition: '-3px -242px',
+            backgroundPosition: able ? '-51px -242px' : '-3px -242px',
           }}
         />
       </button>

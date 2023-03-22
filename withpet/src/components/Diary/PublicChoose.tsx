@@ -21,6 +21,8 @@ const PublicChoose: React.FC = () => {
           check === 0 ? 'radio-after' : ''
         }`}
         htmlFor="public-btn"
+        role="button"
+        aria-label="공개 버튼"
       >
         <input
           className="hidden absolute"
@@ -36,6 +38,8 @@ const PublicChoose: React.FC = () => {
           check === 1 ? 'radio-after' : ''
         }`}
         htmlFor="private-btn"
+        role="button"
+        aria-label="비공개 버튼"
       >
         <input
           className="hidden absolute"
