@@ -30,6 +30,7 @@ module.exports = {
       boxShadow: {
         100: '5px 5px rgb(0,0,0)',
         200: '3px 3px 4px 0 rgba(0,0,0,0.5)',
+        300: '5px 5px 4px rgb(0,0,0)'
       },
       backgroundImage: {
         sprites_icon: "url('../../assets/sprites_icon.png')",

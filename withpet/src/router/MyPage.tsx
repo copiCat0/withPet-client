@@ -4,6 +4,7 @@ import Header from 'components/Header/Header'
 import Container from 'components/UI/Container'
 import Navigation from 'components/Navigation/Navigation'
 import MyPageSection from 'components/MyPage/MyPageSection'
+import MyPageMyPet from './../components/MyPage/MyPageMyPet'
 
 const MyPage = () => {
   return (
@@ -11,7 +12,7 @@ const MyPage = () => {
       <Header title={'MyPage'} />
       <Container style={'bg-primary-100 pt-16'}>
         <MyPageSection text="나의 반려동물">
-          <div>여긴 MyPet 컴포넌트자리</div>
+          <MyPageMyPet />
           <Link to="/PetInfo">펫 추가</Link>
           <div>여긴 라인</div>
         </MyPageSection>
