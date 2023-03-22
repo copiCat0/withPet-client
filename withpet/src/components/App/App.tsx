@@ -11,10 +11,11 @@ import Story from 'router/Story'
 import AlreadySignIn from 'router/AlreadySignIn'
 import { auth } from 'firebase-config'
 import { onAuthStateChanged } from 'firebase/auth'
-import { useSelector } from 'react-redux'
-import { RootState } from 'redux/store'
+import { useDispatch } from 'react-redux'
+import { authAction } from 'redux/slice/user/auth-slice'
 
 function App() {
+  const dispatch = useDispatch()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   useEffect(() => {
@@ -22,6 +23,8 @@ function App() {
       if (user) {
         setIsLoggedIn(true)
         console.log(user)
+        dispatch(authAction.getUserUid(user.uid))
+
       } else {
         setIsLoggedIn(false)
         console.log('로그아웃!')
