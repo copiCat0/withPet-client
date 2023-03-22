@@ -8,6 +8,8 @@ import SignUp from 'router/SignUp'
 import Welcome from 'router/Welcome'
 import MyPage from 'router/MyPage'
 import Story from 'router/Story'
+import WalkIndex from 'router/WalkIndex'
+import Chatting from 'router/Chatting'
 import AlreadySignIn from 'router/AlreadySignIn'
 import { auth } from 'firebase-config'
 import { onAuthStateChanged } from 'firebase/auth'
@@ -24,7 +26,6 @@ function App() {
         setIsLoggedIn(true)
         console.log(user)
         dispatch(authAction.getUserUid(user.uid))
-
       } else {
         setIsLoggedIn(false)
         console.log('로그아웃!')
@@ -47,11 +48,12 @@ function App() {
           path="/signup"
           element={isLoggedIn ? <AlreadySignIn /> : <SignUp />}
         />
-        <Route path="/diary" element={isLoggedIn && <Diary />} />
-
-        <Route path="/mypage" element={<MyPage />} />
         <Route path="/petinfo" element={isLoggedIn && <PetInfo />} />
         <Route path="/story" element={<Story />} />
+        <Route path="/chatting" element={<Chatting />} />
+        <Route path="/diary" element={isLoggedIn && <Diary />} />
+        <Route path="/walkindex" element={<WalkIndex />} />
+        <Route path="/mypage" element={<MyPage />} />
       </Routes>
     </>
   )

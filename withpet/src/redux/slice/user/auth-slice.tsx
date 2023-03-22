@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getAuth } from 'firebase/auth'
 
 interface AuthState {
   isAuthenticated: boolean
