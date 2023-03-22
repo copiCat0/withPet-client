@@ -50,7 +50,7 @@ const PetInfoForm: React.FC = () => {
 
   return (
     <form
-      className="flex flex-col justify-center items-center"
+      className="flex flex-col justify-center items-center mb-16"
       aria-label="Pet Information"
       onSubmit={onSubmit}
     >

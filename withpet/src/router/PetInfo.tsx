@@ -8,7 +8,7 @@ import PetInfoModifyAndDelete from 'components/PetInfo/PetInfoModifyAndDelete'
 const PetInfo: React.FC = () => {
   
   return (
-    <Container style={'bg-primary-100 justify-center'}>
+    <Container style={'bg-primary-100 justify-center pb-20'}>
         <h2 className="flex justify-center ">
           <img src={Logo} alt="Pet Information Logo" className="w-full"></img>
         </h2>
