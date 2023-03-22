@@ -63,7 +63,11 @@ const AttachedPicture: React.FC<AttachedProps> = ({ setAlert }) => {
           />
         </label>
       </form>
-      <SwiperPicture images={images} setImages={setImages} />
+      {images[0] ? (
+        <SwiperPicture images={images} setImages={setImages} />
+      ) : (
+        <p className="text-xs mx-auto text-Gray-300">사진 1장은 필수입니다.</p>
+      )}
     </>
   )
 }

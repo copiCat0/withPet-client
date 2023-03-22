@@ -19,7 +19,12 @@ const SubmitDiary: React.FC = () => {
   const [able, setAble] = useState<boolean>(true)
 
   useEffect(() => {
-    if (diary.pet === '' || diary.text === '' || diary.title === '') {
+    if (
+      diary.pet === '' ||
+      diary.text === '' ||
+      diary.title === '' ||
+      diary.imagesUrl[0].url === ''
+    ) {
       setAble(true)
     } else {
       setAble(false)
@@ -35,7 +40,7 @@ const SubmitDiary: React.FC = () => {
     } catch (error) {
       console.error('Error adding document:', error)
     }
-    dispatch(resetDiary(''))
+    dispatch(resetDiary())
     navigate('/story')
   }
 
