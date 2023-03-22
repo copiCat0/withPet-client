@@ -1,5 +1,6 @@
 import React from 'react'
 import 'components/App/App.css'
+import { useNavigate } from 'react-router-dom'
 import Logo from 'assets/Logo/petinfoLogo.webp'
 import Container from 'components/UI/Container'
 import PetInfoImg from 'components/PetInfo/PetInfoImg'
@@ -7,23 +8,23 @@ import PetInfoInput from 'components/PetInfo/PetInfoInput'
 import PetInfoRadioBtn from 'components/PetInfo/PetInfoRadioBtn'
 import PetInfoRegister from 'components/PetInfo/PetInfoRegister'
 import PetInfoRadioGroup from 'components/PetInfo/PetInfoRadioGroup'
+import PetInfoModifyAndDelete from 'components/PetInfo/PetInfoModifyAndDelete'
 
 import { RootState } from 'redux/store'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPetInfo } from 'redux/slice/petInfo/petInfoSlice'
+import { create, getPetInfo } from 'redux/slice/petInfo/petInfoSlice'
 
-import { collection, addDoc } from 'firebase/firestore'
 import { dbService } from 'firebase-config'
+import { setDoc, doc, collection } from 'firebase/firestore'
 
-interface UserProps {
-  userUid: string
-}
-
-const PetInfo: React.FC<UserProps> = userUid => {
+const PetInfo: React.FC = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const userUid = useSelector((state: RootState) => state.auth.userUid)
   const petInfo = useSelector(
     (petInfoState: RootState) => petInfoState.petInfo.petInfoGroup,
   )
-  const dispatch = useDispatch()
+  const petInfoRef = doc(collection(dbService, 'petInfo'))
 
   const onChange = async (e: React.FormEvent<HTMLInputElement>) => {
     const {
@@ -37,19 +38,20 @@ const PetInfo: React.FC<UserProps> = userUid => {
     )
   }
 
+  const petInfoObj = {
+    ...petInfo,
+    user: userUid,
+  }
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
-    const petInfoObj = {
-      ...petInfo,
-      user: Object.values(userUid)[0]
-    }
-
     try {
-      await addDoc(collection(dbService, 'petInfo'), petInfoObj)
+      await setDoc(petInfoRef, petInfoObj)
     } catch (error) {
       console.error('Error adding document: ', error)
     }
+    dispatch(create(petInfoRef.id))
+    navigate('/mypage')
   }
 
   return (
@@ -63,7 +65,7 @@ const PetInfo: React.FC<UserProps> = userUid => {
           aria-label="Pet Information"
           onSubmit={onSubmit}
         >
-          <PetInfoImg userUid={userUid}></PetInfoImg>
+          <PetInfoImg />
 
           <PetInfoInput
             id="petType"
@@ -132,8 +134,10 @@ const PetInfo: React.FC<UserProps> = userUid => {
             </PetInfoRadioBtn>
           </PetInfoRadioGroup>
 
-          <PetInfoRegister id="submit" type="submit" value="등록하기" />
+          {<PetInfoRegister id="submit" type="submit" value="등록하기" />}
         </form>
+
+        <PetInfoModifyAndDelete />
       </div>
     </Container>
   )
