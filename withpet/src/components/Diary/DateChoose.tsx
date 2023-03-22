@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDiary } from 'redux/slice/diary/diarySlice'
 import { RootState } from 'redux/store'

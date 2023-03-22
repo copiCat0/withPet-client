@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const now = new Date()
 const year = now.getFullYear()
@@ -50,7 +50,7 @@ export const diarySlice = createSlice({
       )
       state.diaryGroup.imagesUrl = currentData
     },
-    resetDiary: (state, action) => {
+    resetDiary: state => {
       state.diaryGroup = initialState.diaryGroup
     },
   },
