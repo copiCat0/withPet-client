@@ -1,5 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+const now = new Date()
+const year = now.getFullYear()
+const month =
+  now.getMonth() + 1 > 9 ? now.getMonth() + 1 : `0${now.getMonth() + 1}`
+const date = now.getDate() > 9 ? now.getDate() : `0${now.getDate()}`
+const current = `${year}-${month}-${date}`
+
 export interface DiaryState {
   diaryGroup: {
     title: string
@@ -16,7 +23,7 @@ const initialState: DiaryState = {
   diaryGroup: {
     title: '',
     check: 0,
-    date: '',
+    date: current,
     weather: 'sunny',
     text: '',
     pet: '',
@@ -25,7 +32,7 @@ const initialState: DiaryState = {
 }
 
 export const diarySlice = createSlice({
-  name: 'diaryGroup',
+  name: 'diary',
   initialState,
   reducers: {
     getDiary: (state, action) => {

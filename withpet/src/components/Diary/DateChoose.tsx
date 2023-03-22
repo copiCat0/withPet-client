@@ -16,10 +16,6 @@ const DateChoose: React.FC = () => {
   const current = `${year}-${month}-${date}`
   const [selectedDate, setSelectedDate] = useState<string>(current)
 
-  useEffect(() => {
-    dispatch(getDiary({ ...diary, date: current }))
-  }, [])
-
   const handleDateSelect = (date: string) => {
     setSelectedDate(date)
     dispatch(getDiary({ ...diary, date }))
