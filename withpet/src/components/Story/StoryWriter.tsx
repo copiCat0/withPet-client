@@ -1,7 +1,36 @@
-import React from 'react'
+import { WEATHERS } from 'components/Diary/WeatherChoose'
+import React, { useEffect, useState } from 'react'
 
-const StoryWriter = () => {
-  const WEATHERS = [{ type: 'sunny' }]
+type StoryWriterProps = {
+  DiaryWeather: string
+  userName: string
+}
+
+const StoryWriter: React.FC<StoryWriterProps> = ({
+  DiaryWeather,
+  userName,
+}) => {
+  const [position, setPosition] = useState('bg-[left_-124px_top_-104px]')
+
+  // 프롭스로 넘어온 날씨랑 같은 배열 찾기
+  const weather = WEATHERS.filter(item => item.id === DiaryWeather)
+
+  // 그 배열에서 좌표값만 구하기
+  const weatherPosition = (arg: string) => {
+    const arr = arg.split('px ')
+
+    return arr.map(num => parseInt(num))
+  }
+
+  // 좌표
+  const weatherImgPosion = weatherPosition(weather[0].selectedPosition)
+  const weatherBgPosition = `bg-[left_${weatherImgPosion[0]}px_top_${weatherImgPosion[1]}px]`
+
+  console.log(weatherBgPosition)
+
+  useEffect(() => {
+    setPosition(weatherBgPosition)
+  }, [])
 
   return (
     <div className={'flex items-center justify-between'}>
@@ -18,11 +47,16 @@ const StoryWriter = () => {
           />
         </div>
         <div className={'flex flex-col'}>
-          <span className={'font-bold'}>채하은</span>
+          <span className={'font-bold'}>{userName}</span>
           <span className={'font-normal'}>Mar 06, 2023</span>
         </div>
       </div>
-      <div className={'w-10 h-10 bg-slate-400'}></div>
+      <div
+        aria-label={'날씨 글자 삽입'}
+        className={`w-10 h-10  bg-sprites_icon ${position}`}
+        // 'w-10 h-10  bg-sprites_icon bg-[left_-42px_top_-109px]'
+        // `w-10 h-10  bg-sprites_icon ${position}`
+      ></div>
     </div>
   )
 }
