@@ -25,7 +25,7 @@ const SubmitDiary: React.FC = () => {
   }, [diary])
 
   const onSubmit = async () => {
-    const diaryInfoObj = { ...diary, user: userUid }
+    const diaryInfoObj = { ...diary, user: userUid, id: new Date().getTime() }
 
     try {
       await addDoc(collection(dbService, 'diaryInfo'), diaryInfoObj)
@@ -38,7 +38,12 @@ const SubmitDiary: React.FC = () => {
 
   return (
     <>
-      <button type="submit" onClick={onSubmit} disabled={able} aria-label="전송 버튼">
+      <button
+        type="submit"
+        onClick={onSubmit}
+        disabled={able}
+        aria-label="전송 버튼"
+      >
         <div
           className="w-8 h-8"
           style={{
