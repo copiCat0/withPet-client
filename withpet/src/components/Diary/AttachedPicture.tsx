@@ -1,9 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { storageService } from 'firebase-config'
+import { getDownloadURL, ref, uploadString } from 'firebase/storage'
+import { addDiaryImg } from 'redux/slice/diary/diarySlice'
+import { RootState } from 'redux/store'
 import SwiperPicture from './SwiperPicture'
 
 const AttachedPicture: React.FC = () => {
+  const userUid = useSelector((state: RootState) => state.auth.userUid)
+  const dispatch = useDispatch()
   const [images, setImages] = useState<string[]>([])
   const MAX_UPLOAD_FILES_COUNT = 4
+
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files!
     if (!files[0]) return
@@ -14,16 +22,26 @@ const AttachedPicture: React.FC = () => {
       Array.from(files).forEach(file => {
         if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
           const reader = new FileReader()
-          reader.onload = e => {
+          reader.onload = async e => {
             const { result } = e.target as FileReader
-            setImages(prev => [...prev, result as string])
+            const data = result as string
+            setImages(prev => [...prev, data])
+            const imagesRef = ref(
+              storageService,
+              `diaryImg/${userUid}/${file.name}`,
+            )
+            const response = await uploadString(imagesRef, data, 'data_url')
+            const imagesUrl = await getDownloadURL(response.ref)
+            dispatch(
+              addDiaryImg({ id: file.name, url: imagesUrl, origin: data }),
+            )
           }
           reader.readAsDataURL(file)
         }
       })
     }
   }
-  
+
   return (
     <>
       <form className="w-full h-10 bg-Gray-100" encType="multipart/form-data">
@@ -41,7 +59,7 @@ const AttachedPicture: React.FC = () => {
           />
         </label>
       </form>
-      <SwiperPicture images={images} setImages={setImages}/>
+      <SwiperPicture images={images} setImages={setImages} />
     </>
   )
 }
