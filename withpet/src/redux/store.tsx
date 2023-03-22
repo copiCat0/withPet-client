@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
-import authSlice from './slice/user/auth-slice'
-import petInfoReducer from './slice/petInfo/petInfoSlice'
+
+import authSlice from 'redux/slice/user/auth-slice'
+import petInfoReducer from 'redux/slice/petInfo/petInfoSlice'
 import diaryReducer from './slice/diary/diarySlice'
 
 export const store = configureStore({
