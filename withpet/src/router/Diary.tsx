@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDiary } from 'redux/slice/diary/diarySlice'
 import { RootState } from 'redux/store'
@@ -21,6 +21,10 @@ const Diary: React.FC = () => {
   const diary = useSelector(
     (diaryState: RootState) => diaryState.diary.diaryGroup,
   )
+
+  useEffect(() => {
+    dispatch(getDiary({ ...diary, title, text }))
+  }, [title, text])
 
   return (
     <>
@@ -47,7 +51,6 @@ const Diary: React.FC = () => {
             value={title}
             onChange={e => {
               setTitle(e.target.value)
-              dispatch(getDiary({ ...diary, title }))
             }}
           />
         </h2>
@@ -67,7 +70,6 @@ const Diary: React.FC = () => {
             onChange={e => {
               setTextCount(e.target.value.length)
               setText(e.target.value)
-              dispatch(getDiary({ ...diary, text }))
             }}
           ></textarea>
           <p

@@ -6,6 +6,8 @@ import { RootState } from 'redux/store'
 import { collection, addDoc } from 'firebase/firestore'
 import { dbService } from 'firebase-config'
 import { resetDiary } from 'redux/slice/diary/diarySlice'
+import moment from 'moment'
+import 'moment/locale/ko'
 
 const SubmitDiary: React.FC = () => {
   const navigate = useNavigate()
@@ -17,7 +19,12 @@ const SubmitDiary: React.FC = () => {
   const [able, setAble] = useState<boolean>(true)
 
   useEffect(() => {
-    if (diary.pet === '' || diary.text === '' || diary.title === '') {
+    if (
+      diary.pet === '' ||
+      diary.text === '' ||
+      diary.title === '' ||
+      diary.imagesUrl[0].url === ''
+    ) {
       setAble(true)
     } else {
       setAble(false)
@@ -25,20 +32,26 @@ const SubmitDiary: React.FC = () => {
   }, [diary])
 
   const onSubmit = async () => {
-    const diaryInfoObj = { ...diary, user: userUid }
+    const createTime = moment().format('YYYYMMDDHHmmss')
+    const diaryInfoObj = { ...diary, user: userUid, createTime: createTime }
 
     try {
       await addDoc(collection(dbService, 'diaryInfo'), diaryInfoObj)
     } catch (error) {
       console.error('Error adding document:', error)
     }
-    dispatch(resetDiary(''))
+    dispatch(resetDiary())
     navigate('/story')
   }
 
   return (
     <>
-      <button type="submit" onClick={onSubmit} disabled={able} aria-label="전송 버튼">
+      <button
+        type="submit"
+        onClick={onSubmit}
+        disabled={able}
+        aria-label="전송 버튼"
+      >
         <div
           className="w-8 h-8"
           style={{
