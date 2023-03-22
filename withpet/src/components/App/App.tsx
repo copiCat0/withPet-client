@@ -15,7 +15,6 @@ function App() {
   const isLoggedIn = useSelector(
     (state: RootState) => state.auth.isAuthenticated,
   )
-  const userUid = useSelector((state: RootState) => state.auth.userUid)
 
   return (
     <>
@@ -26,7 +25,7 @@ function App() {
           element={!isLoggedIn ? <SignIn /> : <AlreadySignIn />}
         />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/diary" element={isLoggedIn && <Diary userUid={userUid}/>} />
+        <Route path="/diary" element={isLoggedIn && <Diary />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route
           path="/petinfo"
