@@ -1,15 +1,13 @@
 import React from 'react'
 import 'components/App/App.css'
 
-interface RegisterProps extends React.InputHTMLAttributes<HTMLInputElement> {
+type RegisterProps = {
   id: string
-  type: string
+  type: 'submit'
   value: string
 }
 
-const PetInfoRegister:React.FC<RegisterProps> = (props: RegisterProps) => {
-  const { id, type, value, ...rest } = props
-
+const PetInfoRegister: React.FC<RegisterProps> = ({ id, type, value }) => {
   return (
     <>
       <input
@@ -17,7 +15,6 @@ const PetInfoRegister:React.FC<RegisterProps> = (props: RegisterProps) => {
         type={type}
         value={value}
         className="w-11/12 py-4 my-12 bg-primary-200 text-white font-bold shadow-200 cursor-pointer"
-        {...rest}
       />
     </>
   )
