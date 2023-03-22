@@ -5,6 +5,7 @@ import Navigation from 'components/Navigation/Navigation'
 import MyPageSection from 'components/MyPage/MyPageSection'
 import MyPageMyPet from './../components/MyPage/MyPageMyPet'
 import MyPageAddBtn from 'components/MyPage/MyPageAddBtn'
+import MyPageCalendar from 'components/MyPage/MyPageCalendar'
 
 const MyPage = () => {
   return (
@@ -16,7 +17,7 @@ const MyPage = () => {
           <MyPageAddBtn />
         </MyPageSection>
         <MyPageSection text="히스토리">
-          <div>여긴 캘린더 자리</div>
+          <MyPageCalendar />
         </MyPageSection>
       </Container>
       <Navigation title={'mypage'} />
