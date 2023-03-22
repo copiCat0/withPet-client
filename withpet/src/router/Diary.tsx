@@ -10,6 +10,7 @@ import Header from 'components/Header/Header'
 import PublicChoose from 'components/Diary/PublicChoose'
 import DateChoose from 'components/Diary/DateChoose'
 import CustomModal from 'components/UI/CustomModal'
+import Navigation from 'components/Navigation/Navigation'
 
 const Diary: React.FC = () => {
   const dispatch = useDispatch()
@@ -76,6 +77,7 @@ const Diary: React.FC = () => {
           >{`(${textCount}/300)`}</p>
         </div>
       </Container>
+      <Navigation title={'diary'} />
     </>
   )
 }
