@@ -9,12 +9,15 @@ import { deleteObject, ref } from 'firebase/storage'
 import { RootState } from 'redux/store'
 import { updateDiaryImg } from 'redux/slice/diary/diarySlice'
 
-type Props = {
+type SwiperProps = {
   images: string[]
   setImages: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-const SwiperPicture: React.FC<Props> = ({ images, setImages }): JSX.Element => {
+const SwiperPicture: React.FC<SwiperProps> = ({
+  images,
+  setImages,
+}): JSX.Element => {
   const userUid = useSelector((state: RootState) => state.auth.userUid)
   const imgList = useSelector(
     (diaryState: RootState) => diaryState.diary.diaryGroup.imagesUrl,
@@ -29,10 +32,9 @@ const SwiperPicture: React.FC<Props> = ({ images, setImages }): JSX.Element => {
         await deleteObject(
           ref(storageService, `diaryImg/${userUid}/${element.id}`),
         )
-        dispatch(updateDiaryImg(url))
+      dispatch(updateDiaryImg(url))
     })
   }
-
 
   return (
     <>
@@ -58,10 +60,13 @@ const SwiperPicture: React.FC<Props> = ({ images, setImages }): JSX.Element => {
                 src={url?.replace(/'/g, '')}
                 key={index}
                 className="object-cover w-full h-full text-center mx-auto"
+                alt={`${index}번째 사진`}
               />
               <button
                 className="absolute top-2 right-2 w-3 h-3 bg-sprites_icon cursor-pointer bg-[left_-40px_top_-451px]"
                 onClick={() => onFileClear(url)}
+                type="submit"
+                aria-label="삭제 버튼"
               ></button>
             </SwiperSlide>
           ))}

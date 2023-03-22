@@ -32,6 +32,9 @@ export const diarySlice = createSlice({
       state.diaryGroup = action.payload
     },
     addDiaryImg: (state, action) => {
+      if (state.diaryGroup.imagesUrl[0].url === '') {
+        state.diaryGroup.imagesUrl.shift()
+      }
       state.diaryGroup.imagesUrl.push(action.payload)
     },
     updateDiaryImg: (state, action) => {
@@ -40,9 +43,13 @@ export const diarySlice = createSlice({
       )
       state.diaryGroup.imagesUrl = currentData
     },
+    resetDiary: (state, action) => {
+      state.diaryGroup = initialState.diaryGroup
+    },
   },
 })
 
-export const { getDiary, addDiaryImg, updateDiaryImg } = diarySlice.actions
+export const { getDiary, addDiaryImg, updateDiaryImg, resetDiary } =
+  diarySlice.actions
 
 export default diarySlice.reducer
