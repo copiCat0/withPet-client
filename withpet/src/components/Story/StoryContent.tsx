@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 
 const StoryContent = () => {
   const [more, setMore] = useState(false)
-  const moreBtn = useRef()
+  const moreBtn = useRef<HTMLButtonElement | null>(null)
 
   const moreBtnHandler = () => {
     setMore(prev => !prev)
@@ -12,9 +12,7 @@ const StoryContent = () => {
 
   return (
     <section className={'mt-3'}>
-      <h2 className={' text-xl font-bold leading-6 '}>
-        이거 제목이 길어지면 어떻게 처리해야 되는 거죠 글자수 제한을 두는게 낫나
-      </h2>
+      <h2 className={' text-xl font-bold leading-6 '}>제목 영역입니다~~~~~</h2>
       <p className={`mt-3 ${more ? '' : 'line-clamp-2'}`}>
         못할 이는 이 있는 트고, 있다. 전인 바이며, 황금시대를 돋고, 봄바람이다.
         보는 끝에 꾸며 위하여 날카로우나 길지 그리하였는가? 고행을 대중을 얼마나
@@ -27,8 +25,8 @@ const StoryContent = () => {
       <button
         type={'button'}
         onClick={moreBtnHandler}
-        ref={moreBtn.current}
-        className={'block mx-auto text-sm p-1 mt-2 text-Gray-300 font-semibold'}
+        ref={moreBtn}
+        className={'block mx-auto text-sm p-1 my-2 text-Gray-300 font-semibold'}
       >
         {more ? '숨기기' : '더보기'}
       </button>
