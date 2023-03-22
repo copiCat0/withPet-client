@@ -38,7 +38,7 @@ const SubmitDiary: React.FC = () => {
 
   return (
     <>
-      <button type="submit" onClick={onSubmit} disabled={able}>
+      <button type="submit" onClick={onSubmit} disabled={able} aria-label="전송 버튼">
         <div
           className="w-8 h-8"
           style={{

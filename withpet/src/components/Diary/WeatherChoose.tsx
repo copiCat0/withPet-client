@@ -48,7 +48,7 @@ const WeatherChoose: React.FC = () => {
     <>
       <div className="flex justify-center gap-[34px] items-center w-full h-[70px] bg-Gray-100">
         {WEATHERS.map(weather => (
-          <div
+          <button
             key={weather.id}
             className={`w-[40px] h-[40px] gap-[10px]${
               selectedWeather === weather.id
@@ -66,6 +66,8 @@ const WeatherChoose: React.FC = () => {
               height: '40px',
             }}
             onClick={() => handleWeatherSelect(weather.id)}
+            role="button"
+            aria-label={`${weather.id} 날씨 선택`}
           />
         ))}
       </div>

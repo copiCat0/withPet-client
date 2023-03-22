@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   collection,
   getDocs,
@@ -11,17 +11,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getDiary } from 'redux/slice/diary/diarySlice'
 import { RootState } from 'redux/store'
 
-interface UserProps {
-  userUid: string
-}
-
-const SelectedPet: React.FC<UserProps> = ({ userUid }) => {
+const SelectedPet: React.FC = () => {
   const dispatch = useDispatch()
   const [myPets, setMyPets] = useState<DocumentData[]>([])
   const [btnActive, setBtnActive] = useState<string>('')
   const diary = useSelector(
     (diaryState: RootState) => diaryState.diary.diaryGroup,
   )
+  const userUid = useSelector((state: RootState) => state.auth.userUid)
 
   useEffect(() => {
     const getMyPet = async () => {
