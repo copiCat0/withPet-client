@@ -5,6 +5,7 @@ import Container from 'components/UI/Container'
 import Navigation from 'components/Navigation/Navigation'
 import MyPageSection from 'components/MyPage/MyPageSection'
 import MyPageMyPet from './../components/MyPage/MyPageMyPet'
+import MyPageAddBtn from 'components/MyPage/MyPageAddBtn'
 
 const MyPage = () => {
   return (
@@ -13,7 +14,7 @@ const MyPage = () => {
       <Container style={'bg-primary-100 pt-16'}>
         <MyPageSection text="나의 반려동물">
           <MyPageMyPet />
-          <Link to="/PetInfo">펫 추가</Link>
+          <MyPageAddBtn />
           <div>여긴 라인</div>
         </MyPageSection>
         <MyPageSection text="히스토리">
