@@ -9,6 +9,7 @@ import Container from 'components/UI/Container'
 import Header from 'components/Header/Header'
 import PublicChoose from 'components/Diary/PublicChoose'
 import DateChoose from 'components/Diary/DateChoose'
+import Navigation from 'components/Navigation/Navigation'
 
 const Diary: React.FC = () => {
   const dispatch = useDispatch()
@@ -65,6 +66,7 @@ const Diary: React.FC = () => {
           <p className="absolute right-2 bottom-3 text-Gray-300">{`(${textCount}/300)`}</p>
         </div>
       </Container>
+      <Navigation title={'diary'} />
     </>
   )
 }

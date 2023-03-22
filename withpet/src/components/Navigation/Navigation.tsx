@@ -9,15 +9,8 @@ type NavigationProps = {
 const Navigation: FC<NavigationProps> = ({ title }) => {
   const [activeNav, setActiveNav] = useState(title)
 
-  if (
-    window.location.pathname === '/' ||
-    window.location.pathname === '/signin' ||
-    window.location.pathname === '/signup'
-  )
-    return null
-
   return (
-    <nav className="bg-white mx-auto fixed bottom-0 left-0 right-0 w-full max-w-scr h-16">
+    <nav className="bg-white mx-auto fixed bottom-0 left-0 right-0 w-full max-w-scr h-16 z-50">
       <div className="w-full leading-8 px-6 py-4 border-t border-solid border-Gray-400 flex flex-nowrap flex-row justify-between">
         <Link to="/story" onClick={() => setActiveNav('story')}>
           <div
