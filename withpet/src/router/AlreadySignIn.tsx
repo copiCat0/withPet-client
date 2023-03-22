@@ -14,7 +14,7 @@ const AlreadySignIn = () => {
       <LinkButton
         type={'button'}
         text={'홈으로 가기'}
-        onClick={() => navigate(-1)}
+        onClick={() => navigate('/story')}
         isValid={true}
       />
     </Container>

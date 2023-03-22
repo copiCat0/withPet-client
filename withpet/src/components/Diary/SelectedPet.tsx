@@ -19,7 +19,6 @@ const SelectedPet: React.FC<UserProps> = ({ userUid }) => {
   const dispatch = useDispatch()
   const [myPets, setMyPets] = useState<DocumentData[]>([])
   const [btnActive, setBtnActive] = useState<string>('')
-  const petBtn = useRef<HTMLButtonElement>(null)
   const diary = useSelector(
     (diaryState: RootState) => diaryState.diary.diaryGroup,
   )
@@ -36,7 +35,7 @@ const SelectedPet: React.FC<UserProps> = ({ userUid }) => {
     getMyPet()
   }, [])
 
-  const onFocusPet = (e: any) => {
+  const onFocusPet = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const pet = e.currentTarget.value
     setBtnActive(pet)
     dispatch(getDiary({ ...diary, pet }))
@@ -49,12 +48,13 @@ const SelectedPet: React.FC<UserProps> = ({ userUid }) => {
         myPets.map(pet => (
           <button
             type="button"
-            ref={petBtn}
             value={pet.petName}
             key={pet.petName}
             onClick={e => onFocusPet(e)}
             className={`w-[50px] h-[60px] bg-white mr-4 mt-1.5 mb-3 ${
-              pet.petName === btnActive ? 'border-2 border-solid border-primary-200' : ''
+              pet.petName === btnActive
+                ? 'border-2 border-solid border-primary-200'
+                : ''
             }`}
           >
             <figure className="flex flex-col justify-center items-center">

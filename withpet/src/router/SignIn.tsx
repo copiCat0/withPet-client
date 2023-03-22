@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 import SignInHead from 'assets/Logo/signInLogo.webp'
 import Container from 'components/UI/Container'
 import SignInInput from 'components/SignIn/SignInInput'
@@ -8,16 +7,12 @@ import LinkButton from 'components/UI/LinkButton'
 import SignInLink from 'components/SignIn/SignInLink'
 import SocialLogin from 'components/SignIn/SocialLogin'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-import { useDispatch } from 'react-redux'
-import { authAction } from '../redux/slice/user/auth-slice'
-import CustomModal from 'components/UI/CustomModal'
 
 const SignIn = () => {
   const [idValue, setIdValue] = useState('')
   const [pwValue, setPwValue] = useState('')
   const [isChecked, setIsChecked] = useState(false)
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
   const getIdVal = useCallback((value: string): void => {
     setIdValue(value)
@@ -26,16 +21,17 @@ const SignIn = () => {
     setPwValue(value)
   }, [])
 
-  const login = useCallback(async (): Promise<void> => {
+  const login = async (): Promise<void> => {
     const auth = getAuth()
     try {
       await signInWithEmailAndPassword(auth, idValue, pwValue)
-      dispatch(authAction.login())
-      navigate('/mypage')
+      const user = auth.currentUser
+      console.log(user)
+      navigate('/story')
     } catch (error) {
       setIsChecked(true)
     }
-  }, [idValue, navigate, pwValue])
+  }
 
   const btnIsValid: boolean =
     pwValue.trim().length >= 6 && idValue.includes('@')

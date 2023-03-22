@@ -10,29 +10,25 @@ import Header from 'components/Header/Header'
 import PublicChoose from 'components/Diary/PublicChoose'
 import DateChoose from 'components/Diary/DateChoose'
 
-interface UserProps {
-  userUid: string
-}
-
-const Diary: React.FC<UserProps> = ({ userUid }) => {
+const Diary: React.FC = () => {
   const dispatch = useDispatch()
   const [title, setTitle] = useState<string>('')
   const [text, setText] = useState<string>('')
   const [textCount, setTextCount] = useState<number>(0)
-
+  const userUid = useSelector((state: RootState) => state.auth.userUid)
   const diary = useSelector(
     (diaryState: RootState) => diaryState.diary.diaryGroup,
   )
 
   useEffect(() => {
-    console.log('다이어리페이지 정보', diary)
+    console.log('다이어리 정보', diary)
   }, [diary])
 
   return (
     <>
       <Header title={'Diary'} />
       <Container style={'bg-primary-100 gap-4 pb-20 items-start pt-16'}>
-        <SelectedPet userUid={userUid}/>
+        <SelectedPet userUid={userUid} />
         <PublicChoose />
         <h2 className="font-bold w-full h-16 shrink-0">
           <input
