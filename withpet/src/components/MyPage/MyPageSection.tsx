@@ -8,8 +8,8 @@ type SectionProps = {
 
 const MyPageSection: React.FC<SectionProps> = ({ text, children }) => {
   return (
-    <section className="mb-4">
-      <h3 className="font-bold ">{text}</h3>
+    <section className="mb-4 flex flex-col justify-center items-center">
+      <h3 className="font-bold text-left w-full">{text}</h3>
       {children}
     </section>
   )
