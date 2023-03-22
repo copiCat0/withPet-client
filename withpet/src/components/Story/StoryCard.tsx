@@ -8,7 +8,7 @@ const storyCard = () => {
   return (
     <article>
       <StoryImage />
-      <StoryWriter />
+      <StoryWriter DiaryWeather={'rainy'} />
       <StoryContent />
       <SubBtn />
     </article>

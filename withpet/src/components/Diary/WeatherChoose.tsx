@@ -4,7 +4,13 @@ import { getDiary } from 'redux/slice/diary/diarySlice'
 import { RootState } from 'redux/store'
 import spritesIcon from 'assets/sprites_icon.png'
 
-const WEATHERS = [
+interface Weather {
+  id: string
+  position: string
+  selectedPosition: string
+}
+
+export const WEATHERS: Weather[] = [
   {
     id: 'sunny',
     position: '-125px -147px',
