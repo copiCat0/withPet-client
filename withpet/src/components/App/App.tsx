@@ -45,24 +45,10 @@ function App() {
           path="/signup"
           element={isLoggedIn ? <AlreadySignIn /> : <SignUp />}
         />
-
-        <Route
-          path="/diary"
-          element={isLoggedIn && <Diary userUid={userUid} />}
+        <Route path="/diary" element={isLoggedIn && <Diary />} />
         />
         <Route path="/mypage" element={<MyPage />} />
-
-        <Route
-          path="/petinfo"
-          element={
-            isLoggedIn ? (
-              <PetInfo userUid={userUid} />
-            ) : (
-              <PetInfo userUid={userUid} />
-            )
-          }
-        />
-
+        <Route path="/petinfo" element={isLoggedIn && <PetInfo />}
         <Route path="/story" element={<Story />} />
       </Routes>
     </>
