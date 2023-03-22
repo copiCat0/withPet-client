@@ -11,7 +11,7 @@ const Story = () => {
       <Container style={'bg-Gray-100 pb-20 pt-20'}>
         <StoryCard />
       </Container>
-      <button onClick={() => auth.signOut()}>로그아웃</button>
+      {/* <button onClick={() => auth.signOut()}>로그아웃</button> */}
     </>
   )
 }
