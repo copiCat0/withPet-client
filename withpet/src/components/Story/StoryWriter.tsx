@@ -1,39 +1,83 @@
-import { WEATHERS } from 'components/Diary/WeatherChoose'
 import React, { useEffect, useState } from 'react'
+import { dbService } from 'firebase-config'
+import { getDoc, doc, collection, getDocs } from 'firebase/firestore'
 
 type StoryWriterProps = {
-  DiaryWeather: string
-  userName: string
+  DiaryWeather: 'sunny' | 'rainy' | 'cloudy' | 'stormy' | 'snowy'
+  userUid: string
+  createTime: number
+  pet: string
 }
 
+interface Weathers {
+  sunny: string
+  rainy: string
+  cloudy: string
+  stormy: string
+  snowy: string
+}
+
+const DiaryWeathers: Weathers = {
+  sunny: 'w-10 h-10 bg-sprites_icon bg-[left_-124px_top_-104px] -125px -147px',
+  rainy: 'w-10 h-10 bg-sprites_icon bg-[left_-83px_top_-108px] -84px -150px',
+  cloudy: 'w-10 h-10 bg-sprites_icon bg-[left_-42px_top_-109px] -43px -151px',
+  stormy: 'w-10 h-10 bg-sprites_icon bg-[left_-1px_top_-105px] -2px -148px',
+  snowy: 'w-10 h-10 bg-sprites_icon bg-[left_-167px_top_-104px] -167px -146px',
+}
+
+const MONTH = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+]
+
 const StoryWriter: React.FC<StoryWriterProps> = ({
-  DiaryWeather,
-  userName,
+  DiaryWeather = 'sunny',
+  createTime,
+  userUid,
+  pet,
 }) => {
-  const [position, setPosition] = useState('bg-[left_-124px_top_-104px]')
+  const getDate = new Date(createTime)
 
-  // 프롭스로 넘어온 날씨랑 같은 배열 찾기
-  const weather = WEATHERS.filter(item => item.id === DiaryWeather)
-
-  // 그 배열에서 좌표값만 구하기
-  const weatherPosition = (arg: string) => {
-    const arr = arg.split('px ')
-
-    return arr.map(num => parseInt(num))
+  const dateList = {
+    year: getDate.getFullYear(),
+    month: MONTH[getDate.getMonth()],
+    day: getDate.getDate().toString(),
   }
 
-  // 좌표
-  const weatherImgPosion = weatherPosition(weather[0].selectedPosition)
-  const weatherBgPosition = `bg-[left_${weatherImgPosion[0]}px_top_${weatherImgPosion[1]}px]`
+  const [userName, setUserName] = useState('')
+  const [userImg, setUserImg] = useState('')
 
-  console.log(weatherBgPosition)
-
+  const petInfoRef = collection(dbService, 'petInfo')
   useEffect(() => {
-    setPosition(weatherBgPosition)
+    const getUser = async () => {
+      try {
+        const petSnap = await getDocs(petInfoRef)
+        const petData = petSnap.docs.map((doc): any => doc.data())
+        const petResult = petData.filter(
+          item => item.user === userUid && item.petName === pet,
+        )
+        setUserImg(petResult[0].petImg)
+        setUserName(petResult[0].petName)
+      } catch (error) {
+        console.error(`사용자 정보를 가져올 수 없습니다. ${error}`)
+      }
+    }
+
+    getUser()
   }, [])
 
   return (
-    <div className={'flex items-center justify-between'}>
+    <div className={'flex items-center justify-between p-1'}>
       <div className={'flex items-center mt-2 text-sm'}>
         <div
           className={
@@ -42,20 +86,20 @@ const StoryWriter: React.FC<StoryWriterProps> = ({
         >
           <img
             className={'object-cover h-full w-full'}
-            src="https://img2.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/25/holapet/20210525081724428qquq.jpg"
-            alt=""
+            src={userImg}
+            alt={`${userName} 프로필`}
           />
         </div>
         <div className={'flex flex-col'}>
           <span className={'font-bold'}>{userName}</span>
-          <span className={'font-normal'}>Mar 06, 2023</span>
+          <span
+            className={'font-normal'}
+          >{`${dateList.month} ${dateList.day} ${dateList.year}`}</span>
         </div>
       </div>
       <div
-        aria-label={'날씨 글자 삽입'}
-        className={`w-10 h-10  bg-sprites_icon ${position}`}
-        // 'w-10 h-10  bg-sprites_icon bg-[left_-42px_top_-109px]'
-        // `w-10 h-10  bg-sprites_icon ${position}`
+        aria-label={DiaryWeather}
+        className={`${DiaryWeathers[DiaryWeather]}`}
       ></div>
     </div>
   )

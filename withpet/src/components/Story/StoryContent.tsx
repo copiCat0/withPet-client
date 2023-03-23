@@ -11,12 +11,15 @@ const StoryContent: React.FC<StoryContentProps> = ({ content, title }) => {
 
   const moreBtnHandler = () => {
     setMore(prev => !prev)
-    if (more && moreBtn.current)
-      (moreBtn.current as HTMLElement).scrollIntoView({ behavior: 'smooth' })
+    if (!more && moreBtn.current)
+      (moreBtn.current as HTMLElement).scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      })
   }
 
   return (
-    <section className={'mt-3'}>
+    <section className={'mt-3 p-1'}>
       <h2 className={' text-xl font-bold leading-6 '}>{title}</h2>
       <p className={`mt-3 ${more ? '' : 'line-clamp-2'}`}>{content}</p>
       <button

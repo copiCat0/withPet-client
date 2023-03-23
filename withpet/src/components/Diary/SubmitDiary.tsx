@@ -33,7 +33,12 @@ const SubmitDiary: React.FC = () => {
 
   const onSubmit = async () => {
     const createTime = moment().format('YYYYMMDDHHmmss')
-    const diaryInfoObj = { ...diary, user: userUid, createTime: createTime }
+    const diaryInfoObj = {
+      ...diary,
+      user: userUid,
+      createTime: createTime,
+      id: new Date().getTime(),
+    }
 
     try {
       await addDoc(collection(dbService, 'diaryInfo'), diaryInfoObj)
