@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { storageService } from 'firebase-config'
-import { getDownloadURL, ref, uploadString } from 'firebase/storage'
+import { useDispatch } from 'react-redux'
 import { addDiaryImg } from 'redux/slice/diary/diarySlice'
-import { RootState } from 'redux/store'
 import SwiperPicture from './SwiperPicture'
 
 type AttachedProps = {
@@ -11,7 +8,6 @@ type AttachedProps = {
 }
 
 const AttachedPicture: React.FC<AttachedProps> = ({ setAlert }) => {
-  const userUid = useSelector((state: RootState) => state.auth.userUid)
   const dispatch = useDispatch()
   const [images, setImages] = useState<string[]>([])
   const MAX_UPLOAD_FILES_COUNT = 4
@@ -30,14 +26,8 @@ const AttachedPicture: React.FC<AttachedProps> = ({ setAlert }) => {
             const { result } = e.target as FileReader
             const data = result as string
             setImages(prev => [...prev, data])
-            const imagesRef = ref(
-              storageService,
-              `diaryImg/${userUid}/${file.name}`,
-            )
-            const response = await uploadString(imagesRef, data, 'data_url')
-            const imagesUrl = await getDownloadURL(response.ref)
             dispatch(
-              addDiaryImg({ id: file.name, url: imagesUrl, origin: data }),
+              addDiaryImg({ id: file.name, origin: data }),
             )
           }
           reader.readAsDataURL(file)
