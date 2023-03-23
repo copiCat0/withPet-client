@@ -7,7 +7,7 @@ const MyPageEditBtn:React.FC = () => {
       <button 
       name="editButton"
       type="button"
-      className="absolute w-4 h-4 m-2 bg-sprites_icon bg-[left_-1px_top_-450px] right-0 p-2"/>
+      className="absolute w-6 h-6 m-2 bg-sprites_icon bg-[left_-1px_top_-401px] right-0 p-2"/>
     </div>
   )
 }
