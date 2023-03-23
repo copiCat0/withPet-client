@@ -85,8 +85,6 @@ const WalkIndex = () => {
         <h2 className="text-white text-[40px] font-bold">{AIR[0].desc}</h2>
         <div className="flex justify-center gap-6 mt-20">
           <WalkSmallCard />
-          <WalkSmallCard />
-          <WalkSmallCard />
         </div>
       </Container>
       <Navigation title={'walkindex'} />
