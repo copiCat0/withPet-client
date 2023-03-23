@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { storageService } from 'firebase-config'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
@@ -6,17 +6,21 @@ import { addDiaryImg } from 'redux/slice/diary/diarySlice'
 import { RootState } from 'redux/store'
 import SwiperPicture from './SwiperPicture'
 
-const AttachedPicture: React.FC = () => {
+type AttachedProps = {
+  setAlert: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const AttachedPicture: React.FC<AttachedProps> = ({ setAlert }) => {
   const userUid = useSelector((state: RootState) => state.auth.userUid)
   const dispatch = useDispatch()
   const [images, setImages] = useState<string[]>([])
   const MAX_UPLOAD_FILES_COUNT = 4
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files!
-    if (!files[0]) return
-    if (images.length + files.length > MAX_UPLOAD_FILES_COUNT) {
-      return alert('최대 4개 사진만 첨부할 수 있습니다.')
+    const files: FileList | null = e.target.files
+    if (files && !files[0]) return
+    if (files && images.length + files.length > MAX_UPLOAD_FILES_COUNT) {
+      return setAlert(true)
     }
     if (files) {
       Array.from(files).forEach(file => {
@@ -45,7 +49,7 @@ const AttachedPicture: React.FC = () => {
   return (
     <>
       <form className="w-full h-10 bg-Gray-100" encType="multipart/form-data">
-        <label htmlFor="attach-img">
+        <label htmlFor="attach-img" role="button">
           <span className="flex w-full h-full justify-center items-center cursor-pointer">
             + 사진첨부
           </span>
@@ -59,7 +63,11 @@ const AttachedPicture: React.FC = () => {
           />
         </label>
       </form>
-      <SwiperPicture images={images} setImages={setImages} />
+      {images[0] ? (
+        <SwiperPicture images={images} setImages={setImages} />
+      ) : (
+        <p className="text-xs mx-auto text-Gray-300">사진 1장은 필수입니다.</p>
+      )}
     </>
   )
 }
