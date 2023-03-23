@@ -20,12 +20,12 @@ const Navigation: FC<NavigationProps> = ({ title }) => {
                 ? {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',
-                    backgroundPosition: '-1px -1px',
+                    backgroundPosition: '0 0',
                   }
                 : {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',
-                    backgroundPosition: '-1px -53px',
+                    backgroundPosition: '0 -45px',
                   }
             }
           />
@@ -38,12 +38,12 @@ const Navigation: FC<NavigationProps> = ({ title }) => {
                 ? {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',
-                    backgroundPosition: '-41px -3px',
+                    backgroundPosition: '-41px -2px',
                   }
                 : {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',
-                    backgroundPosition: '-41px -55px',
+                    backgroundPosition: '-41px -47px',
                   }
             }
           />
@@ -56,12 +56,12 @@ const Navigation: FC<NavigationProps> = ({ title }) => {
                 ? {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',
-                    backgroundPosition: '-81px 0',
+                    backgroundPosition: '-82px 0',
                   }
                 : {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',
-                    backgroundPosition: '-81px -52px',
+                    backgroundPosition: '-82px -45px',
                   }
             }
           />
@@ -74,12 +74,12 @@ const Navigation: FC<NavigationProps> = ({ title }) => {
                 ? {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',
-                    backgroundPosition: '-122px -2px',
+                    backgroundPosition: '-124px -1px',
                   }
                 : {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',
-                    backgroundPosition: '-122px -54px',
+                    backgroundPosition: '-124px -46px',
                   }
             }
           />
@@ -92,12 +92,12 @@ const Navigation: FC<NavigationProps> = ({ title }) => {
                 ? {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',
-                    backgroundPosition: '-161px -1px',
+                    backgroundPosition: '-164px 0',
                   }
                 : {
                     backgroundImage: `url(${logoSprite})`,
                     backgroundRepeat: 'no-repeat',
-                    backgroundPosition: '-161px -53px',
+                    backgroundPosition: '-164px -45px',
                   }
             }
           />

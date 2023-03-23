@@ -18,11 +18,11 @@ interface Weathers {
 }
 
 const DiaryWeathers: Weathers = {
-  sunny: 'w-10 h-10 bg-sprites_icon bg-[left_-124px_top_-104px] -125px -147px',
-  rainy: 'w-10 h-10 bg-sprites_icon bg-[left_-83px_top_-108px] -84px -150px',
-  cloudy: 'w-10 h-10 bg-sprites_icon bg-[left_-42px_top_-109px] -43px -151px',
-  stormy: 'w-10 h-10 bg-sprites_icon bg-[left_-1px_top_-105px] -2px -148px',
-  snowy: 'w-10 h-10 bg-sprites_icon bg-[left_-167px_top_-104px] -167px -146px',
+  sunny: 'w-10 h-10 bg-sprites_icon bg-[left_-132px_top_-90px] -133px -140px',
+  rainy: 'w-10 h-10 bg-sprites_icon bg-[left_-88px_top_-94px] -90px -143px',
+  cloudy: 'w-10 h-10 bg-sprites_icon bg-[left_-44px_top_-94px] -47px -143px',
+  stormy: 'w-10 h-10 bg-sprites_icon bg-[left_0px_top_-90px] -1px -140px',
+  snowy: 'w-10 h-10 bg-sprites_icon bg-[left_-178px_top_-90px] -177px -139px',
 }
 
 const MONTH = [

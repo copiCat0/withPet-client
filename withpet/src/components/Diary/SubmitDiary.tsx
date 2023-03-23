@@ -81,7 +81,7 @@ const SubmitDiary: React.FC = () => {
           style={{
             backgroundImage: `url(${logoSprite})`,
             backgroundRepeat: 'no-repeat',
-            backgroundPosition: able ? '-51px -242px' : '-3px -242px',
+            backgroundPosition: able ? '-39px -264px' : '0 -264px',
           }}
         />
       </button>

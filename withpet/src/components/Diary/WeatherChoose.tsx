@@ -13,28 +13,28 @@ interface Weather {
 export const WEATHERS: Weather[] = [
   {
     id: 'sunny',
-    position: '-125px -147px',
-    selectedPosition: '-124px -104px',
+    position: '-133px -140px',
+    selectedPosition: '-132px -90px',
   },
   {
     id: 'rainy',
-    position: '-84px -150px',
-    selectedPosition: '-83px -108px',
+    position: '-90px -143px',
+    selectedPosition: '-88px -94px',
   },
   {
     id: 'cloudy',
-    position: '-43px -151px',
-    selectedPosition: '-42px -109px',
+    position: '-47px -143px',
+    selectedPosition: '-44px -94px',
   },
   {
     id: 'stormy',
-    position: '-2px -148px',
-    selectedPosition: '-1px -105px',
+    position: '-1px -140px',
+    selectedPosition: '0 -90px',
   },
   {
     id: 'snowy',
-    position: '-167px -146px',
-    selectedPosition: '-167px -104px',
+    position: '-177px -139px',
+    selectedPosition: '-178px -90px',
   },
 ]
 
