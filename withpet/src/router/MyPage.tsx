@@ -3,7 +3,7 @@ import Header from 'components/Header/Header'
 import Container from 'components/UI/Container'
 import Navigation from 'components/Navigation/Navigation'
 import MyPageSection from 'components/MyPage/MyPageSection'
-import MyPageMyPet from './../components/MyPage/MyPageMyPet'
+import MyPageMyPet from 'components/MyPage/MyPageMyPet'
 import MyPageAddBtn from 'components/MyPage/MyPageAddBtn'
 import MyPageCalendar from 'components/MyPage/MyPageCalendar'
 
