@@ -8,6 +8,8 @@ import { dbService } from 'firebase-config'
 import { resetDiary } from 'redux/slice/diary/diarySlice'
 import moment from 'moment'
 import 'moment/locale/ko'
+import { storageService } from 'firebase-config'
+import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 
 const SubmitDiary: React.FC = () => {
   const navigate = useNavigate()
@@ -16,6 +18,9 @@ const SubmitDiary: React.FC = () => {
   const diary = useSelector(
     (diaryState: RootState) => diaryState.diary.diaryGroup,
   )
+  const imgGroup = useSelector(
+    (diaryState: RootState) => diaryState.diary.imgGroup,
+  )
   const [able, setAble] = useState<boolean>(true)
 
   useEffect(() => {
@@ -23,7 +28,7 @@ const SubmitDiary: React.FC = () => {
       diary.pet === '' ||
       diary.text === '' ||
       diary.title === '' ||
-      diary.imagesUrl[0].url === ''
+      imgGroup[0].id === ''
     ) {
       setAble(true)
     } else {
@@ -32,15 +37,29 @@ const SubmitDiary: React.FC = () => {
   }, [diary])
 
   const onSubmit = async () => {
+    const imgArr = [{ id: '', url: '' }]
     const createTime = moment().format('YYYYMMDDHHmmss')
+    imgGroup.forEach(async file => {
+      const imgName = file.id
+      const imagesRef = ref(storageService, `diaryImg/${userUid}/${imgName}`)
+      const response = await uploadString(imagesRef, file.origin, 'data_url')
+      const imgUrl = await getDownloadURL(response.ref)
+      if(imgArr[0].id === ''){
+        imgArr.shift()
+      }
+      imgArr.push({ id: imgName, url: imgUrl })
+    })
+
     const diaryInfoObj = {
       ...diary,
       user: userUid,
       createTime: createTime,
       id: new Date().getTime(),
+      imagesUrl: imgArr,
     }
 
     try {
+      console.log(diaryInfoObj)
       await addDoc(collection(dbService, 'diaryInfo'), diaryInfoObj)
     } catch (error) {
       console.error('Error adding document:', error)
