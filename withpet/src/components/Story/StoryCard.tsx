@@ -23,6 +23,7 @@ const StoryCard: React.FC<StoryCardProps> = ({ data }) => {
         DiaryWeather={data.weather}
         userUid={data.user}
         createTime={data.id}
+        date={data.date}
         pet={data.pet}
       />
       <StoryContent title={data.title} content={data.text} />
