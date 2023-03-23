@@ -7,40 +7,22 @@ type HeaderProps = {
   title?: string
 }
 
-const Header: FC<HeaderProps> = ({ title }) => {
-  let headerContent = null
-
-  switch (title) {
-    case 'MyPage':
-      headerContent = (
-        <div
-          className="w-5 h-5"
-          style={{
-            backgroundImage: `url(${logoSprite})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: '-2px -276px',
-          }}
-        />
-      )
-      break
-    default:
-      headerContent = (
-        <div
-          className="w-8 h-8"
-          style={{
-            backgroundImage: `url(${logoSprite})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: '0 -385px',
-          }}
-        />
-      )
-      break
-  }
+const Header: FC<HeaderProps> = ({ title = '' }) => {
+  const headerContent = (
+    <div
+      className="w-8 h-8"
+      style={{
+        backgroundImage: `url(${logoSprite})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: title === 'MyPage' ? '0 -308px' : '-39px -308px',
+      }}
+    />
+  )
 
   return (
-    <header className="absolute flex flex-row justify-between w-full gap-10 px-2 mx-auto -translate-x-1/2 border-b border-black border-solid max-w-scr h-14 leading-12 bg-primary-100 flex-nowrap left-1/2">
+    <header className="w-full max-w-scr h-14 px-2 absolute left-1/2 -translate-x-1/2 border-b border-black border-solid leading-12 bg-primary-100 flex flex-row justify-between">
       <img src={logoHeader} alt="logo" />
-      <p className="font-bold">{title}</p>
+      <p className="font-bold absolute left-1/2 -translate-x-1/2">{title}</p>
       {title === 'Diary' ? (
         <SubmitDiary />
       ) : (
