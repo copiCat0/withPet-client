@@ -1,7 +1,16 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 
-const SubBtn = () => {
+type SubBtnProps = {
+  userUid: string
+}
+
+const SubBtn: React.FC<SubBtnProps> = ({ userUid }) => {
   const [like, setLike] = useState(false)
+  const currentUserUid = useSelector((state: RootState) => state.auth.userUid)
+
+  console.log(currentUserUid)
 
   const likeBtnHandler = () => {
     setLike(prev => !prev)
@@ -42,7 +51,11 @@ const SubBtn = () => {
           공유
         </button>
       </div>
-      <div className={'py-1 flex gap-3'}>
+      <div
+        className={`py-1 flex gap-3 ${
+          userUid === currentUserUid ? '' : 'hidden'
+        } `}
+      >
         <button className={'p-1'} type={'button'}>
           수정
         </button>
