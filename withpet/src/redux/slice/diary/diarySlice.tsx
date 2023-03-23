@@ -15,8 +15,8 @@ export interface DiaryState {
     weather: string
     text: string
     pet: string
-    imagesUrl: { id: string; url: string; origin: string }[]
   }
+  imgGroup: { id: string; origin: string }[]
 }
 
 const initialState: DiaryState = {
@@ -27,8 +27,8 @@ const initialState: DiaryState = {
     weather: 'sunny',
     text: '',
     pet: '',
-    imagesUrl: [{ id: '', url: '', origin: '' }],
   },
+  imgGroup: [{ id: '', origin: '' }],
 }
 
 export const diarySlice = createSlice({
@@ -39,19 +39,20 @@ export const diarySlice = createSlice({
       state.diaryGroup = action.payload
     },
     addDiaryImg: (state, action) => {
-      if (state.diaryGroup.imagesUrl[0].url === '') {
-        state.diaryGroup.imagesUrl.shift()
+      if (state.imgGroup[0].origin === '') {
+        state.imgGroup.shift()
       }
-      state.diaryGroup.imagesUrl.push(action.payload)
+      state.imgGroup.push(action.payload)
     },
     updateDiaryImg: (state, action) => {
-      const currentData = state.diaryGroup.imagesUrl.filter(
+      const currentData = state.imgGroup.filter(
         el => el.origin !== action.payload,
       )
-      state.diaryGroup.imagesUrl = currentData
+      state.imgGroup = currentData
     },
     resetDiary: state => {
       state.diaryGroup = initialState.diaryGroup
+      state.imgGroup = initialState.imgGroup
     },
   },
 })
