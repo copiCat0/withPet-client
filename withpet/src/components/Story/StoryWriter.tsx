@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { dbService } from 'firebase-config'
-import { getDoc, doc, collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs } from 'firebase/firestore'
 
 type StoryWriterProps = {
   DiaryWeather: 'sunny' | 'rainy' | 'cloudy' | 'stormy' | 'snowy'
@@ -43,7 +43,7 @@ const MONTH = [
 
 const StoryWriter: React.FC<StoryWriterProps> = ({
   DiaryWeather = 'sunny',
-  createTime,
+
   userUid,
   pet,
   date,

@@ -24,7 +24,7 @@ function App() {
     onAuthStateChanged(auth, user => {
       if (user) {
         setIsLoggedIn(true)
-        console.log(user)
+        // console.log(user)
         dispatch(authAction.getUserUid(user.uid))
       } else {
         setIsLoggedIn(false)
