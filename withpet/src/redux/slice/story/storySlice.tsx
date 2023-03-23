@@ -20,7 +20,7 @@ export const storySlice = createSlice({
   initialState,
   reducers: {
     getVisibility: (state, action) => {
-      state.storyGroup = action.payload
+      state.storyGroup.visibility = action.payload
     },
   },
 })
