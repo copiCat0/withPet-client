@@ -1,9 +1,10 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, dbService } from 'firebase-config'
 import { collection, addDoc } from 'firebase/firestore'
-
 import logoSignUp from 'assets/Logo/signUpLogo.webp'
+import Container from 'components/UI/Container'
+import SignUpInput from 'components/SignUp/SignUpInput'
 
 const SignUp = () => {
   const [email, setEmail] = useState('')
@@ -18,18 +19,27 @@ const SignUp = () => {
     const {
       target: { name, value },
     } = e
-    if (name === 'email') {
-      setEmail(value)
-    } else if (name === 'password') {
-      setPassword(value)
-    } else if (name === 'checkPassword') {
-      setCheckPassword(value)
-    } else if (name === 'userName') {
-      setUserName(value)
-    } else if (name === 'userNickName') {
-      setUserNickName(value)
-    } else if (name === 'phoneNumber') {
-      setPhoneNumber(value)
+    switch (name) {
+      case 'email':
+        setEmail(value)
+        break
+      case 'password':
+        setPassword(value)
+        break
+      case 'checkPassword':
+        setCheckPassword(value)
+        break
+      case 'userName':
+        setUserName(value)
+        break
+      case 'userNickName':
+        setUserNickName(value)
+        break
+      case 'phoneNumber':
+        setPhoneNumber(value)
+        break
+      default:
+        break
     }
   }
 
@@ -69,81 +79,85 @@ const SignUp = () => {
   }
 
   return (
-    <section className="max-w-scr bg-primary-100 py-6 flex flex-col gap-2.5 justify-center items-center">
-      <img src={logoSignUp} alt="logo" className="h-40 w-72" />
-      <form
-        className="flex flex-col items-center justify-center w-full gap-6 max-w-scr"
-        onSubmit={onSubmit}
-      >
-        <input
-          type="email"
-          name="email"
-          value={email}
-          onChange={onChange}
-          placeholder="이메일"
-          required
-          className="py-4 pl-4 text-xs font-black border-2 border-black border-solid w-85 h-14 text-Gray-400"
-        />
-        <input
-          type="button"
-          value="중복확인"
-          className="font-bold text-white border-2 border-black border-solid w-85 h-14 bg-primary-200 shadow-100"
-        />
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={onChange}
-          placeholder="비밀번호"
-          required
-          className="py-4 pl-4 text-xs font-black border-2 border-black border-solid w-85 h-14 text-Gray-400"
-        />
-        <input
-          type="password"
-          name="checkPassword"
-          value={checkPassword}
-          onChange={onChange}
-          placeholder="비밀번호확인"
-          required
-          className="py-4 pl-4 text-xs font-black border-2 border-black border-solid w-85 h-14 text-Gray-400"
-        />
-        <input
-          type="text"
-          name="userName"
-          value={userName}
-          onChange={onChange}
-          placeholder="이름"
-          required
-          className="py-4 pl-4 text-xs font-black border-2 border-black border-solid w-85 h-14 text-Gray-400"
-        />
-        <input
-          type="text"
-          name="userNickName"
-          value={userNickName}
-          onChange={onChange}
-          placeholder="닉네임"
-          required
-          className="py-4 pl-4 text-xs font-black border-2 border-black border-solid w-85 h-14 text-Gray-400"
-        />
-        <input
-          type="text"
-          name="phoneNumber"
-          value={phoneNumber}
-          onChange={onChange}
-          placeholder="전화번호"
-          required
-          className="py-4 pl-4 text-xs font-black border-2 border-black border-solid w-85 h-14 text-Gray-400"
-        />
-        <input
-          type="submit"
-          value="회원가입"
-          className="font-bold text-white border-2 border-black border-solid w-85 h-14 bg-primary-200 shadow-100"
-        />
-        {errorMsg && (
-          <span className="text-xs text-left text-primary-300">{errorMsg}</span>
-        )}
-      </form>
-    </section>
+    <Container style={'bg-primary-100 justify-center'}>
+      <section className="max-w-scr py-6 flex flex-col gap-2.5 justify-center items-center">
+        <img src={logoSignUp} alt="logo" className="h-40 w-72" />
+        <form
+          className="flex flex-col items-center justify-center w-full gap-6 max-w-scr"
+          onSubmit={onSubmit}
+        >
+          <SignUpInput
+            id="email"
+            type="email"
+            name="email"
+            value={email}
+            onChange={onChange}
+            placeholder="이메일"
+            required
+          />
+          <input
+            type="button"
+            value="중복확인"
+            className="font-bold text-white border-2 border-black border-solid w-85 h-14 bg-primary-200 shadow-100"
+          />
+          <SignUpInput
+            id="password"
+            type="password"
+            name="password"
+            value={password}
+            onChange={onChange}
+            placeholder="비밀번호"
+            required
+          />
+          <SignUpInput
+            id="checkPassword"
+            type="password"
+            name="checkPassword"
+            value={checkPassword}
+            onChange={onChange}
+            placeholder="비밀번호확인"
+            required
+          />
+          <SignUpInput
+            id="userName"
+            type="text"
+            name="userName"
+            value={userName}
+            onChange={onChange}
+            placeholder="이름"
+            required
+          />
+          <SignUpInput
+            id="userNickName"
+            type="text"
+            name="userNickName"
+            value={userNickName}
+            onChange={onChange}
+            placeholder="닉네임"
+            required
+          />
+          <SignUpInput
+            id="phoneNumber"
+            type="text"
+            name="phoneNumber"
+            value={phoneNumber}
+            onChange={onChange}
+            placeholder="전화번호"
+            required
+          />
+          <input
+            type="submit"
+            value="회원가입"
+            className="font-bold text-white border-2 border-black border-solid w-85 h-14 bg-primary-200 shadow-100"
+          />
+          {errorMsg && (
+            <span className="text-xs text-left text-primary-300">
+              {errorMsg}
+            </span>
+          )}
+        </form>
+      </section>
+    </Container>
   )
 }
 
