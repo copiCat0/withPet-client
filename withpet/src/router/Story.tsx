@@ -1,10 +1,10 @@
 import React from 'react'
 import Container from 'components/UI/Container'
-import StoryCard from './../components/Story/StoryCard'
+import StoryCard from 'components/Story/StoryCard'
 import Header from 'components/Header/Header'
 import { auth } from 'firebase-config'
 import Navigation from 'components/Navigation/Navigation'
-import StoryTap from './../components/Story/StoryTap'
+import StoryTap from 'components/Story/StoryTap'
 
 const Story = () => {
   return (
