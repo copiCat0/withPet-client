@@ -54,7 +54,7 @@ const SwiperPicture: React.FC<SwiperProps> = ({
                 alt={`${index}번째 사진`}
               />
               <button
-                className="absolute top-2 right-2 w-3 h-3 bg-sprites_icon cursor-pointer bg-[left_-40px_top_-451px]"
+                className="absolute top-2 right-2 w-3 h-3 bg-sprites_icon cursor-pointer bg-[left_-55px_top_-404px]"
                 onClick={() => onFileClear(url)}
                 type="submit"
                 aria-label="삭제 버튼"
