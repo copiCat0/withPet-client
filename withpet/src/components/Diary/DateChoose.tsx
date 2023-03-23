@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDiary } from 'redux/slice/diary/diarySlice'
 import { RootState } from 'redux/store'
@@ -15,10 +15,6 @@ const DateChoose: React.FC = () => {
   const date = now.getDate() > 9 ? now.getDate() : `0${now.getDate()}`
   const current = `${year}-${month}-${date}`
   const [selectedDate, setSelectedDate] = useState<string>(current)
-
-  useEffect(() => {
-    dispatch(getDiary({ ...diary, date: current }))
-  }, [])
 
   const handleDateSelect = (date: string) => {
     setSelectedDate(date)
