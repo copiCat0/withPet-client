@@ -1,19 +1,48 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
+import { dbService } from 'firebase-config'
+import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore'
+import { useNavigate } from 'react-router-dom'
 
 type SubBtnProps = {
   userUid: string
+  id: number
 }
 
-const SubBtn: React.FC<SubBtnProps> = ({ userUid }) => {
+const SubBtn: React.FC<SubBtnProps> = ({ userUid, id }) => {
   const [like, setLike] = useState(false)
+  const [docId, setDocId] = useState<string>('')
   const currentUserUid = useSelector((state: RootState) => state.auth.userUid)
-
-  console.log(currentUserUid)
+  const navigate = useNavigate()
 
   const likeBtnHandler = () => {
     setLike(prev => !prev)
+  }
+
+  const diaryCollectionRef = collection(dbService, 'diaryInfo')
+  useEffect(() => {
+    const getDocId = async () => {
+      try {
+        const quarySnapshot = await getDocs(diaryCollectionRef)
+        quarySnapshot.forEach((doc): any => {
+          if (doc.data().id === id) {
+            setDocId(doc.id)
+          }
+        })
+        console.log(docId)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    getDocId()
+  }, [])
+
+  const delDoc = async () => {
+    const docRef = doc(dbService, 'diaryInfo', docId)
+    await deleteDoc(docRef)
+    navigate('/story')
   }
 
   return (
@@ -59,7 +88,7 @@ const SubBtn: React.FC<SubBtnProps> = ({ userUid }) => {
         <button className={'p-1'} type={'button'}>
           수정
         </button>
-        <button className={'p-1'} type={'button'}>
+        <button className={'p-1'} type={'button'} onClick={delDoc}>
           삭제
         </button>
       </div>

@@ -11,11 +11,6 @@ type StoryCardProps = {
 }
 
 const StoryCard: React.FC<StoryCardProps> = ({ data }) => {
-  const imgData = {
-    id: data.imagesUrl[0].id,
-    url: data.imagesUrl[0].url,
-  }
-
   return (
     <article key={data.id} className={'mb-5'}>
       <StorySwiperImg imagesData={data.imagesUrl} />
@@ -27,7 +22,7 @@ const StoryCard: React.FC<StoryCardProps> = ({ data }) => {
         pet={data.pet}
       />
       <StoryContent title={data.title} content={data.text} />
-      <SubBtn userUid={data.user} />
+      <SubBtn userUid={data.user} id={data.id} />
     </article>
   )
 }

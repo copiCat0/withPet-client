@@ -1,18 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-
 export interface StoryState {
   storyGroup: {
     visibility: boolean
   }
-
 }
 
 const initialState: StoryState = {
   storyGroup: {
-    visibility: true
-  }
-
+    visibility: true,
+  },
 }
 
 export const storySlice = createSlice({

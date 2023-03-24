@@ -43,7 +43,6 @@ const MONTH = [
 
 const StoryWriter: React.FC<StoryWriterProps> = ({
   DiaryWeather = 'sunny',
-
   userUid,
   pet,
   date,
@@ -87,7 +86,7 @@ const StoryWriter: React.FC<StoryWriterProps> = ({
       <div className={'flex items-center mt-2 text-sm'}>
         <div
           className={
-            'w-14 h-14 mr-3 rounded-full bg-sprites_icon bg-[left_-58px_top_-190px] bg-slate-700 overflow-hidden'
+            'w-14 h-14 mr-3 rounded-full bg-sprites_icon bg-[left_0px_top_-429px] bg-slate-700 overflow-hidden'
           }
         >
           <img
