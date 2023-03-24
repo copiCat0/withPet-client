@@ -35,8 +35,8 @@ const initialState: WalkState = {
     color: '',
   },
   walkLocation: {
-    lat: '',
-    lng: '',
+    lat: '37.574515',
+    lng: '126.976930',
   },
   walkLoading: false,
   walkWeather: {

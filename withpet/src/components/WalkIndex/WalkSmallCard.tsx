@@ -30,6 +30,9 @@ const WalkSmallCard = () => {
   const SMCARD = useSelector(
     (walkState: RootState) => walkState.walk.walkSMCARD,
   )
+  const loca = useSelector(
+    (walkState: RootState) => walkState.walk.walkLocation,
+  )
   const dispatch = useDispatch()
 
   const onSuccess = (location: {
@@ -57,14 +60,16 @@ const WalkSmallCard = () => {
     })
   }
 
-  const currentWeather = async (lat: number, lon: number) => {
+  const currentWeather = async (lat: string, lon: string) => {
     try {
-      const url = `https://api.openweathermap.org/data/2.5/weather?lang=kr&units=metric&lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API}`
+      const url = new URL(
+        `https://api.openweathermap.org/data/2.5/weather?lang=kr&units=metric&lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API}`,
+      )
       dispatch(getWalkLoading(true))
       const response = await fetch(url)
       const data = await response.json()
       const temp = Math.floor(data.main.temp)
-      const rain = data.rain === undefined ? 0 : data.rain[0]
+      const rain = data.rain === undefined ? 0 : data.rain[0][0]
       dispatch(getWalkWeather({ ...weather, temp, rain }))
       dispatch(updateTemp(temp))
       dispatch(updateRain(rain))
@@ -74,8 +79,8 @@ const WalkSmallCard = () => {
     }
   }
 
-  const getCurrentLocation = () => {
-    return new Promise(res => {
+  const getCurrentLocation = () =>
+    new Promise(res => {
       if (!('geolocation' in navigator)) {
         onError({
           code: 0,
@@ -84,14 +89,10 @@ const WalkSmallCard = () => {
       }
       res(navigator.geolocation.getCurrentPosition(onSuccess, onError))
     })
-  }
 
   useEffect(() => {
     getCurrentLocation().then(() => {
-      currentWeather(
-        location.coordinates?.lat as number,
-        location.coordinates?.lng as number,
-      )
+      currentWeather(loca.lat, loca.lng)
     })
   }, [])
 
