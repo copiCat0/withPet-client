@@ -38,7 +38,7 @@ export const SMCARD: SmallCard[] = [
 
 const WalkSmallCard = () => {
   return (
-    <>
+    <div className="flex justify-center gap-6 mt-20">
       {SMCARD.map((data, idx) => (
         <div
           className="bg-white w-28 h-32 flex flex-col items-center justify-center rounded-xl p-4"
@@ -50,7 +50,7 @@ const WalkSmallCard = () => {
               backgroundPosition: `${data.position}`,
               width: `${data.width}`,
               height: `${data.height}`,
-              marginBottom:'8px'
+              marginBottom: '8px',
             }}
           ></div>
           <h3>{data.title}</h3>
@@ -60,7 +60,7 @@ const WalkSmallCard = () => {
           </p>
         </div>
       ))}
-    </>
+    </div>
   )
 }
 
