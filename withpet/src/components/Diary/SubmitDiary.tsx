@@ -37,35 +37,35 @@ const SubmitDiary: React.FC = () => {
   }, [diary])
 
   const onSubmit = async () => {
-    const imgArr = [{ id: '', url: '' }]
     const createTime = moment().format('YYYYMMDDHHmmss')
-    imgGroup.forEach(async file => {
+
+    const imageGroupPromises = imgGroup.map(file => {
       const imgName = file.id
       const imagesRef = ref(storageService, `diaryImg/${userUid}/${imgName}`)
-      const response = await uploadString(imagesRef, file.origin, 'data_url')
-      const imgUrl = await getDownloadURL(response.ref)
-      if(imgArr[0].id === ''){
-        imgArr.shift()
-      }
-      imgArr.push({ id: imgName, url: imgUrl })
+
+      return uploadString(imagesRef, file.origin, 'data_url')
+        .then(response => getDownloadURL(response.ref))
+        .then(imgUrl => ({ id: imgName, url: imgUrl }))
     })
 
-    const diaryInfoObj = {
-      ...diary,
-      user: userUid,
-      createTime: createTime,
-      id: new Date().getTime(),
-      imagesUrl: imgArr,
-    }
-
-    try {
-      console.log(diaryInfoObj)
-      await addDoc(collection(dbService, 'diaryInfo'), diaryInfoObj)
-    } catch (error) {
-      console.error('Error adding document:', error)
-    }
-    dispatch(resetDiary())
-    navigate('/story')
+    Promise.all(imageGroupPromises)
+      .then(imageUrls => ({
+        ...diary,
+        user: userUid,
+        createTime: createTime,
+        id: new Date().getTime(),
+        imagesUrl: imageUrls,
+      }))
+      .then(diaryInfoObj => {
+        addDoc(collection(dbService, 'diaryInfo'), diaryInfoObj)
+      })
+      .catch(error => {
+        console.error('Error adding document:', error)
+      })
+      .finally(() => {
+        dispatch(resetDiary())
+        navigate('/story')
+      })
   }
 
   return (

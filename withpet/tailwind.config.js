@@ -16,6 +16,16 @@ module.exports = {
           400: '#6A696B',
         },
         contentText: '#212121',
+        Air:{
+          100:'#2C75BA',
+          200:'#2899D5',
+          300:'#15ADC2',
+          400:'#349043',
+          500:'#F68E1F',
+          600:'#E64D23',
+          700:'#D42E30',
+          800:'#212121'
+        }
       },
       fontFamily: {
         sans: ['Pretendard', 'sans-serif'],
