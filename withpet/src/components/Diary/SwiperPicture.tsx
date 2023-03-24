@@ -4,8 +4,6 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/pagination'
-import { storageService } from 'firebase-config'
-import { deleteObject, ref } from 'firebase/storage'
 import { RootState } from 'redux/store'
 import { updateDiaryImg } from 'redux/slice/diary/diarySlice'
 
@@ -18,22 +16,15 @@ const SwiperPicture: React.FC<SwiperProps> = ({
   images,
   setImages,
 }): JSX.Element => {
-  const userUid = useSelector((state: RootState) => state.auth.userUid)
   const imgList = useSelector(
-    (diaryState: RootState) => diaryState.diary.diaryGroup.imagesUrl,
+    (diaryState: RootState) => diaryState.diary.imgGroup,
   )
   const dispatch = useDispatch()
 
   const onFileClear = async (url: string) => {
     const reImgArr = images.filter(el => el !== url)
     setImages([...reImgArr])
-    imgList.forEach(async element => {
-      if (element.origin === url)
-        await deleteObject(
-          ref(storageService, `diaryImg/${userUid}/${element.id}`),
-        )
-      dispatch(updateDiaryImg(url))
-    })
+    imgList.forEach(() => dispatch(updateDiaryImg(url)))
   }
 
   return (
@@ -63,7 +54,7 @@ const SwiperPicture: React.FC<SwiperProps> = ({
                 alt={`${index}번째 사진`}
               />
               <button
-                className="absolute top-2 right-2 w-3 h-3 bg-sprites_icon cursor-pointer bg-[left_-40px_top_-451px]"
+                className="absolute top-2 right-2 w-3 h-3 bg-sprites_icon cursor-pointer bg-[left_-55px_top_-404px]"
                 onClick={() => onFileClear(url)}
                 type="submit"
                 aria-label="삭제 버튼"

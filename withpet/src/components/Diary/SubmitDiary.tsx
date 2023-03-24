@@ -8,6 +8,8 @@ import { dbService } from 'firebase-config'
 import { resetDiary } from 'redux/slice/diary/diarySlice'
 import moment from 'moment'
 import 'moment/locale/ko'
+import { storageService } from 'firebase-config'
+import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 
 const SubmitDiary: React.FC = () => {
   const navigate = useNavigate()
@@ -16,6 +18,9 @@ const SubmitDiary: React.FC = () => {
   const diary = useSelector(
     (diaryState: RootState) => diaryState.diary.diaryGroup,
   )
+  const imgGroup = useSelector(
+    (diaryState: RootState) => diaryState.diary.imgGroup,
+  )
   const [able, setAble] = useState<boolean>(true)
 
   useEffect(() => {
@@ -23,7 +28,7 @@ const SubmitDiary: React.FC = () => {
       diary.pet === '' ||
       diary.text === '' ||
       diary.title === '' ||
-      diary.imagesUrl[0].url === ''
+      imgGroup[0].id === ''
     ) {
       setAble(true)
     } else {
@@ -33,20 +38,34 @@ const SubmitDiary: React.FC = () => {
 
   const onSubmit = async () => {
     const createTime = moment().format('YYYYMMDDHHmmss')
-    const diaryInfoObj = {
-      ...diary,
-      user: userUid,
-      createTime: createTime,
-      id: new Date().getTime(),
-    }
 
-    try {
-      await addDoc(collection(dbService, 'diaryInfo'), diaryInfoObj)
-    } catch (error) {
-      console.error('Error adding document:', error)
-    }
-    dispatch(resetDiary())
-    navigate('/story')
+    const imageGroupPromises = imgGroup.map(file => {
+      const imgName = file.id
+      const imagesRef = ref(storageService, `diaryImg/${userUid}/${imgName}`)
+
+      return uploadString(imagesRef, file.origin, 'data_url')
+        .then(response => getDownloadURL(response.ref))
+        .then(imgUrl => ({ id: imgName, url: imgUrl }))
+    })
+
+    Promise.all(imageGroupPromises)
+      .then(imageUrls => ({
+        ...diary,
+        user: userUid,
+        createTime: createTime,
+        id: new Date().getTime(),
+        imagesUrl: imageUrls,
+      }))
+      .then(diaryInfoObj => {
+        addDoc(collection(dbService, 'diaryInfo'), diaryInfoObj)
+      })
+      .catch(error => {
+        console.error('Error adding document:', error)
+      })
+      .finally(() => {
+        dispatch(resetDiary())
+        navigate('/story')
+      })
   }
 
   return (
