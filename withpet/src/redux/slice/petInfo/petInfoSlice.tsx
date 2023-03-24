@@ -10,7 +10,8 @@ export interface PetInfoState {
     petNeuter: string
   },
   isCreate: boolean,
-  petInfoId: string
+  petInfoId: string,
+  imgData: string,
 }
 
 const initialState: PetInfoState = {
@@ -23,7 +24,8 @@ const initialState: PetInfoState = {
     petNeuter: 'yes',
   },
   isCreate: false,
-  petInfoId: ''
+  petInfoId: '',
+  imgData: '',
 }
 
 const petInfoSlice = createSlice({
@@ -39,10 +41,16 @@ const petInfoSlice = createSlice({
     create:(state, action):void => {
       state.isCreate = true
       state.petInfoId = action.payload
+    },
+    getImgData: (state, action) => {
+      state.imgData = action.payload
+    },
+    resetPetInfo: state =>{
+      state.petInfoGroup = initialState.petInfoGroup
     }
   },
 })
 
-export const { getPetInfo, getPetImg, create } = petInfoSlice.actions
+export const { getPetInfo, getPetImg, create, getImgData, resetPetInfo } = petInfoSlice.actions
 
 export default petInfoSlice.reducer

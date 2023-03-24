@@ -1,13 +1,9 @@
 import 'components/App/App.css'
 import React, { useState } from 'react'
-import { RootState } from 'redux/store'
-import { useDispatch, useSelector } from 'react-redux'
-import { getPetImg } from 'redux/slice/petInfo/petInfoSlice'
-import { storageService } from 'firebase-config'
-import { getDownloadURL, ref, uploadString } from 'firebase/storage'
+import { useDispatch } from 'react-redux'
+import { getImgData, getPetImg } from 'redux/slice/petInfo/petInfoSlice'
 
 const PetInfoImg: React.FC = () => {
-  const userUid = useSelector((state: RootState) => state.auth.userUid)
   const [attachment, setAttachment] = useState<string>('')
   const [image, setImage] = useState<boolean>(false)
   const dispatch = useDispatch()
@@ -21,13 +17,8 @@ const PetInfoImg: React.FC = () => {
         if (result) {
           const data = result as string
           setAttachment(data)
-
-          const imgName = theFile.name
-          const imgRef = ref(storageService, `petImg/${userUid}/${imgName}`)
-          const response = await uploadString(imgRef, data, 'data_url')
-          const imgUrl = await getDownloadURL(response.ref)
-
-          dispatch(getPetImg(imgUrl))
+          dispatch(getImgData(data))
+          dispatch(getPetImg(theFile.name))
         }
       }
       reader.readAsDataURL(theFile)
