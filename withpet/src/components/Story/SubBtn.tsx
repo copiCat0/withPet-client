@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import { dbService } from 'firebase-config'
 import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 type SubBtnProps = {
   userUid: string
@@ -85,7 +85,11 @@ const SubBtn: React.FC<SubBtnProps> = ({ userUid, id }) => {
           userUid === currentUserUid ? '' : 'hidden'
         } `}
       >
-        <button className={'p-1'} type={'button'}>
+        <button
+          className={'p-1'}
+          type={'button'}
+          onClick={() => navigate(`/diary/:${docId}`)}
+        >
           수정
         </button>
         <button className={'p-1'} type={'button'} onClick={delDoc}>
