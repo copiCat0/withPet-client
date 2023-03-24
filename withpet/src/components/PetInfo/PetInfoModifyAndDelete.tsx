@@ -18,7 +18,7 @@ const PetInfoModifyAndDelete: React.FC = () => {
   const petInfoId = useSelector((state: RootState) => state.petInfo.petInfoId)
 
   const onModifyClick = async () => {
-    await setDoc(doc(dbService, 'petInfo', petInfoId), { ...petInfo, userUid })
+    await setDoc(doc(dbService, 'petInfo', petInfoId), { ...petInfo, user:userUid })
     dispatch(resetPetInfo())
     navigate('/mypage')
   }
