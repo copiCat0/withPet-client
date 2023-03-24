@@ -76,6 +76,24 @@ const WalkSmallCard = () => {
       dispatch(getWalkLoading(false))
     } catch (err: any) {
       console.error(err.message)
+      dispatch(getWalkLoading(false))
+    }
+  }
+
+  const currentAirQuality = async (lat: string, lon: string) => {
+    try {
+      const url = new URL(
+        `https://api.waqi.info/feed/geo:${lat};${lon}/?token=${process.env.REACT_APP_AIRQUALITY_API}`,
+      )
+      dispatch(getWalkLoading(true))
+      const response = await fetch(url)
+      const data = await response.json()
+      const airQuality = data.data.aqi
+      dispatch(updateAir(airQuality))
+      dispatch(getWalkLoading(false))
+    } catch (err: any) {
+      console.error(err.message)
+      dispatch(getWalkLoading(false))
     }
   }
 
@@ -93,6 +111,7 @@ const WalkSmallCard = () => {
   useEffect(() => {
     getCurrentLocation().then(() => {
       currentWeather(loca.lat, loca.lng)
+      currentAirQuality(loca.lat, loca.lng)
     })
   }, [])
 

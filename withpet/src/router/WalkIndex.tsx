@@ -17,13 +17,15 @@ const WalkIndex = () => {
     (walkState: RootState) => walkState.walk.walkLocation
   )
   const loading = useSelector((walkState: RootState) => walkState.walk.walkLoading)
-
+  const AIR = useSelector(
+    (walkState: RootState) => walkState.walk.walkAirIndex,
+  )
 
   return (
     <>
       <Header title={'WalkIndex'} />
       <Container
-        style={`${walk.color} pt-16 flex flex-col items-center justify-center relative`}
+        style={`${walk.color} pt-16 flex flex-col items-center justify-center`}
       >
         <PropagateLoader
           color="#FAEFE9"
