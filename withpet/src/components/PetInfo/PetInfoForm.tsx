@@ -9,17 +9,23 @@ import PetInfoRadioGroup from 'components/PetInfo/PetInfoRadioGroup'
 import { RootState } from 'redux/store'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { create, getPetInfo } from 'redux/slice/petInfo/petInfoSlice'
-import { dbService } from 'firebase-config'
+import {
+  getPetInfo,
+  resetPetInfo,
+} from 'redux/slice/petInfo/petInfoSlice'
+import { dbService, storageService } from 'firebase-config'
 import { setDoc, doc, collection } from 'firebase/firestore'
+import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 
 const PetInfoForm: React.FC = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const petInfo = useSelector((petInfoState: RootState) => petInfoState.petInfo.petInfoGroup)
+  const petInfo = useSelector(
+    (petInfoState: RootState) => petInfoState.petInfo.petInfoGroup,
+  )
   const userUid = useSelector((state: RootState) => state.auth.userUid)
   const petInfoRef = doc(collection(dbService, 'petInfo'))
-
+  const imgData = useSelector((state: RootState) => state.petInfo.imgData)
   const onChange = async (e: React.FormEvent<HTMLInputElement>) => {
     const {
       currentTarget: { name, value },
@@ -32,20 +38,24 @@ const PetInfoForm: React.FC = () => {
     )
   }
 
-  const petInfoObj = {
-    ...petInfo,
-    user: userUid,
-  }
-
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    try {
-      await setDoc(petInfoRef, petInfoObj)
-    } catch (error) {
+    const imgRef = ref(storageService, `petImg/${userUid}/${petInfo.petImg}`)
+    const response = await uploadString(imgRef, imgData, 'data_url')
+    const imgUrl = await getDownloadURL(response.ref)
+    Promise.all([response, imgUrl])
+    .then(imgUrl => ({
+      ...petInfo,
+      petImg: imgUrl[1],
+      user: userUid
+    }))
+    .then(petInfoObj=> setDoc(petInfoRef, petInfoObj))
+    .catch(error => {
       console.error('Error adding document: ', error)
-    }
-    dispatch(create(petInfoRef.id))
-    navigate('/mypage')
+    }).finally(() => {
+      dispatch(resetPetInfo())
+      navigate('/mypage')
+    })
   }
 
   return (
