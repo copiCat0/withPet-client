@@ -11,12 +11,13 @@ import { PropagateLoader } from 'react-spinners'
 
 
 const WalkIndex = () => {
+
   const walk = useSelector((walkState: RootState) => walkState.walk.walkGroup)
   const loca = useSelector(
-    (walkState: RootState) => walkState.walk.walkLocation,
+    (walkState: RootState) => walkState.walk.walkLocation
   )
+  const loading = useSelector((walkState: RootState) => walkState.walk.walkLoading)
 
-  console.log(loca)
 
   return (
     <>
@@ -27,7 +28,7 @@ const WalkIndex = () => {
         <PropagateLoader
           color="#FAEFE9"
           size={15}
-          loading={false}
+          loading={loading}
           cssOverride={{
             position:'absolute',
             top:'50%',
