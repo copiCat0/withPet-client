@@ -27,8 +27,6 @@ const StoryContent: React.FC<StoryContentProps> = ({ content, title }) => {
     }
   }, [])
 
-  console.log(numP)
-
   return (
     <section className={'mt-3 p-1'}>
       <h2 className={' text-xl font-bold leading-6 '}>{title}</h2>
